@@ -1,9 +1,9 @@
 from station import Station
 import csv
 
-# Open the Stations file
+# Open the Stations file and create empty station dictionary
 with open("csv_bestanden/StationsHolland.csv") as f:
-
+    stations = {}
     # Iterate over the lines
     for line in f:
 
@@ -21,10 +21,9 @@ with open("csv_bestanden/StationsHolland.csv") as f:
 
         # Initialize a station object and save it in a dictionary with
         # its name as the key
-        stations = {}
         station = Station(name, xcoordinate, ycoordinate, critical)
         stations[name] = station
-        print(stations)
+
 
 # Close the file
 f.close()
@@ -43,7 +42,7 @@ with open("csv_bestanden/ConnectiesHolland.csv") as g:
 
         # If one of the stations in the connection is critical, save the
         # connection as a critical connection
-        if stations[station1].critical == True or \
+        if stations[station1] == True or \
            stations[station2].critical == True:
             stations[station1].addConnection(station2, time, True)
             stations[station2].addConnection(station1, time, True)
