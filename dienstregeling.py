@@ -16,7 +16,7 @@ class Dienstregeling():
 		"""
 		Calculates the quality of the lining
 		"""
-		p = float(self.visitedConnectionCount / self.totalCritical)
+		p = float(self.visitedCriticalConnectionCount / self.totalCritical)
 		self.qualityK = p * 10000 - (self.trajectories * 20 + self.totalTime / 10)
 
 	def addVisited(connection):
@@ -24,7 +24,7 @@ class Dienstregeling():
 		Adds a visited station to the list of visited station and adds it to
 		the visitedConnectionCount if it is a critical connection
 		"""
-		if (station[critical] and not in self.visitedConnections):
+		if (station[critical] and not in self.visitedConnections): #DEZE FUNCTIE KLOPT NOG NIET
 			self.visitedConnections.append(station)
 			self.visitedCriticalConnectionCount += 1
 		self.totalTime += int(station[time]) #even checken hoeveelste variable dit is van connection
