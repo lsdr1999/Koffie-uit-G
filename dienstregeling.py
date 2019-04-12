@@ -18,6 +18,7 @@ class Dienstregeling():
 		"""
 		p = float(self.visitedCriticalConnectionCount / self.totalCritical)
 		self.qualityK = p * 10000 - (self.trajectories * 20 + self.totalTime / 10)
+		return self.qualityK
 
 	def addVisited(connection):
 		"""
@@ -33,3 +34,5 @@ class Dienstregeling():
 		if (self.trajectories <= self.maxTrajectories):
 			#start traject ???
 			self.trajectories += 1
+		else:
+			return self.calculateScore
