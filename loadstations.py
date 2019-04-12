@@ -1,4 +1,5 @@
 from station import Station
+from railroad import Railroad
 import csv
 
 # Open the Stations file and create empty station dictionary
@@ -21,9 +22,10 @@ with open("csv_bestanden/StationsHolland.csv") as f:
 
         # Initialize a station object and save it in a dictionary with
         # its name as the key
+        railroad = Railroad()
+        railroad.addStation(name, critical)
         station = Station(name, xcoordinate, ycoordinate, critical)
         stations[name] = station
-
 
 # Close the file
 f.close()
@@ -38,7 +40,7 @@ with open("csv_bestanden/ConnectiesHolland.csv") as g:
         connection_data = line.split(',')
         station1 = connection_data[0]
         station2 = connection_data[1]
-        time = connection_data[2]
+        time = int(connection_data[2])
 
         # If one of the stations in the connection is critical, save the
         # connection as a critical connection
@@ -46,11 +48,13 @@ with open("csv_bestanden/ConnectiesHolland.csv") as g:
            stations[station2].critical == True:
             stations[station1].addConnection(station2, time, True)
             stations[station2].addConnection(station1, time, True)
+            railroad.addConnection(station1, station2, time, True)
 
         # If neither station is critical, save it as a non-critical connection
         else:
             stations[station1].addConnection(station2, time, False)
             stations[station2].addConnection(station1, time, False)
+            railroad.addConnection(station1, station2, time, False)
 
 # Close the file
 g.close()
