@@ -46,14 +46,10 @@ with open("csv_bestanden/ConnectiesHolland.csv") as g:
         # connection as a critical connection
         if stations[station1] == True or \
            stations[station2].critical == True:
-            stations[station1].addConnection(station2, time, True)
-            stations[station2].addConnection(station1, time, True)
             railroad.addConnection(station1, station2, time, True)
 
         # If neither station is critical, save it as a non-critical connection
         else:
-            stations[station1].addConnection(station2, time, False)
-            stations[station2].addConnection(station1, time, False)
             railroad.addConnection(station1, station2, time, False)
 
 # Close the file

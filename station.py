@@ -1,3 +1,4 @@
+
 class Station(object):
     """
     Defines a station object, a station has a name, coordinates, and has

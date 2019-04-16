@@ -1,4 +1,5 @@
 from station import Station
+from railroad import Railroad
 
 class Trajectory(object):
     """"""
@@ -7,14 +8,10 @@ class Trajectory(object):
         super(, self).__init__()
         self.maxLength = 120
         self.length = 0
-        self.visitedStations = []
+        self.connections = []
 
-    def addConnections (connection):
-        self.visitedStations.append(connection)
+    def addConnection(start_station, next_station, time):
+        self.connections.append([])
 
     def addTime (time):
-        if (self.length < self.maxLength):
-            self.length += time
-            return True
-        else:
-            return False
+        self.length += int(time)
