@@ -1,6 +1,6 @@
-from spoor import Spoor
+from railroad import Railroad
 from traject import Trajectory
-from loadstations import
+from loadstations import 
 
 class Dienstregeling():
 
@@ -28,7 +28,7 @@ class Dienstregeling():
 		"""
 		if (railroad[3] is True and): #and connection is not in a dictionary (which one????)
 		 	self.visitedCriticalConnectionCount += 1
-	
+
 		if (): #check if connection from A to B is in railroad as A to B
 			self.visitedConnections[self.trajectories] = (f"{railroad[0]} to {railroad[1]}")
 		elif (): # check if connection from A to B is in railroad as B to A
