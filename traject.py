@@ -1,17 +1,27 @@
 from station import Station
-from railroad import Railroad
 
 class Trajectory(object):
     """"""
 
-    def __init__(self):
+    def __init__(self, maxLength):
         super(, self).__init__()
-        self.maxLength = 120
+        self.maxLength = maxLength
         self.length = 0
-        self.connections = []
+        self.visitedCritical = set()
+        self.visitedStations = []
 
-    def addConnection(start_station, next_station, time):
-        self.connections.append([])
+    def addVisitedStations (nextStation):
+        self.visitedStations.append(nextStation)
 
-    def addTime (time):
-        self.length += int(time)
+    def addVisitedCritical(begin_station, end_station):
+		"""
+		Adds a visited station to the list of visited station and adds it to
+		the visitedConnectionCount if it is a critical connection
+		"""
+		self.visitedCritical.add([begin_station, end_station])
+
+    def add__len__(time):
+        self.length += time
+
+
+        
