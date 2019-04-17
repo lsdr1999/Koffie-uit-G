@@ -55,18 +55,18 @@ class Railroad(object):
                 # connection as a critical connection
                 if self.station_dict[station1].critical or \
                     self.station_dict[station2].critical:
-                    self.station_dict[station1].addConnection(station2, time, True)
-                    self.station_dict[station2].addConnection(station1, time, True)
+                    self.station_dict[station1].addConnection(station2, time, True, ID_counter)
+                    self.station_dict[station2].addConnection(station1, time, True, ID_counter)
 
                     self.addConnection(Connection_ID, station1, station2, time, True)
 
                 # If neither station is critical, save it as a non-critical connection
                 else:
-                    self.station_dict[station1].addConnection(station2, time, False)
-                    self.station_dict[station2].addConnection(station1, time, False)
+                    self.station_dict[station1].addConnection(station2, time, False, ID_counter)
+                    self.station_dict[station2].addConnection(station1, time, False, ID_counter)
 
                     self.addConnection(Connection_ID, station1, station2, time, False)
-                    
+
 
         # Close the file
         g.close()

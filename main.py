@@ -2,6 +2,7 @@
 from railroad import Railroad
 from sys import argv
 from random_algo import make_random_route
+from dienstregeling import Dienstregeling
 # from traject import Trajectory
 
 if (len(argv) != 3):
@@ -15,4 +16,5 @@ if (argv[1].isalpha() or argv[2].isalpha()):
 maxTrajectories = argv[1]
 maxLength = argv[2]
 
-make_random_route()
+dienstregeling = Dienstregeling(maxTrajectories)
+dienstregeling.make_dienstregeling()

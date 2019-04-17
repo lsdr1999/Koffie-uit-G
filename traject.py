@@ -13,13 +13,12 @@ class Trajectory(object):
     def addVisitedStations(self, nextStation):
         self.visitedStations.append(nextStation)
 
-    def addVisitedCritical(self, begin_station, end_station):
+    def addVisitedCritical(self, id):
         """
         Adds a visited station to the list of visited station and adds it to
         the visitedConnectionCount if it is a critical connection
         """
-
-        self.visitedCritical.add([begin_station, end_station])
+        self.visitedCritical.add(id)
 
     def addLength(self, time):
         self.length += time

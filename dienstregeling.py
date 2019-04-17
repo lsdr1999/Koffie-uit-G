@@ -1,37 +1,43 @@
 from railroad import Railroad
 from traject import Trajectory
+from random_algo import make_random_route
 
 class Dienstregeling():
 
-	def __init__(self, maxTrajectories):
-		self.trajectories = [] # List if lists of the visited stations of trajectories
-		self.maxTrajectories = maxTrajectories # maximum of trajectories
-		self.qualityK = 0.0 # max quality K
-		self.totalCritical = Railroad.totalCritical() # sum of critical connections
-		self.visitedCriticalConnections = set()
-		self.totalTime = 0 # total length in minutes of trajectories combined
+    def __init__(self, maxTrajectories):
+        self.trajectories = [] # List of lists of the visited stations of trajectories
+        self.maxTrajectories = int(maxTrajectories) # maximum of trajectories
+        self.qualityK = 0.0 # max quality K
+        self.totalCritical = 0 # sum of critical connections
+        self.visitedCriticalConnections = set()
+        self.totalTime = 0 # total length in minutes of trajectories combined
+
+    def make_dienstregeling(self):
+        railroad = Railroad()
+        railroad.loadStations()
+        self.totalCritical = railroad.addTotalCritical()
+        for trajectory in range(self.maxTrajectories):
+            self.addTrajectory(railroad)
+
+        self.calculateScore()
+
+    def calculateScore(self):
+        """
+        Calculates the quality of the lining
+        """
+        p = float(len(self.visitedCriticalConnections)) / float(self.totalCritical)
+        self.qualityK = p * 10000 - (len(self.trajectories) * 20 + self.totalTime / 10)
+        print(int(self.qualityK))
+        return self.qualityK
 
 
-	def calculateScore(self):
-		"""
-		Calculates the quality of the lining
-		"""
-		p = len(self.visitedCriticalConnection) / self.totalCritical
-		self.qualityK = p * 10000 - (len(self.trajectories) * 20 + self.totalTime / 10)
-		return self.qualityK
+    def addVisitedCriticalConnections(criticalConnectionSet):
+        for connection in criticalConnectionSet:
+            self.visitedCriticalConnections.add(connection)
 
 
-	def addVisitedCriticalConnections(criticalConnectionSet):
-		for connection in criticalConnectionSet:
-			self.visitedCriticalConnections.add(connection)
-
-
-	def addTrajectory(trajectory):
-		self.trajectories.append(trajectory)
-
-
-	def addTrajectoryTime(time):
-		"""
-		Adds the total time of a trajectory
-		"""
-		self.totalTime += time
+    def addTrajectory(self, railroad):
+        trajectory = make_random_route(railroad)
+        self.trajectories.append(trajectory[0])
+        self.totalTime += int(trajectory[1])
+        self.visitedCriticalConnections.update(trajectory[2])

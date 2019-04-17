@@ -15,8 +15,8 @@ class Station(object):
         self.connections = []
         self.critical = critical
 
-    def addConnection(self, name, time, critical):
-        self.connections.append([name, time, critical])
+    def addConnection(self, name, time, critical, id):
+        self.connections.append([name, time, critical, id])
 
 #     def __str__(self):
 #         return (f"{self.name}, {self.xcoordinate}, \
