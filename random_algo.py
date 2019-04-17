@@ -1,25 +1,32 @@
 import random
 from station import Station
 from railroad import Railroad
+from traject import Trajectory
 
-def make_random_route()
+def make_random_route():
+    railroad = Railroad()
+    railroad.loadStations()
+    railroad.addTotalCritical()
+    maxLength = 120
+    traject = Trajectory(maxLength)
 
-    connections = []
-    traject = Trajectory(connections)
-    start_station = random.choice(railroad.station_list)
+    keylist = []
+    for key, value in railroad.station_dict.items():
+        keylist.append(key)
+    start_station = random.choice(keylist)
+    print(start_station)
 
     while True:
-        next_station = random.choice(station.begin_station.connections])
+        next_station = random.choice(railroad.station_dict[start_station].connections)
         end_station_name = next_station[0]
         time = next_station[1]
-        print(begin_station)
-        print(end_station)
+        print(next_station)
 
         if traject.length + time < traject.maxLength:
-            traject.addConnection(begin_station, end_station_name, time)
-            traject.addTime(time)
+            traject.addVisitedStations(next_station)
+            traject.addLength(time)
             start_station = end_station_name
         else:
             break
-    print(traject)
+
     return traject
