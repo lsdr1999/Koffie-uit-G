@@ -21,5 +21,5 @@ def make_random_route()
             start_station = end_station_name
         else:
             break
-    print (traject)
+    print(traject)
     return traject
