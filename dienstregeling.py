@@ -19,6 +19,9 @@ class Dienstregeling():
         for trajectory in range(self.maxTrajectories):
             self.addTrajectory(railroad)
 
+        for trajectory in self.trajectories:
+            print(trajectory)
+            print("\n")
         self.calculateScore()
 
     def calculateScore(self):
@@ -26,7 +29,16 @@ class Dienstregeling():
         Calculates the quality of the lining
         """
         p = float(len(self.visitedCriticalConnections)) / float(self.totalCritical)
+        print("number of visted critical connections:")
+        print(len(self.visitedCriticalConnections))
+        print("\n")
+        print("fraction of ciritical connections visited:")
+        print(p)
+        print("\n")
+        print("total minutes of track:")
+        print(self.totalTime)
         self.qualityK = p * 10000 - (len(self.trajectories) * 20 + self.totalTime / 10)
+        print("total K score:")
         print(int(self.qualityK))
         return self.qualityK
 

@@ -23,12 +23,14 @@ class Railroad(object):
                 name = station_data[0]
                 xcoordinate = station_data[1]
                 ycoordinate = station_data[2]
+                print(name)
 
                 # If the station is critical save "Kritiek" as a boolean
-                if station_data[3] == "Kritiek\n":
-                    critical = True
-                else:
-                    critical = False
+                if len(station_data) > 3:
+                    if station_data[3] == "Kritiek\n":
+                        critical = True
+                    else:
+                        critical = False
 
                 # Initialize a station object and save it in a dictionary with
                 # its name as the key
@@ -47,7 +49,7 @@ class Railroad(object):
                 connection_data = line.split(',')
                 station1 = connection_data[0]
                 station2 = connection_data[1]
-                time = int(connection_data[2])
+                time = float(connection_data[2])
                 Connection_ID = int(ID_counter)
                 ID_counter += 1
 

@@ -5,7 +5,7 @@ from traject import Trajectory
 
 def make_random_route(railroad):
     railroad = railroad
-    maxLength = 120
+    maxLength = 180
     traject = Trajectory(maxLength)
 
     keylist = []
@@ -30,5 +30,5 @@ def make_random_route(railroad):
             start_station = next_station_name
         else:
             break
-            
+
     return ([traject.visitedStations, traject.length, traject.visitedCritical])
