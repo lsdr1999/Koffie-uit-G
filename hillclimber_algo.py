@@ -12,6 +12,7 @@ def hillclimber(railroad, trajectories, maxLength, totalCritical):
     oldScore = calculateScore(railroad,trajectories, totalCritical)
     changeTrajectory = random.choice(trajectories)
     trajectories.remove(changeTrajectory)
+    intermediateScore = calculateScore(railroad, trajectories, totalCritical)
     newTrajectory = make_random_route(railroad, maxLength)
     trajectories.append(newTrajectory)
     newScore = calculateScore(railroad,trajectories, totalCritical)
@@ -20,11 +21,15 @@ def hillclimber(railroad, trajectories, maxLength, totalCritical):
     # print("the trajectory that will replace it")
     # print(newTrajectory)
 
-    if newScore > oldScore:
+    if newScore > oldScore and newScore > intermediateScore:
         # for trajectory in trajectories:
         #     print(trajectory)
         # print(int(oldScore))
         # print(int(newScore))
+        return trajectories
+
+    elif intermediateScore > oldScore and intermediateScore > newScore:
+        trajectories.remove(newTrajectory)
         return trajectories
     else:
         trajectories.remove(newTrajectory)

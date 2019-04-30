@@ -26,7 +26,7 @@ class Dienstregeling():
         score = calculateScore(railroad, self.trajectories, self.totalCritical)
 
         if self.algorithm == "hillclimber":
-            for i in range(50000):
+            for i in range(1000000):
                 trajectories = hillclimber(railroad, self.trajectories, self.maxLength, self.totalCritical)
                 self.trajectories = trajectories
                 score = calculateScore(railroad, self.trajectories, self.totalCritical)
