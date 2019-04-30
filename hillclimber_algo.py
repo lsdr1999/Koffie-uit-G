@@ -1,10 +1,17 @@
 import random
 from random_algo import make_random_route
-from dienstregeling import Dienstregeling
+from score import calculateScore
 
-def hillclimber(railroad, range):
+def hillclimber(railroad, trajectories, maxLength, totalCritical):
 
     railroad = railroad
-    for i in range(int(range))
-        traject = random_algo.make_random_route(railroad)
-        traject
+    trajectories = trajectories
+    maxLength = maxLength
+    totalCritical
+
+    oldScore = calculateScore(railroad,trajectories, totalCritical)
+    print(int(oldScore))
+
+    changeTrajectory = random.choice(trajectories)
+
+    newTrajectory = make_random_route(railroad, maxLength)

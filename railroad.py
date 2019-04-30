@@ -11,6 +11,7 @@ class Railroad(object):
         self.station_dict = {}
         self.connections = {}
         self.totalCritical = []
+        self.criticalConnectionList = []
 
     def loadStations(self):
         # Open the Stations file and create empty station dictionaryd
@@ -23,7 +24,6 @@ class Railroad(object):
                 name = station_data[0]
                 xcoordinate = station_data[1]
                 ycoordinate = station_data[2]
-                print(name)
 
                 # If the station is critical save "Kritiek" as a boolean
                 if len(station_data) > 3:

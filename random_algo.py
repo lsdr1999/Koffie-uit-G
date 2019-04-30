@@ -3,9 +3,9 @@ from station import Station
 from railroad import Railroad
 from traject import Trajectory
 
-def make_random_route(railroad):
+def make_random_route(railroad, maxLength):
     railroad = railroad
-    maxLength = 180
+    maxLength = maxLength
     traject = Trajectory(maxLength)
 
     keylist = []

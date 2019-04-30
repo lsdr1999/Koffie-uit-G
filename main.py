@@ -5,8 +5,8 @@ from random_algo import make_random_route
 from dienstregeling import Dienstregeling
 # from traject import Trajectory
 
-if (len(argv) != 3):
-    print("main.py, max number trajectories, max length in minutes of trajectory")
+if (len(argv) != 4):
+    print("main.py, max number trajectories, max length in minutes of trajectory, type of algorithm")
     quit(1)
 
 if (argv[1].isalpha() or argv[2].isalpha()):
@@ -15,6 +15,7 @@ if (argv[1].isalpha() or argv[2].isalpha()):
 
 maxTrajectories = argv[1]
 maxLength = argv[2]
+algorithm = argv[3]
 
-dienstregeling = Dienstregeling(maxTrajectories)
+dienstregeling = Dienstregeling(maxTrajectories, maxLength, algorithm)
 dienstregeling.make_dienstregeling()
