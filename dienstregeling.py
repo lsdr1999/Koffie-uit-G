@@ -26,8 +26,13 @@ class Dienstregeling():
         score = calculateScore(railroad, self.trajectories, self.totalCritical)
 
         if self.algorithm == "hillclimber":
-            for i in range(1):
-                hillclimber(railroad, self.trajectories, self.maxLength, self.totalCritical)
+            for i in range(50000):
+                trajectories = hillclimber(railroad, self.trajectories, self.maxLength, self.totalCritical)
+                self.trajectories = trajectories
+                score = calculateScore(railroad, self.trajectories, self.totalCritical)
+                print(score)
+
+            print(self.trajectories)
 
     def addVisitedCriticalConnections(criticalConnectionSet):
         for connection in criticalConnectionSet:
