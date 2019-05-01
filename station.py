@@ -17,7 +17,3 @@ class Station(object):
 
     def addConnection(self, name, time, critical, id):
         self.connections.append([name, time, critical, id])
-
-#     def __str__(self):
-#         return (f"{self.name}, {self.xcoordinate}, \
-# {self.ycoordinate}, {self.critical}\n")

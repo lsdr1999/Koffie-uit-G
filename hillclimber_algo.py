@@ -1,41 +1,30 @@
 import random
 from random_algo import make_random_route
-from score import calculateScore
 
-def hillclimber(railroad, trajectories, maxLength, totalCritical):
+def hillclimber(dienstregeling, railroad):
 
+    # Save incoming arguments
+    dienstregeling = dienstregeling
     railroad = railroad
-    trajectories = trajectories
-    maxLength = maxLength
-    totalCritical
 
-    oldScore = calculateScore(railroad,trajectories, totalCritical)
-    changeTrajectory = random.choice(trajectories)
-    trajectories.remove(changeTrajectory)
-    intermediateScore = calculateScore(railroad, trajectories, totalCritical)
-    newTrajectory = make_random_route(railroad, maxLength)
-    trajectories.append(newTrajectory)
-    newScore = calculateScore(railroad,trajectories, totalCritical)
-    # print("the trajectory that is to be changed:")
-    # print(changeTrajectory)
-    # print("the trajectory that will replace it")
-    # print(newTrajectory)
+    # Calculate the old score
+    oldScore = dienstregeling.calculateScore()
 
-    if newScore > oldScore and newScore > intermediateScore:
-        # for trajectory in trajectories:
-        #     print(trajectory)
-        # print(int(oldScore))
-        # print(int(newScore))
-        return trajectories
+    # Remove a random trajectory and calculate score
+    changeTrajectory = random.choice(dienstregeling.trajectories)
+    dienstregeling.trajectories.remove(changeTrajectory)
+    intermediateScore = dienstregeling.calculateScore()
 
-    elif intermediateScore > oldScore and intermediateScore > newScore:
-        trajectories.remove(newTrajectory)
-        return trajectories
-    else:
-        trajectories.remove(newTrajectory)
-        trajectories.append(changeTrajectory)
-        # for trajectory in trajectories:
-        #     print(trajectory)
-        # print(int(oldScore))
-        # print(int(newScore))
-        return trajectories
+    # Insert a new randomly made trajectory and calculate score
+    newTrajectory = make_random_route(railroad, dienstregeling.maxLength)
+    dienstregeling.trajectories.append(newTrajectory)
+    newScore = dienstregeling.calculateScore()
+
+    # If the intermediate score was the highest, change back
+    if intermediateScore > oldScore and intermediateScore > newScore:
+        dienstregeling.trajectories.remove(newTrajectory)
+
+    # If the orginal score was the highest, change back
+    elif oldScore > newScore and oldScore > intermediateScore:
+        dienstregeling.trajectories.remove(newTrajectory)
+        dienstregeling.trajectories.append(changeTrajectory)
