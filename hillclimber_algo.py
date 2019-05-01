@@ -20,6 +20,10 @@ def hillclimber(dienstregeling, railroad):
     dienstregeling.trajectories.append(newTrajectory)
     newScore = dienstregeling.calculateScore()
 
+    # if the new score is the highest, return
+    if newScore > oldScore and newScore > intermediateScore:
+        return
+
     # If the intermediate score was the highest, change back
     if intermediateScore > oldScore and intermediateScore > newScore:
         dienstregeling.trajectories.remove(newTrajectory)

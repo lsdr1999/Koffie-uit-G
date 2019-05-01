@@ -3,6 +3,7 @@ from railroad import Railroad
 from sys import argv
 from random_algo import make_random_route
 from dienstregeling import Dienstregeling
+from hillclimber_algo import hillclimber
 # from traject import Trajectory
 
 if (len(argv) != 4):
@@ -17,5 +18,21 @@ maxTrajectories = argv[1]
 maxLength = argv[2]
 algorithm = argv[3]
 
-dienstregeling = Dienstregeling(maxTrajectories, maxLength, algorithm)
-dienstregeling.make_dienstregeling()
+railroad = Railroad()
+railroad.loadStations()
+totalCritical = railroad.addTotalCritical()
+dienstregeling = Dienstregeling(maxTrajectories, maxLength, totalCritical)
+
+if algorithm == "hillclimber":
+    dienstregeling.addTrajectories(railroad)
+    counter = 0
+    for i in range(100000):
+        counter += 1
+        hillclimber(dienstregeling, railroad)
+        score = dienstregeling.calculateScore()
+        if (counter % 10000) == 0:
+            print(f"counter: {counter} score: {score}")
+
+    for trajectory in dienstregeling.trajectories:
+        print(trajectory[0])
+        print("\n")
