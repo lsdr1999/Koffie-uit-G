@@ -51,16 +51,18 @@ def makeCard(railroad, trajectories):
     x20 = []
     y20 = []
 
-
-
+    # get the x and y coordinates from the card
     for key, value in railroad.station_dict.items():
         ycor.append(float(value.xcoordinate.strip()))
         xcor.append(float(value.ycoordinate.strip()))
-
+    # make a scatterplot
     plt.scatter(xcor,ycor, color='k')
 
+    # get the trajectories
     trajectories = trajectories
     counter = 1
+
+    # for each trajectory, make its own line with x and y coordinates
     for trajectory in trajectories:
         for city in trajectory[0]:
             for key, value in railroad.station_dict.items():
@@ -125,14 +127,18 @@ def makeCard(railroad, trajectories):
                     else:
                         x20.append(float(value.ycoordinate.strip()))
                         y20.append(float(value.xcoordinate.strip()))
+        #check whether all of the trajectories are plotted
         if counter < len(trajectories):
             counter += 1
         else:
             break
 
+    # plot all of the coordinates of the trajectories
     plt.plot(x1,y1, 'r', x2,y2, 'b', x3,y3, 'y', x4,y4, 'g', x5,y5, 'm', \
             x6,y6, 'c', x7,y7, 'r--', x8,y8, 'b--', x9,y9, 'y--', x10,y10, \
             'g--', x11,y11, 'm--', x12,y12, 'c--', x13,y13, 'r:', x14,y14, \
             'b:', x15,y15, 'y:', x16,y16, 'g:', x17,y17, 'm:', x18,y18, 'c:', \
              x19,y19, 'r-.', x20,y20, 'b-.')
+
+    # show the plot
     plt.show()
