@@ -4,6 +4,7 @@ from sys import argv
 from random_algo import make_random_route
 from dienstregeling import Dienstregeling
 from hillclimber_algo import hillclimber
+from genetic_algo import genetic
 # from traject import Trajectory
 
 if (len(argv) != 4):
@@ -21,6 +22,7 @@ algorithm = argv[3]
 railroad = Railroad()
 railroad.loadStations()
 totalCritical = railroad.addTotalCritical()
+
 dienstregeling = Dienstregeling(maxTrajectories, maxLength, totalCritical)
 
 if algorithm == "hillclimber":
@@ -36,3 +38,6 @@ if algorithm == "hillclimber":
     for trajectory in dienstregeling.trajectories:
         print(trajectory[0])
         print("\n")
+
+if algorithm == "genetic":
+    genetic(dienstregeling, railroad)
