@@ -5,6 +5,7 @@ from random_algo import make_random_route
 from dienstregeling import Dienstregeling
 from hillclimber_algo import hillclimber
 from genetic_algo import genetic
+from visual import makeCard
 # from traject import Trajectory
 
 if (len(argv) != 4):
@@ -41,3 +42,5 @@ if algorithm == "hillclimber":
 
 if algorithm == "genetic":
     genetic(dienstregeling, railroad)
+
+makeCard(railroad, dienstregeling.trajectories)
