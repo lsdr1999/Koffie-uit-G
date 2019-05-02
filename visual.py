@@ -134,11 +134,12 @@ def makeCard(railroad, trajectories):
             break
 
     # plot all of the coordinates of the trajectories
-    plt.plot(x1,y1, 'r', x2,y2, 'b', x3,y3, 'y', x4,y4, 'g', x5,y5, 'm', \
-            x6,y6, 'c', x7,y7, 'r--', x8,y8, 'b--', x9,y9, 'y--', x10,y10, \
-            'g--', x11,y11, 'm--', x12,y12, 'c--', x13,y13, 'r:', x14,y14, \
-            'b:', x15,y15, 'y:', x16,y16, 'g:', x17,y17, 'm:', x18,y18, 'c:', \
-             x19,y19, 'r-.', x20,y20, 'b-.')
+    plt.plot(x1,y1, '#B22222', x2,y2, '#FF4500', x3,y3, '#FFA500', x4,y4, \
+            '#FFD700', x5,y5, '#7FFF00', x6,y6, '#008000', x7,y7, '#00FA9A', \
+            x8,y8, '#20B2AA', x9,y9, '#00FFFF', x10,y10, '#00BFFF', x11,y11, \
+            '#000080', x12,y12, '#0000FF', x13,y13, '#8A2BE2', x14,y14, \
+            '#8B008B', x15,y15, '#FF00FF', x16,y16, '#FF1493', x17,y17, \
+            '#D2691E', x18,y18, '#FFC0CB', x19,y19, '#9400D3', x20,y20, '#7FFFD4')
 
     # show the plot
     plt.show()
