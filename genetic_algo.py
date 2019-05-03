@@ -8,13 +8,13 @@ def genetic(dienstregeling,railroad):
     dienstregeling = dienstregeling
     railroad = railroad
     populationSize = 20
-    generations = 10000
+    generations = 100000
     recombinationCoefficient = 0.5
+    mutationRate = 1
     population = makePopulation(dienstregeling, populationSize, railroad)
     highestScore = 0
     bestDienstregeling = []
     counter = 0
-
 
     for i in range(generations):
         counter += 1
@@ -26,7 +26,7 @@ def genetic(dienstregeling,railroad):
         for j in range(populationSize):
             parents = chooseParents(population, probabilityScores)
             crossoverChild = crossover(parents, recombinationCoefficient)
-            mutatedChild = mutate(crossoverChild, railroad, dienstregeling)
+            mutatedChild = mutate(crossoverChild, railroad, dienstregeling, mutationRate)
             dienstregeling.trajectories = mutatedChild
             mutatedChildScore = dienstregeling.calculateScore()
             mutatedchildrenscore += mutatedChildScore
@@ -40,6 +40,10 @@ def genetic(dienstregeling,railroad):
         if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
             print(mutatedchildrenscore/ len(mutatedChildren))
+            sum = 0
+            for child in mutatedChildren:
+                sum += int(len(child))
+            print(sum/len(mutatedChildren))
 
         population = mutatedChildren
 
@@ -130,9 +134,24 @@ def addCrossoverChild(length, parent):
 
     return child
 
-def mutate(crossoverChild, railroad, dienstregeling):
+def mutate(crossoverChild, railroad, dienstregeling, mutationRate):
     dienstregeling.trajectories = crossoverChild
-    hillclimber(dienstregeling, railroad)
+    for i in range(mutationRate):
+        hillclimber(dienstregeling, railroad)
     mutatedChild = dienstregeling.trajectories
 
     return mutatedChild
+
+def mutate2(crossoverChild,railroad, dienstregeling, mutationRate):
+    r = random.randint(1,3)
+    if r == 1:
+        crossoverChild.remove(random.choice(crossoverChild))
+
+    elif r == 2 and len(crossoverChild) < 20:
+        crossoverChild.append(make_random_route(railroad, dienstregeling.maxLength))
+
+    else:
+        crossoverChild.remove(random.choice(crossoverChild))
+        crossoverChild.append(make_random_route(railroad, dienstregeling.maxLength))
+
+    return crossoverChild
