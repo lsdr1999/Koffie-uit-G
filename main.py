@@ -28,7 +28,7 @@ dienstregeling = Dienstregeling(maxTrajectories, maxLength, totalCritical)
 if algorithm == "random":
     counter = 0
     highestScore = 0
-    for i in range(100):
+    for i in range(10000):
         dienstregeling.trajectories = []
         counter += 1
         dienstregeling.addTrajectories(railroad)

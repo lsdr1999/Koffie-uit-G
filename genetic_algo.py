@@ -7,8 +7,9 @@ from hillclimber_algo import hillclimber
 def genetic(dienstregeling,railroad):
     dienstregeling = dienstregeling
     railroad = railroad
-    populationSize = 50
-    generations = 1000
+    populationSize = 20
+    generations = 10000
+    recombinationCoefficient = 0.5
     population = makePopulation(dienstregeling, populationSize, railroad)
     highestScore = 0
     bestDienstregeling = []
@@ -21,12 +22,14 @@ def genetic(dienstregeling,railroad):
         standardizedScores = standardize(scores)
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
+        mutatedchildrenscore = 0
         for j in range(populationSize):
             parents = chooseParents(population, probabilityScores)
-            crossoverChild = crossover(parents)
+            crossoverChild = crossover(parents, recombinationCoefficient)
             mutatedChild = mutate(crossoverChild, railroad, dienstregeling)
             dienstregeling.trajectories = mutatedChild
             mutatedChildScore = dienstregeling.calculateScore()
+            mutatedchildrenscore += mutatedChildScore
 
             if mutatedChildScore > highestScore:
                 highestScore = mutatedChildScore
@@ -34,9 +37,9 @@ def genetic(dienstregeling,railroad):
 
             mutatedChildren.append(mutatedChild)
 
-        if (counter % 10) == 0:
+        if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
-            print(len(mutatedChild))
+            print(mutatedchildrenscore/ len(mutatedChildren))
 
         population = mutatedChildren
 
@@ -102,16 +105,17 @@ def chooseParents(population, probabilityScores):
     return ParentsTrajectories
 
 
-def crossover(parents):
+def crossover(parents, recombinationCoefficient):
     r = random.randint(0,1)
-    r2 = random.randint(4,6)
+    length = int(len(parents[r])-(len(parents[r]) * recombinationCoefficient))
+
     child = []
-    child += addCrossoverChild(int(len(parents[r]) - r2), parents[r])
+    child += addCrossoverChild(int(len(parents[r]) - length), parents[r])
 
     if r == 1:
-        child += addCrossoverChild(r2, parents[0])
+        child += addCrossoverChild(length, parents[0])
     else:
-        child += addCrossoverChild(r2, parents[1])
+        child += addCrossoverChild(length, parents[1])
 
     return child
 
