@@ -24,7 +24,6 @@ class Dienstregeling():
 
     def calculateP(self):
         p = float(len(self.visitedCriticalConnections)) / float(self.totalCritical)
-
         return p
 
     def setTrackLength(self):
