@@ -29,9 +29,8 @@ class Railroad(object):
                 if len(station_data) > 3:
                     if station_data[3] == "Kritiek\n":
                         critical = True
-                    else:
-                        critical = False
-
+                else:
+                    critical = False
                 # Initialize a station object and save it in a dictionary with
                 # its name as the key
                 station = Station(name, xcoordinate, ycoordinate, critical)
@@ -68,7 +67,6 @@ class Railroad(object):
                     self.station_dict[station2].addConnection(station1, time, False, ID_counter)
 
                     self.addConnection(Connection_ID, station1, station2, time, False)
-
 
         # Close the file
         g.close()

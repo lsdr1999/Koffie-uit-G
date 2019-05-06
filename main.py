@@ -25,15 +25,27 @@ railroad.loadStations()
 totalCritical = railroad.addTotalCritical()
 
 dienstregeling = Dienstregeling(maxTrajectories, maxLength, totalCritical)
+if algorithm == "random":
+    counter = 0
+    highestScore = 0
+    for i in range(10000):
+        dienstregeling.trajectories = []
+        counter += 1
+        dienstregeling.addTrajectories(railroad)
+        score = dienstregeling.calculateScore()
+        if score > highestScore:
+            highestScore = score
+        if (counter % 100) == 0:
+            print(f"counter: {counter} score: {highestScore}")
 
 if algorithm == "hillclimber":
     dienstregeling.addTrajectories(railroad)
     counter = 0
-    for i in range(100000):
+    for i in range(1000000):
         counter += 1
         hillclimber(dienstregeling, railroad)
         score = dienstregeling.calculateScore()
-        if (counter % 10000) == 0:
+        if (counter % 1000) == 0:
             print(f"counter: {counter} score: {score}")
 
     for trajectory in dienstregeling.trajectories:
