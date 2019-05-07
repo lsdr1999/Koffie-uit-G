@@ -26,7 +26,7 @@ def make_random_route(railroad, maxLength):
 
             for connection in railroad.station_dict[start_station].connections:
                 if connection[0] == next_station_name and connection[2] == True:
-                    traject.addVisitedCritical(connection[3])
+                    traject.calculateVisitedCritical(connection[3])
                     break
             start_station = next_station_name
         else:
