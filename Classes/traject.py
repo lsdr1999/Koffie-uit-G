@@ -14,13 +14,14 @@ class Trajectory(object):
     def addVisitedStations(self, nextStation):
         self.visitedStations.append(nextStation)
 
-    def addConnection(self, start_station, next_station, time):
-        self.connections.append([start_station, next_station, time])
+    def addConnection(self, start_station, next_station, time, critical, id):
+        self.connections.append([start_station, next_station, time, critical, id])
 
-    def calculateVisitedCritical(self, railroad):
+    def calculateVisitedCritical(self):
         for connection in self.connections:
-            if railroad.station_dict[connection[0]][3] or railroad.station_dict[connection[1]][3]:
-                self.visitedCritical.update(connection)
+            if connection[3]:
+                id = connection[4]
+                self.visitedCritical.add(id)
 
     def calculateLength(self):
         length = 0
