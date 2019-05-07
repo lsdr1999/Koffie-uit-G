@@ -1,10 +1,16 @@
+from matplotlib import style
 from railroad import Railroad
-import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import csv
 
+fig = plt.figure()
+ax1 = fig.add_subplot(1,1,1)
+
 def makeCard(railroad, trajectories):
+    style.use('classic')
+    ax1.clear()
+
     railroad = Railroad()
     railroad.loadStations()
     # lists of coordinates for the entire map
@@ -58,7 +64,7 @@ def makeCard(railroad, trajectories):
         ycor.append(float(value.xcoordinate.strip()))
         xcor.append(float(value.ycoordinate.strip()))
     # make a scatterplot
-    plt.scatter(xcor,ycor, color='k')
+    ax1.scatter(xcor,ycor, color='k')
 
     # get the trajectories
     trajectories = trajectories
@@ -136,12 +142,17 @@ def makeCard(railroad, trajectories):
             break
 
     # plot all of the coordinates of the trajectories
-    plt.plot(x1,y1, '#B22222', x2,y2, '#FF4500', x3,y3, '#FFA500', x4,y4, \
+    ax1.plot(x1,y1, '#B22222', x2,y2, '#FF4500', x3,y3, '#FFA500', x4,y4, \
             '#FFD700', x5,y5, '#7FFF00', x6,y6, '#008000', x7,y7, '#00FA9A', \
             x8,y8, '#20B2AA', x9,y9, '#00FFFF', x10,y10, '#00BFFF', x11,y11, \
             '#000080', x12,y12, '#0000FF', x13,y13, '#8A2BE2', x14,y14, \
             '#8B008B', x15,y15, '#FF00FF', x16,y16, '#FF1493', x17,y17, \
             '#D2691E', x18,y18, '#FFC0CB', x19,y19, '#9400D3', x20,y20, '#7FFFD4')
+    plt.title('Dienstregeling')
+    plt.xlabel('x-coördinaten')
+    plt.ylabel('y-coördinaten')
+    plt.show()
 
-    # show the plot
+def animate():
+    ani = animation.FuncAnimation(plt, makeCard, interval=1000)
     plt.show()
