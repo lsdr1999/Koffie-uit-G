@@ -49,10 +49,10 @@ if algorithm == "hillclimber":
             print(f"counter: {counter} score: {score}")
 
     for trajectory in dienstregeling.trajectories:
-        print(trajectory[0])
+        print(trajectory.visitedStations)
         print("\n")
 
 if algorithm == "genetic":
     ge.genetic(dienstregeling, railroad)
 
-makeCard(railroad, dienstregeling.trajectories)
+makeCard(railroad, dienstregeling)

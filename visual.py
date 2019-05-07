@@ -9,7 +9,7 @@ import csv
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
 
-def makeCard(railroad, trajectories):
+def makeCard(railroad, dienstregeling):
     style.use('classic')
     ax1.clear()
 
@@ -69,12 +69,12 @@ def makeCard(railroad, trajectories):
     ax1.scatter(xcor,ycor, color='k')
 
     # get the trajectories
-    trajectories = trajectories
+    trajectories = dienstregeling.trajectories
     counter = 1
 
     # for each trajectory, make its own line with x and y coordinates
     for trajectory in trajectories:
-        for city in trajectory[0]:
+        for city in trajectory.visitedStations:
             for key, value in railroad.station_dict.items():
                 if city == key:
                     if counter == 1:

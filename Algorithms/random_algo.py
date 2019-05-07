@@ -21,7 +21,8 @@ def make_random_route(railroad, maxLength):
 
         if traject.length + time < traject.maxLength:
             traject.addVisitedStations(next_station_name)
-            traject.addLength(time)
+            traject.addConnection(start_station, next_station_name, time)
+            traject.calculateLength()
 
             for connection in railroad.station_dict[start_station].connections:
                 if connection[0] == next_station_name and connection[2] == True:
@@ -31,4 +32,4 @@ def make_random_route(railroad, maxLength):
         else:
             break
 
-    return ([traject.visitedStations, traject.length, traject.visitedCritical])
+    return traject

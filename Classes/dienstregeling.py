@@ -29,12 +29,12 @@ class Dienstregeling():
     def setTrackLength(self):
         self.TrackLength = 0
         for trajectory in self.trajectories:
-            self.TrackLength += int(trajectory[1])
+            self.TrackLength += trajectory.length
 
     def setVisitedCriticalConnections(self):
         self.visitedCriticalConnections.clear()
         for trajectory in self.trajectories:
-            self.visitedCriticalConnections.update(trajectory[2])
+            self.visitedCriticalConnections.update(trajectory.visitedCritical)
 
     def addTrajectories(self, railroad):
         for trajectory in range(self.maxTrajectories):
