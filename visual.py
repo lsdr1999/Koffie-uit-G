@@ -1,5 +1,7 @@
 from matplotlib import style
-from railroad import Railroad
+from Classes import railroad as rail
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import csv
@@ -11,7 +13,7 @@ def makeCard(railroad, trajectories):
     style.use('classic')
     ax1.clear()
 
-    railroad = Railroad()
+    railroad = rail.Railroad()
     railroad.loadStations()
     # lists of coordinates for the entire map
     xcor = []

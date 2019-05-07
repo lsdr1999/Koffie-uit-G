@@ -1,10 +1,10 @@
 # from dienstregeling import Dienstregeling
-from railroad import Railroad
 from sys import argv
-from random_algo import make_random_route
-from dienstregeling import Dienstregeling
-from hillclimber_algo import hillclimber
-from genetic_algo import genetic
+from Classes import railroad as rail
+from Algorithms import random_algo
+from Classes import dienstregeling as dr
+from Algorithms import hillclimber_algo as ha
+from Algorithms import genetic_algo as ge
 from visual import makeCard
 # from traject import Trajectory
 
@@ -20,11 +20,11 @@ maxTrajectories = argv[1]
 maxLength = argv[2]
 algorithm = argv[3]
 
-railroad = Railroad()
+railroad = rail.Railroad()
 railroad.loadStations()
 totalCritical = railroad.addTotalCritical()
 
-dienstregeling = Dienstregeling(maxTrajectories, maxLength, totalCritical)
+dienstregeling = dr.Dienstregeling(maxTrajectories, maxLength, totalCritical)
 if algorithm == "random":
     counter = 0
     highestScore = 0
@@ -41,9 +41,9 @@ if algorithm == "random":
 if algorithm == "hillclimber":
     dienstregeling.addTrajectories(railroad)
     counter = 0
-    for i in range(1000000):
+    for i in range(10000):
         counter += 1
-        hillclimber(dienstregeling, railroad)
+        ha.hillclimber(dienstregeling, railroad)
         score = dienstregeling.calculateScore()
         if (counter % 1000) == 0:
             print(f"counter: {counter} score: {score}")
@@ -53,6 +53,6 @@ if algorithm == "hillclimber":
         print("\n")
 
 if algorithm == "genetic":
-    genetic(dienstregeling, railroad)
+    ge.genetic(dienstregeling, railroad)
 
 makeCard(railroad, dienstregeling.trajectories)
