@@ -29,7 +29,7 @@ class Dienstregeling():
     def setTrackLength(self):
         self.TrackLength = 0
         for trajectory in self.trajectories:
-            trajectory.calculateLength
+            trajectory.calculateLength()
             self.TrackLength += trajectory.length
 
     def setVisitedCriticalConnections(self):

@@ -2,6 +2,7 @@ import random
 import math
 from Algorithms import random_algo as ra
 from Classes import dienstregeling
+from Classes import traject
 from Algorithms import hillclimber_algo as ha
 
 def genetic(dienstregeling,railroad):
@@ -23,8 +24,9 @@ def genetic(dienstregeling,railroad):
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
         mutatedchildrenscore = 0
-        for j in range(populationSize):
-            parents = chooseParents(population, probabilityScores)
+        for j in range(int(populationSize/2)):
+            number = 2
+            parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
             mutatedChild = mutate(crossoverChild, railroad, dienstregeling, mutationRate)
             dienstregeling.trajectories = mutatedChild
@@ -34,8 +36,11 @@ def genetic(dienstregeling,railroad):
             if mutatedChildScore > highestScore:
                 highestScore = mutatedChildScore
                 bestDienstregeling = mutatedChild
-
             mutatedChildren.append(mutatedChild)
+
+        number = populationSize/2
+        survivors = chooseParents(population, probabilityScores, number)
+        mutatedChildren.append(survivors)
 
         if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
@@ -93,12 +98,11 @@ def calculateProbabilities(standardizedScores, population):
     return probabilities
 
 
-def chooseParents(population, probabilityScores):
+def chooseParents(population, probabilityScores, number):
     mergedList = list(zip(population, probabilityScores))
-
     r = random.random()
     ParentsTrajectories = []
-    for i in range(2):
+    for i in range(int(number)):
         for (possibleParent, probability) in mergedList:
             if r < probability:
                 ParentsTrajectories.append(possibleParent)
