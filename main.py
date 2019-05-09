@@ -5,6 +5,7 @@ from Algorithms import random_algo
 from Classes import dienstregeling as dr
 from Algorithms import hillclimber_algo as ha
 from Algorithms import genetic_algo as ge
+from Algorithms import new_hillclimber_algo as nha
 from visual import makeCard
 # from traject import Trajectory
 
@@ -54,5 +55,15 @@ if algorithm == "hillclimber":
 
 if algorithm == "genetic":
     ge.genetic(dienstregeling, railroad)
+
+if algorithm == "newhillclimber":
+    dienstregeling.addTrajectories(railroad)
+    counter = 0
+    for i in range(1):
+        counter += 1
+        nha.newHillclimber(dienstregeling, railroad, maxLength)
+        score = dienstregeling.calculateScore()
+        if (counter % 1000) == 0:
+            print(f"counter: {counter} score: {score}")
 
 makeCard(railroad, dienstregeling)
