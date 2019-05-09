@@ -6,9 +6,7 @@ from Classes import traject
 from Algorithms import hillclimber_algo as ha
 
 def genetic(dienstregeling,railroad):
-    dienstregeling = dienstregeling
-    railroad = railroad
-    populationSize = 10
+    populationSize = 100
     generations = 1000
     recombinationCoefficient = 0.5
     mutationRate = 1
@@ -24,7 +22,7 @@ def genetic(dienstregeling,railroad):
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
         mutatedchildrenscore = 0
-        for j in range(int(populationSize/2)):
+        for j in range(int(20)):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
@@ -38,17 +36,17 @@ def genetic(dienstregeling,railroad):
                 bestDienstregeling = mutatedChild
             mutatedChildren.append(mutatedChild)
 
-        number = populationSize/2
+        number = 80
         survivors = chooseParents(population, probabilityScores, number)
-        mutatedChildren.append(survivors)
+        mutatedChildren += survivors
 
-        if (counter % 100) == 0:
+        if (counter % 10) == 0:
             print(f"counter: {counter} score: {highestScore}")
-            print(mutatedchildrenscore/ len(mutatedChildren))
-            sum = 0
-            for child in mutatedChildren:
-                sum += int(len(child))
-            print(sum/len(mutatedChildren))
+            # print(mutatedchildrenscore/ 10))
+            # sum = 0
+            # for child in mutatedChildren:
+            #     sum += int(len(child))
+            # print(sum/len(mutatedChildren))
 
         population = mutatedChildren
 
