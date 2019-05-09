@@ -11,14 +11,14 @@ class Dienstregeling():
         self.maxLength = int(maxLength)
         self.totalCritical = totalCritical # sum of critical connections
         self.visitedCriticalConnections = set()
-        self.TrackLength = 0
+        self.trackLength = 0
 
     def calculateScore(self):
         self.setTrackLength()
         self.setVisitedCriticalConnections()
         p = self.calculateP()
 
-        score = p * 10000 - (len(self.trajectories) * 20 + self.TrackLength / 10)
+        score = p * 10000 - (len(self.trajectories) * 20 + self.trackLength / 10)
 
         return score
 
@@ -27,10 +27,10 @@ class Dienstregeling():
         return p
 
     def setTrackLength(self):
-        self.TrackLength = 0
+        self.trackLength = 0
         for trajectory in self.trajectories:
             trajectory.calculateLength()
-            self.TrackLength += trajectory.length
+            self.trackLength += trajectory.length
 
     def setVisitedCriticalConnections(self):
         self.visitedCriticalConnections.clear()
