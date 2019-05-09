@@ -6,30 +6,31 @@ def newHillclimber(dienstregeling, railroad, maxLength):
 
     # Save incoming arguments
     number = 3
-
     # Calculate the old score
     oldScore = dienstregeling.calculateScore()
-    print(f"This is the old score {oldScore}")
+    # print(f"This is the old score {oldScore}")
 
     aTrajectory = random.choice(dienstregeling.trajectories)
+    for i in range(len(dienstregeling.trajectories)):
+        if len(aTrajectory.connections) == 0:
+            aTrajectory = random.choice(dienstregeling.trajectories)
+
     dienstregeling.trajectories.remove(aTrajectory)
     randomTrajectory = copy.copy(aTrajectory)
     startScore = dienstregeling.calculateScore()
-    print(f"This is the start score {startScore}")
+    # print(f"This is the start score {startScore}")
 
     # Remove (number) connections from a randomTrajectory
     for i in range(number):
         if len(randomTrajectory.connections) > 0:
             removeConnection(randomTrajectory)
         else:
-            print(randomTrajectory.visitedStations)
             break
 
-    calculateNewScores(randomTrajectory)
     dienstregeling.trajectories.append(randomTrajectory)
 
     intermediateScore = dienstregeling.calculateScore()
-    print(f"This is the intermediate score {intermediateScore}")
+    # print(f"This is the intermediate score {intermediateScore}")
     dienstregeling.trajectories.remove(randomTrajectory)
 
     trajectoryLen = len(randomTrajectory.visitedStations)
@@ -46,7 +47,6 @@ def newHillclimber(dienstregeling, railroad, maxLength):
 
             if randomTrajectory.length + time < int(maxLength):
                 addNewConnection(randomTrajectory, start_station, next_station_name, time, critical, id)
-                calculateNewScores(randomTrajectory)
                 start_station = next_station_name
         else:
             break
@@ -58,37 +58,46 @@ def newHillclimber(dienstregeling, railroad, maxLength):
     # Insert a new randomly made trajectory and calculate score
     extraScore = 0
     extraTrajectory = []
-    if startScore > intermediateScore and startScore > newScore:
+    if startScore > intermediateScore and startScore > newScore and startScore > oldScore:
         extraTrajectory = ra.make_random_route(railroad, dienstregeling.maxLength)
         dienstregeling.trajectories.append(extraTrajectory)
         extraScore = dienstregeling.calculateScore()
-        print(f"This is the extraScore {extraScore}")
+        # print(f"This is the extraScore {extraScore}")
         dienstregeling.trajectories.remove(extraTrajectory)
 
-    if newScore > oldScore and newScore > intermediateScore and newScore > extraScore:
+    # startScore is better
+    if startScore >= newScore and startScore >= oldScore and startScore >= intermediateScore and startScore >= extraScore:
+        return
+
+    # newScore is better
+    elif newScore >= oldScore and newScore >= startScore and newScore >= intermediateScore and newScore >= extraScore:
         dienstregeling.trajectories.append(randomTrajectory)
         finalScore = newScore
-    elif intermediateScore > oldScore and intermediateScore > newScore and intermediateScore > extraScore:
+
+    # intermediateScore is better
+    elif intermediateScore >= oldScore and intermediateScore >= startScore and intermediateScore >= newScore and intermediateScore >= extraScore:
         for i in range(number):
             removeConnection(randomTrajectory)
+
         dienstregeling.trajectories.append(randomTrajectory)
         finalScore = intermediateScore
-    elif oldScore > newScore and oldScore > intermediateScore and oldScore > extraScore:
+
+    # oldScore is better
+    elif oldScore >= startScore and oldScore >= newScore and oldScore >= intermediateScore and oldScore >= extraScore:
         dienstregeling.trajectories.append(aTrajectory)
         finalScore = oldScore
-    elif extraScore > newScore and extraScore > intermediateScore and extraScore > newScore:
+
+    # extraScore is better
+    elif extraScore >= newScore and extraScore >= startScore and extraScore >= intermediateScore and extraScore >= newScore:
         dienstregeling.trajectories.append(extraTrajectory)
         finalScore = extraScore
-    print(f"This is the final score {finalScore}")
+        # print("extrascore")
+    # print(f"This is the final score {finalScore}")
 
 def removeConnection(randomTrajectory):
     randomTrajectory.visitedStations.pop()
     randomTrajectory.connections.pop()
 
-
-def calculateNewScores(randomTrajectory):
-    randomTrajectory.calculateLength()
-    randomTrajectory.calculateVisitedCritical()
 
 def addNewConnection(randomTrajectory, start_station, next_station_name, time, critical, id):
     randomTrajectory.addVisitedStations(next_station_name)
