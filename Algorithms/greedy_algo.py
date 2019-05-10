@@ -1,27 +1,16 @@
 import random
+from random_algo import make_random_route
 from Classes import station
 from Classes import railroad
 from Classes import traject
+from station import Station
+from railroad import Railroad
+from traject import Trajectory
 
-    # Finds the shortest path between critical stations
-    # When adding stations to a trajectory we take into account whether
-    # a stations has been visited yet. If we don't do this the program would
-    # try to add the same stations over and over again.
-    # Trajectories are added to linefeedings based on whether the linefeeding
-    # score increases when said trajectory is added
-
-    # CriticalConnections = setVisitedCriticalConnections
-    #
-    # addStation to Trajectory
-    # visited
-    #
-    # trajectory toevoegen aan dienstregeling
-
-def greedy(stations, maxLength):
-    critical_visited = {}
-    stations = stations
-    maxLength = maxLength
-    time = 0
+def greedy_traject(dienstregeling, railroad, maxLength):
+    # dienstregeling = dienstregeling
+    # railroad = railroad
+    # maxLength = maxLength
 
     # Find random start station
     keylist = []
@@ -31,83 +20,38 @@ def greedy(stations, maxLength):
     traject = Trajectory(maxLength)
     traject.addVisitedStations(start_station)
 
-    for connection in railroad.station_dict[start_station].connections
-        next_station = connection
-        next_station[1] < next_station[1]
-        # bovenstaande kan niet
-        # hierna is het de bedoeling dat de laagste tijd wordt doorgegven aan de while
-        shortest_connection = next_station[1]
+    # sorteer connection in railroad.station_dict[start_station].connections op de volgende manier:
+        # niet bezocht en kritiek?
+        # kortste tijd?
+        # niet bezocht?
+    # maken van traject op basis van iteratie over sorted list
+            # niet bezocht en kritiek gevonden -> kies deze boven andere opties (onafhankelijk van tijd)
+            # korste tijd gevonden en niet kritiek in connections -> kies deze boven andere opties
+            # niet bezocht gevonden en niet kritiek of korte tijd -> kies dan deze , maar vervang wanneer mogelijk
 
-    while (traject.length + time < traject.maxLength):
+    time = 0
 
-        for connection in railroad.station_dict[start_station].connections
+    while (traject.length < traject.calculateLength):
+        sorted = sorted(railroad.station_dict[start_station].connections, key = lambda connection:(connection[3].critical, connection[2]))
+
+        for connection in sorted:
             next_station = connection
+            if (next_station[1] not in traject.visitedStations) and (not (((start_station, next_station[1]) in traject.visitedCritical) or ((next_station[1], start_station) in traject.visitedCritical))):
+                break
 
-            if next_station == critical and not traject.visitedCritical or traject.visitedStations #incl. shortest
-                next_station_name = next_station[0]
-                time += shortest_connection # kortste next_station
-                traject.addVisitedStations(next_station_name)
-                traject.addLength(time)
-                for connection in railroad.station_dict[start_station].connections:
-                    if connection[0] == next_station_name and connection[2] == True:
-                        traject.addVisitedCritical(connection[3])
-                        break
-                start_station = next_station_name
-            elif next_station == critical and (not traject.visitedCritical or traject.visitedStations) #excl. shortest
-                next_station_name = next_station[0]
-                time += next_station[1] # niet kortste next_station
-                traject.addVisitedStations(next_station_name)
-                traject.addLength(time)
-                for connection in railroad.station_dict[start_station].connections:
-                    if connection[0] == next_station_name and connection[2] == True:
-                        traject.addVisitedCritical(connection[3])
-                        break
-            elif next_station != critical and not in traject.visitedStations #incl. shortest
-                next_station_name = next_station[0]
-                time += shortest_connection # kortste next_station
-                traject.addVisitedStations(next_station_name)
-                traject.addLength(time)
-                start_station = next_station_name
-            elif next_station not in traject.visitedStations #excl. shortest
-                next_station_name = next_station[0]
-                time += next_station[1] # niet kortste next_station
-                traject.addVisitedStations(next_station_name)
-                traject.addLength(time)
-                start_station = next_station_name
+        if next_station:
+            next_station_name = next_station[0]
 
+            if next_station[2].critical or start_station.critical:
+                traject.addVisitedCritical(next_station[1])
+            traject.addVisitedStations(next_station_name)
 
-# Pseudo:
+            time = next_station[3]
+            start_station = next_station_name
 
-# if connection of start_station is critical and shortest and not visited
-#     choose this connection and repeat
-#     startstation = next station
-# elif connection of start_station is critical and shortest
-#     choose this connection and repeat
-#     startstation = next station
-# elif connection of start_station is critical and not visited
-#     choose this connection and repeat
-#     startstation = next station
-# elif connection of start_station is not visited and shortest
-#     choose this connection and repeat
-#     startstation = next station
-# elif connection of start_station is shortest
-#     choose this connection and repeat
-#     startstation = next station
-# else (connection of start_station is not visited)
-#     choose this connection and repeat
-#     startstation = next station
+        else:
+            break
 
-# Andere optie
+    traject.calculateLength()
 
-# sortedconnections = sorted(railroad.station_dict[start_station].connections, key = lambda x: (1- x[1].critical, x[2]))
-# next_station = False
-#
-# for connection in sortedconnections
-#     next_station = connection
-#     if (next_station[1] not in traject.VisitedStations) and (not (((start_station, next_station[1]) in critical_visited) or ((next_station[1], start_station) in critical_visited))):
-#         break
-#     next_station = False
-#
-# if next_station:
-#     if next_station.critical or start_station.critical:
-#         critical_visited = {(next_station[1], start_station): True}
+    return ([traject.visitedStations, traject.length, traject.visitedCritical])
