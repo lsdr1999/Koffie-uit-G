@@ -47,6 +47,7 @@ def newHillclimber(dienstregeling, railroad, maxLength):
 
             if randomTrajectory.length + time < int(maxLength):
                 addNewConnection(randomTrajectory, start_station, next_station_name, time, critical, id)
+                randomTrajectory.calculateLength()
                 start_station = next_station_name
         else:
             break
@@ -64,7 +65,20 @@ def newHillclimber(dienstregeling, railroad, maxLength):
         extraScore = dienstregeling.calculateScore()
         # print(f"This is the extraScore {extraScore}")
         dienstregeling.trajectories.remove(extraTrajectory)
+        # print("extrascore")
+    # print(f"This is the final score {finalScore}")
+    checkBest(number, dienstregeling, randomTrajectory, aTrajectory, extraTrajectory, oldScore, startScore, intermediateScore, newScore, extraScore)
 
+def removeConnection(randomTrajectory):
+    randomTrajectory.visitedStations.pop()
+    randomTrajectory.connections.pop()
+
+
+def addNewConnection(randomTrajectory, start_station, next_station_name, time, critical, id):
+    randomTrajectory.addVisitedStations(next_station_name)
+    randomTrajectory.addConnection(start_station, next_station_name, time, critical, id)
+
+def checkBest(number, dienstregeling, randomTrajectory, aTrajectory, extraTrajectory, oldScore, startScore, intermediateScore, newScore, extraScore):
     # startScore is better
     if startScore >= newScore and startScore >= oldScore and startScore >= intermediateScore and startScore >= extraScore:
         return
@@ -91,14 +105,3 @@ def newHillclimber(dienstregeling, railroad, maxLength):
     elif extraScore >= newScore and extraScore >= startScore and extraScore >= intermediateScore and extraScore >= newScore:
         dienstregeling.trajectories.append(extraTrajectory)
         finalScore = extraScore
-        # print("extrascore")
-    # print(f"This is the final score {finalScore}")
-
-def removeConnection(randomTrajectory):
-    randomTrajectory.visitedStations.pop()
-    randomTrajectory.connections.pop()
-
-
-def addNewConnection(randomTrajectory, start_station, next_station_name, time, critical, id):
-    randomTrajectory.addVisitedStations(next_station_name)
-    randomTrajectory.addConnection(start_station, next_station_name, time, critical, id)

@@ -24,7 +24,6 @@ def hillclimber(dienstregeling, railroad):
     changeTrajectory = random.choice(dienstregeling.trajectories)
     dienstregeling.trajectories.remove(changeTrajectory)
     intermediateScore = dienstregeling.calculateScore()
-    intermediateScore += 150
 
     # Insert a new randomly made trajectory and calculate score
     newTrajectory = ra.make_random_route(railroad, dienstregeling.maxLength)
