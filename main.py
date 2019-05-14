@@ -82,13 +82,15 @@ if algorithm == "newhillclimber":
 if algorithm == "advancedhillclimber":
     dienstregeling.addTrajectories(railroad)
     counter = 0
-    number = 3
-    for i in range(100):
+    number = 1
+    for i in range(10000):
         counter += 1
-        ah.advancedHillclimber(dienstregeling, railroad, maxLength, number)
-        print("main")
-        print(len(dienstregeling.trajectories))
-        score = dienstregeling.calculateScore()
+        dienstregeling = ah.advancedHillclimber(dienstregeling, railroad, maxLength, number)
+        if (counter % 100) == 0:
+            print(len(dienstregeling.trajectories))
+            score = dienstregeling.calculateScore()
+            print(f"counter: {counter} score: {score}")
+
 
 if algorithm == "greedy":
     gr.greedy_traject(dienstregeling, railroad, maxLength)

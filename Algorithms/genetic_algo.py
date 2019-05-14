@@ -6,8 +6,8 @@ from Classes import traject
 from Algorithms import hillclimber_algo as ha
 
 def genetic(dienstregeling,railroad):
-    populationSize = 100
-    generations = 10000
+    populationSize = 40
+    generations = 1000
     recombinationCoefficient = 0.5
     mutationRate = 1
     population = makePopulation(dienstregeling, populationSize, railroad)

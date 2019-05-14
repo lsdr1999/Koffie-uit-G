@@ -18,6 +18,7 @@ class Trajectory(object):
         self.connections.append([start_station, next_station, time, critical, id])
 
     def calculateVisitedCritical(self):
+        self.visitedCritical.clear()
         for connection in self.connections:
             if connection[3]:
                 id = connection[4]
