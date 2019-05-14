@@ -3,7 +3,6 @@ from Classes import railroad as rail
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import csv
 
 fig = plt.figure()
@@ -11,38 +10,85 @@ ax1 = fig.add_subplot(1,1,1)
 
 def makeCard(railroad, dienstregeling):
     style.use('classic')
-    ax1.clear()
+    coordinates = []
+    connections = []
+    for key, value in railroad.connections.items():
+        if value[3]:
+            coordinates.append(value[0])
+            coordinates.append(value[1])
+        else:
+            connections.append(value[0])
+            connections.append(value[1])
 
-    railroad = rail.Railroad()
-    railroad.loadStations()
+    x = []
+    y = []
+    for connection in connections:
+        y.append(float(railroad.station_dict[connection].xcoordinate.strip()))
+        x.append(float(railroad.station_dict[connection].ycoordinate.strip()))
 
-    xcor = []
-    ycor = []
+    criticalX = []
+    criticalY = []
+    for coordinate in coordinates:
+        criticalY.append(float(railroad.station_dict[coordinate].xcoordinate.strip()))
+        criticalX.append(float(railroad.station_dict[coordinate].ycoordinate.strip()))
 
-    # get the x and y coordinates from the card
-    for key, value in railroad.station_dict.items():
-        ycor.append(float(value.xcoordinate.strip()))
-        xcor.append(float(value.ycoordinate.strip()))
-    # make a scatterplot
-    ax1.scatter(xcor,ycor, color='k')
+    plotX = []
+    plotY = []
+    for i in range(len(criticalX)):
+        plotY.append(criticalY[i])
+        plotX.append(criticalX[i])
+        i += 1
+        if (i % 2 == 0):
+            ax1.plot(plotX,plotY, color = 'k')
+            plotX.clear()
+            plotY.clear()
 
-    # make a dictionary of all of the trajectories and its coordinate lists
-    coord_dict = {}
-    counter = 1
+    for i in range(len(x)):
+        plotY.append(y[i])
+        plotX.append(x[i])
+        i += 1
+        if (i % 2 == 0):
+            ax1.plot(plotX,plotY, color = '#8F8987')
+            plotX.clear()
+            plotY.clear()
+
+    xCritical = []
+    yCritical = []
+    xNormal = []
+    yNormal = []
+
     for trajectory in dienstregeling.trajectories:
-        x = []
-        y = []
-        for city in trajectory.visitedStations:
-            for key, value in railroad.station_dict.items():
-                if city == key:
-                    x.append(float(value.ycoordinate.strip()))
-                    y.append(float(value.xcoordinate.strip()))
-        coord_dict[str(counter)] = x, y
-        counter += 1
+        for connection in trajectory.connections:
+            for key, value in railroad.connections.items():
+                if (connection[0] == value[0] and connection[1] == value[1]) or \
+                    (connection[1] == value[0] and connection[0] == value[1])and value[3]:
+                    for i in range(2):
+                        xCritical.append(float(railroad.station_dict[connection[i]].ycoordinate.strip()))
+                        yCritical.append(float(railroad.station_dict[connection[i]].xcoordinate.strip()))
+                elif (connection[0] == value[0] and connection[1] == value[1]) or \
+                    (connection[1] == value[0] and connection[0] == value[1]):
+                    for i in range(2):
+                        xNormal.append(float(railroad.station_dict[connection[i]].ycoordinate.strip()))
+                        yNormal.append(float(railroad.station_dict[connection[i]].xcoordinate.strip()))
 
-    # plot each trajectory
-    for key in coord_dict:
-        ax1.plot(coord_dict[key][0], coord_dict[key][1])
+
+    for i in range(len(xCritical)):
+        plotX.append(xCritical[i])
+        plotY.append(yCritical[i])
+        i += 1
+        if (i % 2 == 0):
+            ax1.plot(plotX,plotY, color = '#ff0000')
+            plotX.clear()
+            plotY.clear()
+
+    for i in range(len(xNormal)):
+        plotX.append(xNormal[i])
+        plotY.append(yNormal[i])
+        i += 1
+        if (i % 2 == 0):
+            ax1.plot(plotX,plotY, color = '#0000FF')
+            plotX.clear()
+            plotY.clear()
 
     plt.title('Dienstregeling')
     plt.xlabel('x-coördinaten')
@@ -54,7 +100,7 @@ def makeGraph(count_list, score_list):
 
     ax1.plot(count_list, score_list)
 
-    plt.title('Prestatie hillclimber')
+    plt.title('Prestatie random')
     plt.xlabel('Counter')
     plt.ylabel('Score')
     plt.show()
