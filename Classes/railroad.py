@@ -15,7 +15,7 @@ class Railroad(object):
 
     def loadStations(self):
         # Open the Stations file and create empty station dictionaryd
-        with open("csv_bestanden/StationsNationaal.csv") as f:
+        with open("csvBestanden/StationsNationaal.csv") as f:
             # Iterate over the lines
             for line in f:
 
@@ -39,7 +39,7 @@ class Railroad(object):
         f.close()
 
         # Open the the connections files
-        with open("csv_bestanden/ConnectiesNationaal.csv") as g:
+        with open("csvBestanden/ConnectiesNationaal.csv") as g:
             ID_counter = 0
             # Iterate over the lines
             for line in g:
