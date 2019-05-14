@@ -1,7 +1,7 @@
-from Classes import railroad
-from Classes import traject
-from Algorithms import random_algo as ra
-from Algorithms import hillclimber_algo
+from classes import railroad
+from classes import traject
+from algorithms import randomAlgo as ra
+from algorithms import hillclimberAlgo
 
 class Dienstregeling():
 

@@ -1,9 +1,9 @@
 import random
 import math
-from Algorithms import random_algo as ra
-from Classes import dienstregeling
-from Classes import traject
-from Algorithms import hillclimber_algo as ha
+from algorithms import randomAlgo as ra
+from classes import dienstregeling
+from classes import traject
+from algorithms import hillclimberAlgo as ha
 
 def genetic(dienstregeling,railroad):
     populationSize = 40

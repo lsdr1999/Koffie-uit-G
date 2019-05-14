@@ -1,4 +1,4 @@
-from Classes import station as st
+from classes import station as st
 import csv
 
 class Railroad(object):

@@ -1,6 +1,6 @@
 import copy
 import random
-from Algorithms import random_algo as ra
+from algorithms import randomAlgo as ra
 
 def advancedHillclimber(dienstregeling, railroad, maxLength, number):
     old = dienstregeling.calculateScore()

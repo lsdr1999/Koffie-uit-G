@@ -1,8 +1,8 @@
 import random
-from random_algo import make_random_route
-from Classes import station
-from Classes import railroad
-from Classes import traject
+from randomAlgo import make_random_route
+from classes import station
+from classes import railroad
+from classes import traject
 from station import Station
 from railroad import Railroad
 from traject import Trajectory

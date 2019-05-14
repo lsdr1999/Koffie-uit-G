@@ -1,5 +1,5 @@
 from matplotlib import style
-from Classes import railroad as rail
+from classes import railroad as rail
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt

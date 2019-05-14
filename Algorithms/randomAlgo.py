@@ -1,7 +1,7 @@
 import random
-from Classes import station
-from Classes import railroad
-from Classes import traject as tj
+from classes import station
+from classes import railroad
+from classes import traject as tj
 
 def make_random_route(railroad, maxLength):
     railroad = railroad

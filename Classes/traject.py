@@ -1,4 +1,4 @@
-from Classes import station
+from classes import station
 
 class Trajectory(object):
     """
