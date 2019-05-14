@@ -40,7 +40,8 @@ def newHillclimber(dienstregeling, railroad, maxLength):
             dienstregeling.trajectories.append(aTrajectory)
             print("empty trajectory")
             return
-    # add the adjusted trajectory to dienstregeling and calculate score
+
+    # add the adjusted trajectory to dienstregeling and calculxate score
     dienstregeling.trajectories.append(randomTrajectory)
     check = 0
     for trajectory in dienstregeling.trajectories:
@@ -81,7 +82,6 @@ def newHillclimber(dienstregeling, railroad, maxLength):
     # print(f"This is the newScore {newScore}")
 
     # Insert a new randomly made trajectory and calculate score
-    extraScore = 0
     extraTrajectory = []
     extraTrajectory = ra.make_random_route(railroad, dienstregeling.maxLength)
     # print(extraTrajectory.visitedStations)
@@ -130,7 +130,7 @@ def checkBest(number, dienstregeling, randomTrajectory, aTrajectory, extraTrajec
         for i in range(number):
             removeConnection(aTrajectory)
 
-        dienstregeling.trajectories.append(randomTrajectory)
+        dienstregeling.trajectories.append(aTrajectory)
         print("intermediate, -3")
         count = 0
         for trajectory in dienstregeling.trajectories:
@@ -148,6 +148,7 @@ def checkBest(number, dienstregeling, randomTrajectory, aTrajectory, extraTrajec
 
     # extraScore is better
     elif extraScore >= newScore and extraScore >= startScore and extraScore >= intermediateScore and extraScore >= newScore:
+        dienstregeling.trajectories.append(aTrajectory)
         dienstregeling.trajectories.append(extraTrajectory)
         finalScore = extraScore
         print("extra, same or more")

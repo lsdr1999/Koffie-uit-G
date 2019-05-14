@@ -7,7 +7,7 @@ from Algorithms import hillclimber_algo as ha
 
 def genetic(dienstregeling,railroad):
     populationSize = 100
-    generations = 1000
+    generations = 10000
     recombinationCoefficient = 0.5
     mutationRate = 1
     population = makePopulation(dienstregeling, populationSize, railroad)
@@ -22,7 +22,7 @@ def genetic(dienstregeling,railroad):
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
         mutatedchildrenscore = 0
-        for j in range(int(20)):
+        for j in range(populationSize):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
@@ -36,19 +36,32 @@ def genetic(dienstregeling,railroad):
                 bestDienstregeling = mutatedChild
             mutatedChildren.append(mutatedChild)
 
-        number = 80
-        survivors = chooseParents(population, probabilityScores, number)
-        mutatedChildren += survivors
+        newPopulation = tournament(dienstregeling, population, mutatedChildren)
 
-        if (counter % 10) == 0:
+        if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
+            dienstregeling.trajectories = bestDienstregeling
+            dienstregeling.calculateScore()
+            print(len(dienstregeling.visitedCriticalConnections))
+
+            sum = 0
+            for individual in newPopulation:
+                dienstregeling.trajectories = individual
+                score = dienstregeling.calculateScore()
+                sum += score
+            print(sum/len(newPopulation))
+
             # print(mutatedchildrenscore/ 10))
             # sum = 0
             # for child in mutatedChildren:
             #     sum += int(len(child))
             # print(sum/len(mutatedChildren))
 
-        population = mutatedChildren
+        population = newPopulation
+    dienstregeling.trajectories = bestDienstregeling
+    for trajectory in dienstregeling.trajectories:
+        print(trajectory.visitedStations)
+
 
 
 def makePopulation(dienstregeling, populationSize, railroad):
@@ -110,6 +123,27 @@ def chooseParents(population, probabilityScores, number):
 
     return ParentsTrajectories
 
+def tournament(dienstregeling, parentpopulation, mutatedchildren):
+    participants = []
+    participants += parentpopulation
+    participants += mutatedchildren
+    newpopulation = []
+    while len(participants) > 0:
+        participant1 = random.choice(participants)
+        dienstregeling.trajectories = participant1
+        score1 = dienstregeling.calculateScore()
+        participants.remove(participant1)
+        participant2 = random.choice(participants)
+        participants.remove(participant2)
+        dienstregeling.trajectories = participant2
+        score2 = dienstregeling.calculateScore()
+
+        if score1 > score2:
+            newpopulation.append(participant1)
+        else:
+            newpopulation.append(participant2)
+
+    return newpopulation
 
 def crossover(parents, recombinationCoefficient):
     r = random.randint(0,1)

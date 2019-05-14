@@ -13,7 +13,7 @@ def hillclimber(dienstregeling, railroad):
     # Insert a new randomly made trajectory and calculate score
     extraScore = 0
     extraTrajectory = []
-    if len(dienstregeling.trajectories) < 20:
+    if len(dienstregeling.trajectories) < dienstregeling.maxTrajectories:
         extraTrajectory = ra.make_random_route(railroad, dienstregeling.maxLength)
         dienstregeling.trajectories.append(extraTrajectory)
         extraScore = dienstregeling.calculateScore()

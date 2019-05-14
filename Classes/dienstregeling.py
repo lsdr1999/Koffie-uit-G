@@ -19,7 +19,6 @@ class Dienstregeling():
         p = self.calculateP()
 
         score = p * 10000 - (len(self.trajectories) * 20 + self.trackLength / 10)
-
         return score
 
     def calculateP(self):

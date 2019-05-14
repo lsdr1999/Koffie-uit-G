@@ -42,7 +42,7 @@ if algorithm == "random":
 if algorithm == "hillclimber":
     dienstregeling.addTrajectories(railroad)
     counter = 0
-    for i in range(1):
+    for i in range(100000):
         counter += 1
         ha.hillclimber(dienstregeling, railroad)
         score = dienstregeling.calculateScore()
