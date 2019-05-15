@@ -8,7 +8,7 @@ import csv
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
 
-def makeCard(railroad, dienstregeling):
+def makeCard(railroad, trainlining):
     style.use('classic')
     coordinates = []
     connections = []
@@ -57,7 +57,7 @@ def makeCard(railroad, dienstregeling):
     xNormal = []
     yNormal = []
 
-    for trajectory in dienstregeling.trajectories:
+    for trajectory in trainlining.trajectories:
         for connection in trajectory.connections:
             for key, value in railroad.connections.items():
                 if (connection[0] == value[0] and connection[1] == value[1]) or \
@@ -90,9 +90,9 @@ def makeCard(railroad, dienstregeling):
             plotX.clear()
             plotY.clear()
 
-    plt.title('Dienstregeling')
-    plt.xlabel('x-coördinaten')
-    plt.ylabel('y-coördinaten')
+    plt.title('Trainlining')
+    plt.xlabel('xcoordinates')
+    plt.ylabel('ycoordinates')
     plt.show()
 
 def makeGraph(count_list, score_list):
@@ -100,7 +100,7 @@ def makeGraph(count_list, score_list):
 
     ax1.plot(count_list, score_list)
 
-    plt.title('Prestatie random')
+    plt.title('Performance')
     plt.xlabel('Counter')
     plt.ylabel('Score')
     plt.show()

@@ -1,9 +1,9 @@
 from classes import railroad
-from classes import traject
+from classes import trajectory
 from algorithms import randomAlgo as ra
 from algorithms import hillclimberAlgo
 
-class Dienstregeling():
+class Trainlining():
 
     def __init__(self, maxTrajectories, maxLength, totalCritical):
         self.trajectories = [] # List of lists of the visited stations of trajectories

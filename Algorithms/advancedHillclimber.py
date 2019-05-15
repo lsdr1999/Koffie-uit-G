@@ -2,19 +2,19 @@ import copy
 import random
 from algorithms import randomAlgo as ra
 
-def advancedHillclimber(dienstregeling, railroad, maxLength, number):
-    old = dienstregeling.calculateScore()
-    startTrajectory = random.choice(dienstregeling.trajectories)
-    dienstregeling.trajectories.remove(startTrajectory)
-    start = startScore(dienstregeling, startTrajectory)
+def advancedHillclimber(trainlining, railroad, maxLength, number):
+    old = trainlining.calculateScore()
+    startTrajectory = random.choice(trainlining.trajectories)
+    trainlining.trajectories.remove(startTrajectory)
+    start = startScore(trainlining, startTrajectory)
 
-    intermediateInfo = intermediateScore(dienstregeling, startTrajectory, number)
+    intermediateInfo = intermediateScore(trainlining, startTrajectory, number)
     intermediate = intermediateInfo[0]
     iTraject = intermediateInfo[1]
     iDienst = intermediateInfo[2]
 
     if len(iTraject.visitedStations) != 0:
-        newInfo= newScore(dienstregeling, iTraject, number, maxLength, railroad)
+        newInfo= newScore(trainlining, iTraject, number, maxLength, railroad)
         new = newInfo[0]
         Trajectory = newInfo[1]
         nDienst = newInfo[2]
@@ -22,7 +22,7 @@ def advancedHillclimber(dienstregeling, railroad, maxLength, number):
     else:
         new = 0
 
-    extraInfo = extraScore(dienstregeling, startTrajectory, railroad)
+    extraInfo = extraScore(trainlining, startTrajectory, railroad)
     extra = extraInfo[0]
     eDienst = extraInfo[1]
 
@@ -34,29 +34,29 @@ def advancedHillclimber(dienstregeling, railroad, maxLength, number):
     # print("\n")
 
     if old >= start and old >= intermediate and old >= new and old >= extra:
-        dienstregeling.trajectories.append(startTrajectory)
+        trainlining.trajectories.append(startTrajectory)
 
     elif intermediate > old and intermediate > start and intermediate > new and intermediate > extra:
-        dienstregeling = iDienst
+        trainlining = iDienst
 
     elif new > old and new > start and new > intermediate and new > extra:
-        dienstregeling = nDienst
+        trainlining = nDienst
     elif extra > old and extra > start and extra > intermediate and extra > new:
-        dienstregeling = eDienst
-        if len(dienstregeling.trajectories) < int(maxLength) and \
+        trainlining = eDienst
+        if len(trainlining.trajectories) < int(maxLength) and \
             start > intermediate and start > new:
-            dienstregeling.trajectories.append(startTrajectory)
+            trainlining.trajectories.append(startTrajectory)
 
-    dienstregeling.calculateScore()
-    return dienstregeling
+    trainlining.calculateScore()
+    return trainlining
 
-def startScore(dienstregeling, startTrajectory):
-    startScore = dienstregeling.calculateScore()
+def startScore(trainlining, startTrajectory):
+    startScore = trainlining.calculateScore()
     return startScore
 
-def intermediateScore(dienstregeling, startTrajectory, number):
+def intermediateScore(trainlining, startTrajectory, number):
     intermediateTrajectory = copy.deepcopy(startTrajectory)
-    intermediateDienstregeling = copy.deepcopy(dienstregeling)
+    intermediatetrainlining = copy.deepcopy(trainlining)
 
     for i in range(number):
         if len(intermediateTrajectory.connections) > 0:
@@ -65,16 +65,16 @@ def intermediateScore(dienstregeling, startTrajectory, number):
 
     if len(intermediateTrajectory.connections) > 0:
         intermediateTrajectory.calculateLength()
-        intermediateDienstregeling.trajectories.append(intermediateTrajectory)
+        intermediatetrainlining.trajectories.append(intermediateTrajectory)
     else:
         intermediateTrajectory.visitedStations = []
 
-    intermediateScore = intermediateDienstregeling.calculateScore()
-    return intermediateScore, intermediateTrajectory, intermediateDienstregeling
+    intermediateScore = intermediatetrainlining.calculateScore()
+    return intermediateScore, intermediateTrajectory, intermediatetrainlining
 
-def newScore(dienstregeling, iTraject, number, maxLength, railroad):
+def newScore(trainlining, iTraject, number, maxLength, railroad):
     newTrajectory = copy.deepcopy(iTraject)
-    newDienstregeling = copy.deepcopy(dienstregeling)
+    newtrainlining = copy.deepcopy(trainlining)
 
     trajectoryLen = len(newTrajectory.visitedStations)
     start_station = newTrajectory.visitedStations[0]
@@ -95,15 +95,15 @@ def newScore(dienstregeling, iTraject, number, maxLength, railroad):
         else:
             break
 
-    newDienstregeling.trajectories.append(newTrajectory)
-    newScore = newDienstregeling.calculateScore()
-    return newScore, newTrajectory, newDienstregeling
+    newtrainlining.trajectories.append(newTrajectory)
+    newScore = newtrainlining.calculateScore()
+    return newScore, newTrajectory, newtrainlining
 
-def extraScore(dienstregeling, startTrajectory, railroad):
-    extraDienstregeling = copy.deepcopy(dienstregeling)
+def extraScore(trainlining, startTrajectory, railroad):
+    extratrainlining = copy.deepcopy(trainlining)
     extraTrajectory = []
-    extraTrajectory = ra.make_random_route(railroad, dienstregeling.maxLength)
-    extraDienstregeling.trajectories.append(startTrajectory)
-    extraDienstregeling.trajectories.append(extraTrajectory)
-    extraScore = extraDienstregeling.calculateScore()
-    return extraScore, extraDienstregeling
+    extraTrajectory = ra.make_random_route(railroad, trainlining.maxLength)
+    extratrainlining.trajectories.append(startTrajectory)
+    extratrainlining.trajectories.append(extraTrajectory)
+    extraScore = extratrainlining.calculateScore()
+    return extraScore, extratrainlining

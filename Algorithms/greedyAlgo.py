@@ -2,15 +2,12 @@ import random
 from randomAlgo import make_random_route
 from classes import station
 from classes import railroad
-from classes import traject
+from classes import trajectory
 from station import Station
 from railroad import Railroad
 from traject import Trajectory
 
-def greedy_traject(dienstregeling, railroad, maxLength):
-    # dienstregeling = dienstregeling
-    # railroad = railroad
-    # maxLength = maxLength
+def greedy_traject(trainlining, railroad, maxLength):
 
     # Find random start station
     keylist = []

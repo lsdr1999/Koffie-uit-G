@@ -15,7 +15,7 @@ class Railroad(object):
 
     def loadStations(self):
         # Open the Stations file and create empty station dictionaryd
-        with open("csvBestanden/StationsNationaal.csv") as f:
+        with open("csvBestanden/stationsNationaal.csv") as f:
             # Iterate over the lines
             for line in f:
 
@@ -39,7 +39,7 @@ class Railroad(object):
         f.close()
 
         # Open the the connections files
-        with open("csvBestanden/ConnectiesNationaal.csv") as g:
+        with open("csvBestanden/connectiesNationaal.csv") as g:
             ID_counter = 0
             # Iterate over the lines
             for line in g:
@@ -79,5 +79,3 @@ class Railroad(object):
             if value[3]:
                 self.totalCritical.append([value[0], value[1]])
         return len(self.totalCritical)
-        # Als een unit in connecties dictionary kritiek is, dan voeg em toe aan lijst total criticalConnection
-        # return volledige lijst (naar Dienstregeling)
