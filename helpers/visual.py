@@ -23,14 +23,14 @@ def makeCard(railroad, trainlining):
     x = []
     y = []
     for connection in connections:
-        y.append(float(railroad.station_dict[connection].xcoordinate.strip()))
-        x.append(float(railroad.station_dict[connection].ycoordinate.strip()))
+        y.append(float(railroad.stationDict[connection].xCoordinate.strip()))
+        x.append(float(railroad.stationDict[connection].yCoordinate.strip()))
 
     criticalX = []
     criticalY = []
     for coordinate in coordinates:
-        criticalY.append(float(railroad.station_dict[coordinate].xcoordinate.strip()))
-        criticalX.append(float(railroad.station_dict[coordinate].ycoordinate.strip()))
+        criticalY.append(float(railroad.stationDict[coordinate].xCoordinate.strip()))
+        criticalX.append(float(railroad.stationDict[coordinate].yCoordinate.strip()))
 
     plotX = []
     plotY = []
@@ -63,13 +63,13 @@ def makeCard(railroad, trainlining):
                 if (connection[0] == value[0] and connection[1] == value[1]) or \
                     (connection[1] == value[0] and connection[0] == value[1])and value[3]:
                     for i in range(2):
-                        xCritical.append(float(railroad.station_dict[connection[i]].ycoordinate.strip()))
-                        yCritical.append(float(railroad.station_dict[connection[i]].xcoordinate.strip()))
+                        xCritical.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
+                        yCritical.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
                 elif (connection[0] == value[0] and connection[1] == value[1]) or \
                     (connection[1] == value[0] and connection[0] == value[1]):
                     for i in range(2):
-                        xNormal.append(float(railroad.station_dict[connection[i]].ycoordinate.strip()))
-                        yNormal.append(float(railroad.station_dict[connection[i]].xcoordinate.strip()))
+                        xNormal.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
+                        yNormal.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
 
 
     for i in range(len(xCritical)):
@@ -91,14 +91,14 @@ def makeCard(railroad, trainlining):
             plotY.clear()
 
     plt.title('Trainlining')
-    plt.xlabel('xcoordinates')
-    plt.ylabel('ycoordinates')
+    plt.xlabel('xCoordinates')
+    plt.ylabel('yCoordinates')
     plt.show()
 
-def makeGraph(count_list, score_list):
+def makeGraph(countList, scoreList):
     style.use('classic')
 
-    ax1.plot(count_list, score_list)
+    ax1.plot(countList, scoreList)
 
     plt.title('Performance')
     plt.xlabel('Counter')

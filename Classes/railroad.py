@@ -8,7 +8,7 @@ class Railroad(object):
     """
 
     def __init__(self):
-        self.station_dict = {}
+        self.stationDict = {}
         self.connections = {}
         self.totalCritical = []
         self.criticalConnectionList = []
@@ -20,27 +20,27 @@ class Railroad(object):
             for line in f:
 
                 # Split the lines into words and save them into seperate variables
-                station_data = (line.split(','))
-                name = station_data[0]
-                xcoordinate = station_data[1]
-                ycoordinate = station_data[2]
+                stationData = (line.split(','))
+                name = stationData[0]
+                xCoordinate = stationData[1]
+                yCoordinate = stationData[2]
 
                 # If the station is critical save "Kritiek" as a boolean
-                if len(station_data) > 3:
-                    if station_data[3] == "Kritiek\n":
+                if len(stationData) > 3:
+                    if stationData[3] == "Kritiek\n":
                         critical = True
                 else:
                     critical = False
                 # Initialize a station object and save it in a dictionary with
                 # its name as the key
-                station = st.Station(name, xcoordinate, ycoordinate, critical)
-                self.station_dict[name] = station
+                station = st.Station(name, xCoordinate, yCoordinate, critical)
+                self.stationDict[name] = station
         # Close the file
         f.close()
 
         # Open the the connections files
         with open("csvBestanden/connectiesNationaal.csv") as g:
-            ID_counter = 0
+            IDCounter = 0
             # Iterate over the lines
             for line in g:
 
@@ -49,24 +49,24 @@ class Railroad(object):
                 station1 = connection_data[0]
                 station2 = connection_data[1]
                 time = float(connection_data[2])
-                Connection_ID = int(ID_counter)
-                ID_counter += 1
+                connectionID = int(IDCounter)
+                IDCounter += 1
 
                 # If one of the stations in the connection is critical, save the
                 # connection as a critical connection
-                if self.station_dict[station1].critical or \
-                    self.station_dict[station2].critical:
-                    self.station_dict[station1].addConnection(station2, time, True, ID_counter)
-                    self.station_dict[station2].addConnection(station1, time, True, ID_counter)
+                if self.stationDict[station1].critical or \
+                    self.stationDict[station2].critical:
+                    self.stationDict[station1].addConnection(station2, time, True, IDCounter)
+                    self.stationDict[station2].addConnection(station1, time, True, IDCounter)
 
-                    self.addConnection(Connection_ID, station1, station2, time, True)
+                    self.addConnection(connectionID, station1, station2, time, True)
 
                 # If neither station is critical, save it as a non-critical connection
                 else:
-                    self.station_dict[station1].addConnection(station2, time, False, ID_counter)
-                    self.station_dict[station2].addConnection(station1, time, False, ID_counter)
+                    self.stationDict[station1].addConnection(station2, time, False, IDCounter)
+                    self.stationDict[station2].addConnection(station1, time, False, IDCounter)
 
-                    self.addConnection(Connection_ID, station1, station2, time, False)
+                    self.addConnection(connectionID, station1, station2, time, False)
 
         # Close the file
         g.close()

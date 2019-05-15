@@ -14,8 +14,8 @@ class Trajectory(object):
     def addVisitedStations(self, nextStation):
         self.visitedStations.append(nextStation)
 
-    def addConnection(self, start_station, next_station, time, critical, id):
-        self.connections.append([start_station, next_station, time, critical, id])
+    def addConnection(self, startStation, nextStation, time, critical, id):
+        self.connections.append([startStation, nextStation, time, critical, id])
 
     def calculateVisitedCritical(self):
         self.visitedCritical.clear()

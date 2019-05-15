@@ -5,13 +5,13 @@ class Station(object):
     connections with other stations that take a certain time to reach
     """
 
-    def __init__(self, name, xcoordinate, ycoordinate, critical):
+    def __init__(self, name, xCoordinate, yCoordinate, critical):
         """
         Initializes a station object
         """
         self.name = name
-        self.xcoordinate = xcoordinate
-        self.ycoordinate = ycoordinate
+        self.xCoordinate = xCoordinate
+        self.yCoordinate = yCoordinate
         self.connections = []
         self.critical = critical
 

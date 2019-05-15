@@ -39,5 +39,5 @@ class Trainlining():
 
     def addTrajectories(self, railroad):
         for trajectory in range(self.maxTrajectories):
-            trajectory = ra.make_random_route(railroad, self.maxLength)
+            trajectory = ra.makeRandomRoute(railroad, self.maxLength)
             self.trajectories.append(trajectory)

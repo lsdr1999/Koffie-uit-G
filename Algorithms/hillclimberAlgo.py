@@ -10,7 +10,7 @@ def hillclimber(trainlining, railroad):
     extraScore = 0
     extraTrajectory = []
     if len(trainlining.trajectories) < trainlining.maxTrajectories:
-        extraTrajectory = ra.make_random_route(railroad, trainlining.maxLength)
+        extraTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
         trainlining.trajectories.append(extraTrajectory)
         extraScore = trainlining.calculateScore()
         trainlining.trajectories.remove(extraTrajectory)
@@ -22,7 +22,7 @@ def hillclimber(trainlining, railroad):
     intermediateScore = trainlining.calculateScore()
 
     # Insert a new randomly made trajectory and calculate score
-    newTrajectory = ra.make_random_route(railroad, trainlining.maxLength)
+    newTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
     trainlining.trajectories.append(newTrajectory)
     newScore = trainlining.calculateScore()
 

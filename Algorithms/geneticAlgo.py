@@ -12,7 +12,7 @@ def genetic(trainlining,railroad):
     mutationRate = 1
     population = makePopulation(trainlining, populationSize, railroad)
     highestScore = 0
-    besttrainlining = []
+    bestTrainlining = []
     counter = 0
 
     for i in range(generations):
@@ -21,7 +21,7 @@ def genetic(trainlining,railroad):
         standardizedScores = standardize(scores)
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
-        mutatedchildrenscore = 0
+        mutatedChildrenscore = 0
         for j in range(populationSize):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
@@ -29,18 +29,18 @@ def genetic(trainlining,railroad):
             mutatedChild = mutate(crossoverChild, railroad, trainlining, mutationRate)
             trainlining.trajectories = mutatedChild
             mutatedChildScore = trainlining.calculateScore()
-            mutatedchildrenscore += mutatedChildScore
+            mutatedChildrenscore += mutatedChildScore
 
             if mutatedChildScore > highestScore:
                 highestScore = mutatedChildScore
-                besttrainlining = mutatedChild
+                bestTrainlining = mutatedChild
             mutatedChildren.append(mutatedChild)
 
         newPopulation = tournament(trainlining, population, mutatedChildren)
 
         if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
-            trainlining.trajectories = besttrainlining
+            trainlining.trajectories = bestTrainlining
             trainlining.calculateScore()
             print(len(trainlining.visitedCriticalConnections))
 
@@ -51,14 +51,14 @@ def genetic(trainlining,railroad):
                 sum += score
             print(sum/len(newPopulation))
 
-            # print(mutatedchildrenscore/ 10))
+            # print(mutatedChildrenscore/ 10))
             # sum = 0
             # for child in mutatedChildren:
             #     sum += int(len(child))
             # print(sum/len(mutatedChildren))
 
         population = newPopulation
-    trainlining.trajectories = besttrainlining
+    trainlining.trajectories = bestTrainlining
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
 
@@ -69,7 +69,7 @@ def makePopulation(trainlining, populationSize, railroad):
     for i in range(populationSize):
         individual = []
         for i in range(trainlining.maxTrajectories):
-            trajectory = ra.make_random_route(railroad, trainlining.maxLength)
+            trajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
             individual.append(trajectory)
         populationList.append(individual)
 
@@ -112,22 +112,22 @@ def calculateProbabilities(standardizedScores, population):
 def chooseParents(population, probabilityScores, number):
     mergedList = list(zip(population, probabilityScores))
     r = random.random()
-    ParentsTrajectories = []
+    parentsTrajectories = []
     for i in range(int(number)):
         for (possibleParent, probability) in mergedList:
             if r < probability:
-                ParentsTrajectories.append(possibleParent)
+                parentsTrajectories.append(possibleParent)
                 break
             else:
                 r -= probability
 
-    return ParentsTrajectories
+    return parentsTrajectories
 
-def tournament(trainlining, parentpopulation, mutatedchildren):
+def tournament(trainlining, parentPopulation, mutatedChildren):
     participants = []
-    participants += parentpopulation
-    participants += mutatedchildren
-    newpopulation = []
+    participants += parentPopulation
+    participants += mutatedChildren
+    newPopulation = []
     while len(participants) > 0:
         participant1 = random.choice(participants)
         trainlining.trajectories = participant1
@@ -139,11 +139,11 @@ def tournament(trainlining, parentpopulation, mutatedchildren):
         score2 = trainlining.calculateScore()
 
         if score1 > score2:
-            newpopulation.append(participant1)
+            newPopulation.append(participant1)
         else:
-            newpopulation.append(participant2)
+            newPopulation.append(participant2)
 
-    return newpopulation
+    return newPopulation
 
 def crossover(parents, recombinationCoefficient):
     r = random.randint(0,1)
@@ -184,10 +184,10 @@ def mutate2(crossoverChild,railroad, trainlining, mutationRate):
         crossoverChild.remove(random.choice(crossoverChild))
 
     elif r == 2 and len(crossoverChild) < 20:
-        crossoverChild.append(make_random_route(railroad, trainlining.maxLength))
+        crossoverChild.append(makeRandomRoute(railroad, trainlining.maxLength))
 
     else:
         crossoverChild.remove(random.choice(crossoverChild))
-        crossoverChild.append(make_random_route(railroad, trainlining.maxLength))
+        crossoverChild.append(makeRandomRoute(railroad, trainlining.maxLength))
 
     return crossoverChild

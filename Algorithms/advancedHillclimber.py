@@ -77,21 +77,21 @@ def newScore(trainlining, iTraject, number, maxLength, railroad):
     newtrainlining = copy.deepcopy(trainlining)
 
     trajectoryLen = len(newTrajectory.visitedStations)
-    start_station = newTrajectory.visitedStations[0]
+    startStation = newTrajectory.visitedStations[0]
     for i in range(number):
         if newTrajectory.length < int(maxLength):
-            next_station = random.choice(railroad.station_dict[start_station].connections)
-            next_station_name = next_station[0]
-            time = next_station[1]
-            critical = next_station[2]
-            id = next_station[3]
+            nextStation = random.choice(railroad.station_dict[startStation].connections)
+            nextStationName = nextStation[0]
+            time = nextStation[1]
+            critical = nextStation[2]
+            id = nextStation[3]
 
             # check whether new connection does not exceed the maximal time of trajectory
             if newTrajectory.length + time < int(maxLength):
-                newTrajectory.addVisitedStations(next_station_name)
-                newTrajectory.addConnection(start_station, next_station_name, time, critical, id)
+                newTrajectory.addVisitedStations(nextStationName)
+                newTrajectory.addConnection(startStation, nextStationName, time, critical, id)
                 newTrajectory.calculateLength()
-                start_station = next_station_name
+                startStation = nextStationName
         else:
             break
 
@@ -102,7 +102,7 @@ def newScore(trainlining, iTraject, number, maxLength, railroad):
 def extraScore(trainlining, startTrajectory, railroad):
     extratrainlining = copy.deepcopy(trainlining)
     extraTrajectory = []
-    extraTrajectory = ra.make_random_route(railroad, trainlining.maxLength)
+    extraTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
     extratrainlining.trajectories.append(startTrajectory)
     extratrainlining.trajectories.append(extraTrajectory)
     extraScore = extratrainlining.calculateScore()
