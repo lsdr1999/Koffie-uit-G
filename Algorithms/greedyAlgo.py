@@ -1,21 +1,20 @@
 import random
-from randomAlgo import makeRandomRoute
+from algorithms import randomAlgo
+
 from classes import station
 from classes import railroad
-from classes import trajectory
-from station import Station
-from railroad import Railroad
-from traject import Trajectory
+from classes import trajectory as tj
+from classes import trainlining
 
 def greedy_traject(trainlining, railroad, maxLength):
 
     # Find random start station
     keylist = []
-    for key, value in railroad.station_dict.items():
+    for key, value in railroad.stationDict.items():
         keylist.append(key)
     startStation = random.choice(keylist)
-    traject = Trajectory(maxLength)
-    traject.addVisitedStations(startStation)
+    trajectory = tj.Trajectory(maxLength)
+    trajectory.addVisitedStations(startStation)
 
     # sorteer connection in railroad.station_dict[startStation].connections op de volgende manier:
         # niet bezocht en kritiek?
@@ -28,27 +27,23 @@ def greedy_traject(trainlining, railroad, maxLength):
 
     time = 0
 
-    while (traject.length < traject.calculateLength):
-        sorted = sorted(railroad.station_dict[startStation].connections, key = lambda connection:(connection[3].critical, connection[2]))
+    while (trajectory.length < trainlining.trackLength):
+        iets = sorted(railroad.stationDict[startStation].connections, key = lambda connection:(1- connection[2], connection[1]))
+        # print(iets)
 
-        for connection in sorted:
+        for connection in iets:
             nextStation = connection
-            if (nextStation[1] not in traject.visitedStations) and (not (((startStation, nextStation[1]) in traject.visitedCritical) or ((nextStation[1], startStation) in traject.visitedCritical))):
+            if (nextStation[0] not in trajectory.visitedStations) and (not (((startStation, nextStation[0]) in trajectory.visitedCritical) or ((nextStation[0], startStation) in trajectory.visitedCritical))):
                 break
 
         if nextStation:
             nextStationName = nextStation[0]
-
-            if nextStation[2].critical or startStation.critical:
-                traject.addVisitedCritical(nextStation[1])
-            traject.addVisitedStations(nextStationName)
-
-            time = nextStation[3]
+            trajectory.calculateVisitedCritical()
+            trajectory.addVisitedStations(nextStationName)
+            time = nextStation[1]
             startStation = nextStationName
 
         else:
             break
 
-    traject.calculateLength()
-
-    return ([traject.visitedStations, traject.length, traject.visitedCritical])
+    return ([trajectory.visitedStations, trajectory.length, trajectory.visitedCritical])
