@@ -6,8 +6,8 @@ from Classes import traject
 from Algorithms import hillclimber_algo as ha
 
 def genetic(dienstregeling,railroad):
-    populationSize = 40
-    generations = 1000
+    populationSize = 1000
+    generations = 100000
     recombinationCoefficient = 0.5
     mutationRate = 1
     population = makePopulation(dienstregeling, populationSize, railroad)
@@ -26,7 +26,7 @@ def genetic(dienstregeling,railroad):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
-            mutatedChild = mutate(crossoverChild, railroad, dienstregeling, mutationRate)
+            mutatedChild = mutate2(crossoverChild, railroad, dienstregeling, mutationRate)
             dienstregeling.trajectories = mutatedChild
             mutatedChildScore = dienstregeling.calculateScore()
             mutatedchildrenscore += mutatedChildScore
@@ -38,7 +38,7 @@ def genetic(dienstregeling,railroad):
 
         newPopulation = tournament(dienstregeling, population, mutatedChildren)
 
-        if (counter % 100) == 0:
+        if (counter % 10) == 0:
             print(f"counter: {counter} score: {highestScore}")
             dienstregeling.trajectories = bestDienstregeling
             dienstregeling.calculateScore()
@@ -184,10 +184,10 @@ def mutate2(crossoverChild,railroad, dienstregeling, mutationRate):
         crossoverChild.remove(random.choice(crossoverChild))
 
     elif r == 2 and len(crossoverChild) < 20:
-        crossoverChild.append(make_random_route(railroad, dienstregeling.maxLength))
+        crossoverChild.append(ra.make_random_route(railroad, dienstregeling.maxLength))
 
     else:
         crossoverChild.remove(random.choice(crossoverChild))
-        crossoverChild.append(make_random_route(railroad, dienstregeling.maxLength))
+        crossoverChild.append(ra.make_random_route(railroad, dienstregeling.maxLength))
 
     return crossoverChild
