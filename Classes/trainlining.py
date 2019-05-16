@@ -1,9 +1,9 @@
-from Classes import railroad
-from Classes import traject
-from Algorithms import random_algo as ra
-from Algorithms import hillclimber_algo
+from classes import railroad
+from classes import trajectory
+from algorithms import randomAlgo as ra
+from algorithms import hillclimberAlgo
 
-class Dienstregeling():
+class Trainlining():
 
     def __init__(self, maxTrajectories, maxLength, totalCritical):
         self.trajectories = [] # List of lists of the visited stations of trajectories
@@ -39,5 +39,5 @@ class Dienstregeling():
 
     def addTrajectories(self, railroad):
         for trajectory in range(self.maxTrajectories):
-            trajectory = ra.make_random_route(railroad, self.maxLength)
+            trajectory = ra.makeRandomRoute(railroad, self.maxLength)
             self.trajectories.append(trajectory)

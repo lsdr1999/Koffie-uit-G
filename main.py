@@ -1,13 +1,13 @@
 from sys import argv
-from Classes import railroad as rail
-from Algorithms import random_algo
-from Classes import dienstregeling as dr
-from Algorithms import advanced_hillclimber as ah
-from Algorithms import hillclimber_algo as ha
-from Algorithms import genetic_algo as ge
-# from Algorithms import greedy_algo as gr
-from Algorithms import new_hillclimber_algo as nha
-from visual import makeCard, makeGraph
+from classes import railroad as rail
+from algorithms import randomAlgo
+from classes import trainlining as tl
+from algorithms import advancedHillclimber as ah
+from algorithms import hillclimberAlgo as ha
+from algorithms import geneticAlgo as ge
+from algorithms import greedyAlgo as gr
+from helpers import visual
+from helpers import userInterface as UI
 
 
 if (len(argv) != 4):
@@ -26,72 +26,75 @@ railroad = rail.Railroad()
 railroad.loadStations()
 totalCritical = railroad.addTotalCritical()
 
-count_list = []
-score_list = []
+countList = []
+scoreList = []
 
-dienstregeling = dr.Dienstregeling(maxTrajectories, maxLength, totalCritical)
+trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 if algorithm == "random":
     counter = 0
     highestScore = 0
     for i in range(1):
-        dienstregeling.trajectories = []
+        trainlining.trajectories = []
         counter += 1
-        count_list.append(counter)
-        dienstregeling.addTrajectories(railroad)
-        score = dienstregeling.calculateScore()
+        countList.append(counter)
+        trainlining.addTrajectories(railroad)
+        score = trainlining.calculateScore()
         if score > highestScore:
             highestScore = score
-        score_list.append(highestScore)
+        scoreList.append(highestScore)
         if (counter % 100) == 0:
             print(f"counter: {counter} score: {highestScore}")
-    makeGraph(count_list, score_list)
+    visual.makeGraph(countList, scoreList)
+
+if algorithm == "greedy":
+    trainlining.addTrajectories(railroad)
+    counter = 0
+    for i in range(1):
+        counter += 1
+        gr.greedy_traject(trainlining, railroad, maxLength)
+        score = trainlining.calculateScore()
+        countList.append(counter)
+        scoreList.append(score)
+        if (counter % 1) == 0:
+            print(f"counter: {counter} score: {score}")
+    # visual.makeGraph(countList, scoreList)
+
+    for trajectory in trainlining.trajectories:
+        print(trajectory.visitedStations)
+        print("\n")
 
 if algorithm == "hillclimber":
-    dienstregeling.addTrajectories(railroad)
+    trainlining.addTrajectories(railroad)
     counter = 0
-    for i in range(100000):
+    for i in range(10000):
         counter += 1
-        ha.hillclimber(dienstregeling, railroad)
-        score = dienstregeling.calculateScore()
-        count_list.append(counter)
-        score_list.append(score)
+        ha.hillclimber(trainlining, railroad)
+        score = trainlining.calculateScore()
+        countList.append(counter)
+        scoreList.append(score)
         if (counter % 1000) == 0:
             print(f"counter: {counter} score: {score}")
-    makeGraph(count_list, score_list)
+    # visual.makeGraph(countList, scoreList)
 
-    for trajectory in dienstregeling.trajectories:
+    for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
         print("\n")
 
 if algorithm == "genetic":
-    ge.genetic(dienstregeling, railroad)
+    ge.genetic(trainlining, railroad)
 
-if algorithm == "newhillclimber":
-    dienstregeling.addTrajectories(railroad)
-    counter = 0
-    for i in range(1000):
-        counter += 1
-        nha.newHillclimber(dienstregeling, railroad, maxLength)
-        score = dienstregeling.calculateScore()
-        count_list.append(counter)
-        score_list.append(score)
-        if (counter % 1000) == 0:
-            print(f"counter: {counter} score: {score}")
-    makeGraph(count_list, score_list)
 
 if algorithm == "advancedhillclimber":
-    dienstregeling.addTrajectories(railroad)
+    trainlining.addTrajectories(railroad)
     counter = 0
     number = 1
     for i in range(10000):
         counter += 1
-        dienstregeling = ah.advancedHillclimber(dienstregeling, railroad, maxLength, number)
+        trainlining = ah.advancedHillclimber(trainlining, railroad, maxLength, number)
         if (counter % 100) == 0:
-            print(len(dienstregeling.trajectories))
-            score = dienstregeling.calculateScore()
+            print(len(trainlining.trajectories))
+            score = trainlining.calculateScore()
             print(f"counter: {counter} score: {score}")
 
 
-if algorithm == "greedy":
-    gr.greedy_traject(dienstregeling, railroad, maxLength)
-makeCard(railroad, dienstregeling)
+visual.makeCard(railroad, trainlining)
