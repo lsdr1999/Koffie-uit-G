@@ -4,7 +4,7 @@ import numpy as np
 import random
 
 def simAnnealing(railroad, trainlining):
-    runs = 10000
+    runs = 100000
     T = 1
     highestScore = 0
     countList = []
@@ -36,7 +36,7 @@ def getScores(railroad, trainlining):
     return info
 
 def calculateT(T):
-    T = T * 0.99
+    T = T * 0.9999
     return T
 
 def calculateSoftmax(scores, T):

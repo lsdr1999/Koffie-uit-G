@@ -174,7 +174,7 @@ def addCrossoverChild(length, parent):
 def mutate(crossoverChild, railroad, trainlining, mutationRate):
     trainlining.trajectories = crossoverChild
     for i in range(mutationRate):
-        ha.hillclimber(trainlining, railroad)
+        ha.hillclimber(railroad, trainlining, False)
     mutatedChild = trainlining.trajectories
 
     return mutatedChild

@@ -17,6 +17,7 @@ def runGreedy(railroad, trainlining, runs):
         trainlining.trajectories = []
         for trajectory in range(trainlining.maxTrajectories):
             trajectory = greedy_traject(railroad, trainlining)
+            trainlining.trajectories.append(trajectory)
         score = trainlining.calculateScore()
         countList.append(i)
         scoreList.append(highestScore)
@@ -36,27 +37,17 @@ def runGreedy(railroad, trainlining, runs):
 
 def greedy_traject(railroad, trainlining):
 
-    # Find random start station
     keylist = []
     for key, value in railroad.stationDict.items():
         keylist.append(key)
+
     startStation = random.choice(keylist)
     trajectory = tj.Trajectory(trainlining.maxLength)
     trajectory.addVisitedStations(startStation)
-
-    # sorteer connection in railroad.station_dict[startStation].connections op de volgende manier:
-        # niet bezocht en kritiek?
-        # kortste tijd?
-        # niet bezocht?
-    # maken van traject op basis van iteratie over sorted list
-            # niet bezocht en kritiek gevonden -> kies deze boven andere opties (onafhankelijk van tijd)
-            # korste tijd gevonden en niet kritiek in connections -> kies deze boven andere opties
-            # niet bezocht gevonden en niet kritiek of korte tijd -> kies dan deze , maar vervang wanneer mogelijk
-
     trajectory.calculateLength()
+
     while (trajectory.length < trainlining.maxLength):
         iets = sorted(railroad.stationDict[startStation].connections, key = lambda connection:(1- connection[2], connection[1]))
-        # print(iets)
 
         counter = 0
         for connection in iets:

@@ -27,7 +27,7 @@ def runRandom(railroad, trainlining, runs):
         sum += score
     average = sum/runs
     print(average)
-    visual.makeGraph(railroad, bestTrainLining)
+    visual.makeCard(railroad, bestTrainLining)
     for trajectory in bestTrainLining.trajectories:
         print(trajectory.visitedStations)
         print("\n")
