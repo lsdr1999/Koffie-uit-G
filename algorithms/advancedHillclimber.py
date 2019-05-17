@@ -2,7 +2,7 @@ import copy
 import random
 from algorithms import randomAlgo as ra
 
-def advancedHillclimber(trainlining, railroad, maxLength, number):
+def advancedHillclimber(trainlining, railroad, number):
     old = trainlining.calculateScore()
     startTrajectory = random.choice(trainlining.trajectories)
     trainlining.trajectories.remove(startTrajectory)
@@ -14,7 +14,7 @@ def advancedHillclimber(trainlining, railroad, maxLength, number):
     iDienst = intermediateInfo[2]
 
     if len(iTraject.visitedStations) != 0:
-        newInfo= newScore(trainlining, iTraject, number, maxLength, railroad)
+        newInfo= newScore(trainlining, iTraject, number, railroad)
         new = newInfo[0]
         Trajectory = newInfo[1]
         nDienst = newInfo[2]
@@ -43,7 +43,7 @@ def advancedHillclimber(trainlining, railroad, maxLength, number):
         trainlining = nDienst
     elif extra > old and extra > start and extra > intermediate and extra > new:
         trainlining = eDienst
-        if len(trainlining.trajectories) < int(maxLength) and \
+        if len(trainlining.trajectories) < int(trainlining.maxLength) and \
             start > intermediate and start > new:
             trainlining.trajectories.append(startTrajectory)
 
@@ -72,24 +72,24 @@ def intermediateScore(trainlining, startTrajectory, number):
     intermediateScore = intermediatetrainlining.calculateScore()
     return intermediateScore, intermediateTrajectory, intermediatetrainlining
 
-def newScore(trainlining, iTraject, number, maxLength, railroad):
+def newScore(trainlining, iTraject, number, railroad):
     newTrajectory = copy.deepcopy(iTraject)
     newtrainlining = copy.deepcopy(trainlining)
 
     trajectoryLen = len(newTrajectory.visitedStations)
     startStation = newTrajectory.visitedStations[0]
     for i in range(number):
-        if newTrajectory.length < int(maxLength):
-            nextStation = random.choice(railroad.station_dict[startStation].connections)
+        if newTrajectory.length < int(trainlining.maxLength):
+            nextStation = random.choice(railroad.stationDict[startStation].connections)
             nextStationName = nextStation[0]
             time = nextStation[1]
             critical = nextStation[2]
             id = nextStation[3]
 
             # check whether new connection does not exceed the maximal time of trajectory
-            if newTrajectory.length + time < int(maxLength):
-                newTrajectory.addVisitedStations(nextStationName)
-                newTrajectory.addConnection(startStation, nextStationName, time, critical, id)
+            if newTrajectory.length + time < int(trainlining.maxLength):
+                newTrajectory.visitedStations.insert(0, nextStationName)
+                newTrajectory.connections.insert(0, [startStation, nextStationName, time, critical, id])
                 newTrajectory.calculateLength()
                 startStation = nextStationName
         else:
@@ -102,7 +102,7 @@ def newScore(trainlining, iTraject, number, maxLength, railroad):
 def extraScore(trainlining, startTrajectory, railroad):
     extratrainlining = copy.deepcopy(trainlining)
     extraTrajectory = []
-    extraTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
+    extraTrajectory = ra.makeRandomRoute(railroad, trainlining)
     extratrainlining.trajectories.append(startTrajectory)
     extratrainlining.trajectories.append(extraTrajectory)
     extraScore = extratrainlining.calculateScore()

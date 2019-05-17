@@ -1,8 +1,24 @@
 import random
 from algorithms import randomAlgo as ra
+from helpers import visual
 
-def hillclimber(trainlining, railroad):
+def runHillclimber(railroad, trainlining, runs):
+    highestScore = 0
+    countList = []
+    scoreList = []
+    sim = False
+    trainlining.addTrajectories(railroad)
+    for i in range(runs):
+        countList.append(i)
+        hillclimber(railroad, trainlining, sim)
+        score = trainlining.calculateScore()
+        scoreList.append(highestScore)
+        if ((i - 1) % 100) == 0:
+            print(f"counter: {(i-1)} score: {score}")
 
+    visual.makeCard(railroad, trainlining)
+
+def hillclimber(railroad, trainlining, sim):
     # Calculate the old score
     oldScore = trainlining.calculateScore()
 
@@ -10,7 +26,7 @@ def hillclimber(trainlining, railroad):
     extraScore = 0
     extraTrajectory = []
     if len(trainlining.trajectories) < trainlining.maxTrajectories:
-        extraTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
+        extraTrajectory = ra.makeRandomRoute(railroad, trainlining)
         trainlining.trajectories.append(extraTrajectory)
         extraScore = trainlining.calculateScore()
         trainlining.trajectories.remove(extraTrajectory)
@@ -22,14 +38,15 @@ def hillclimber(trainlining, railroad):
     intermediateScore = trainlining.calculateScore()
 
     # Insert a new randomly made trajectory and calculate score
-    newTrajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
+    newTrajectory = ra.makeRandomRoute(railroad, trainlining)
     trainlining.trajectories.append(newTrajectory)
     newScore = trainlining.calculateScore()
 
-    # if the new score is the highest, return
+    if sim:
+        return [newScore, oldScore, intermediateScore, extraScore], [trainlining, newTrajectory, changeTrajectory, extraTrajectory]
+
     if newScore > oldScore and newScore > intermediateScore and newScore > extraScore:
         return
-
     # If the intermediate score was the highest, change back
     if intermediateScore > oldScore and intermediateScore > newScore and intermediateScore > extraScore:
         trainlining.trajectories.remove(newTrajectory)
@@ -44,3 +61,5 @@ def hillclimber(trainlining, railroad):
         trainlining.trajectories.remove(newTrajectory)
         trainlining.trajectories.append(changeTrajectory)
         trainlining.trajectories.append(extraTrajectory)
+
+    return trainlining

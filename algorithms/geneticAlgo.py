@@ -4,16 +4,11 @@ from algorithms import randomAlgo as ra
 from classes import trainlining
 from classes import trajectory
 from algorithms import hillclimberAlgo as ha
+from algorithms import advancedHillclimber as ahc
 
-<<<<<<< HEAD:Algorithms/genetic_algo.py
-def genetic(dienstregeling,railroad):
-    populationSize = 1000
-    generations = 100000
-=======
 def genetic(trainlining,railroad):
     populationSize = 40
-    generations = 1000
->>>>>>> 53b39d439f26cbf3a1315ee5ebf000343edbd574:Algorithms/geneticAlgo.py
+    generations = 50000
     recombinationCoefficient = 0.5
     mutationRate = 1
     population = makePopulation(trainlining, populationSize, railroad)
@@ -27,22 +22,15 @@ def genetic(trainlining,railroad):
         standardizedScores = standardize(scores)
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
-        mutatedChildrenscore = 0
+        mutatedChildrenScore = 0
         for j in range(populationSize):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
-<<<<<<< HEAD:Algorithms/genetic_algo.py
-            mutatedChild = mutate2(crossoverChild, railroad, dienstregeling, mutationRate)
-            dienstregeling.trajectories = mutatedChild
-            mutatedChildScore = dienstregeling.calculateScore()
-            mutatedchildrenscore += mutatedChildScore
-=======
             mutatedChild = mutate(crossoverChild, railroad, trainlining, mutationRate)
             trainlining.trajectories = mutatedChild
             mutatedChildScore = trainlining.calculateScore()
-            mutatedChildrenscore += mutatedChildScore
->>>>>>> 53b39d439f26cbf3a1315ee5ebf000343edbd574:Algorithms/geneticAlgo.py
+            mutatedChildrenScore += mutatedChildScore
 
             if mutatedChildScore > highestScore:
                 highestScore = mutatedChildScore
@@ -82,7 +70,7 @@ def makePopulation(trainlining, populationSize, railroad):
     for i in range(populationSize):
         individual = []
         for i in range(trainlining.maxTrajectories):
-            trajectory = ra.makeRandomRoute(railroad, trainlining.maxLength)
+            trajectory = ra.makeRandomRoute(railroad, trainlining)
             individual.append(trajectory)
         populationList.append(individual)
 
@@ -196,19 +184,11 @@ def mutate2(crossoverChild,railroad, trainlining, mutationRate):
     if r == 1:
         crossoverChild.remove(random.choice(crossoverChild))
 
-    elif r == 2 and len(crossoverChild) < 20:
-<<<<<<< HEAD:Algorithms/genetic_algo.py
-        crossoverChild.append(ra.make_random_route(railroad, dienstregeling.maxLength))
+    elif r == 2 and len(crossoverChild) < trainlining.maxTrajectories:
+        crossoverChild.append(ra.makeRandomRoute(railroad, trainlining))
 
     else:
         crossoverChild.remove(random.choice(crossoverChild))
-        crossoverChild.append(ra.make_random_route(railroad, dienstregeling.maxLength))
-=======
-        crossoverChild.append(makeRandomRoute(railroad, trainlining.maxLength))
-
-    else:
-        crossoverChild.remove(random.choice(crossoverChild))
-        crossoverChild.append(makeRandomRoute(railroad, trainlining.maxLength))
->>>>>>> 53b39d439f26cbf3a1315ee5ebf000343edbd574:Algorithms/geneticAlgo.py
+        crossoverChild.append(ra.makeRandomRoute(railroad, trainlining))
 
     return crossoverChild
