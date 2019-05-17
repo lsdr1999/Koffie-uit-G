@@ -6,6 +6,7 @@ from algorithms import advancedHillclimber as ah
 from algorithms import hillclimberAlgo as ha
 from algorithms import geneticAlgo as ge
 from algorithms import greedyAlgo as gr
+from algorithms import randomAlgo as ra
 from helpers import visual
 from helpers import userInterface as UI
 
@@ -25,39 +26,19 @@ algorithm = argv[3]
 railroad = rail.Railroad()
 railroad.loadStations()
 totalCritical = railroad.addTotalCritical()
+trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 
 countList = []
 scoreList = []
 
-trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
+runs = 1000
+
+
 if algorithm == "random":
-    counter = 0
-    highestScore = 0
-    for i in range(1):
-        trainlining.trajectories = []
-        counter += 1
-        countList.append(counter)
-        trainlining.addTrajectories(railroad)
-        score = trainlining.calculateScore()
-        if score > highestScore:
-            highestScore = score
-        scoreList.append(highestScore)
-        if (counter % 100) == 0:
-            print(f"counter: {counter} score: {highestScore}")
-    visual.makeGraph(countList, scoreList)
+    ra.runRandom(railroad, trainlining, runs)
 
 if algorithm == "greedy":
-    trainlining.addTrajectories(railroad)
-    counter = 0
-    for i in range(1):
-        counter += 1
-        gr.greedy_traject(trainlining, railroad, maxLength)
-        score = trainlining.calculateScore()
-        countList.append(counter)
-        scoreList.append(score)
-        if (counter % 1) == 0:
-            print(f"counter: {counter} score: {score}")
-    # visual.makeGraph(countList, scoreList)
+    gr.runGreedy(railroad, trainlining, runs)
 
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)

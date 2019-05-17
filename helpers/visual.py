@@ -8,7 +8,7 @@ import csv
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
 
-def makeCard(railroad, dienstregeling):
+def makeCard(railroad, trainlining):
     style.use('classic')
     criticalCoordinates = []
     normalCoordinates = []
@@ -68,7 +68,7 @@ def makeCard(railroad, dienstregeling):
     xNormal = []
     yNormal = []
 
-    for trajectory in dienstregeling.trajectories:
+    for trajectory in trainlining.trajectories:
         for connection in trajectory.connections:
             for key, value in railroad.connections.items():
                 if (connection[0] == value[0] and connection[1] == value[1]) or \
