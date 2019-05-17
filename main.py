@@ -9,6 +9,7 @@ from algorithms import greedyAlgo as gr
 from algorithms import randomAlgo as ra
 from helpers import visual
 from helpers import userInterface as UI
+from algorithms import simulatedAnnealing as sa
 
 
 if (len(argv) != 4):
@@ -45,23 +46,7 @@ if algorithm == "greedy":
         print("\n")
 
 if algorithm == "hillclimber":
-    trainlining.addTrajectories(railroad)
-    counter = 0
-    highestScore = 0
-    for i in range(10000):
-        counter += 1
-        ha.hillclimber(trainlining, railroad)
-        score = trainlining.calculateScore()
-        countList.append(counter)
-        scoreList.append(score)
-        if (counter % 1000) == 0:
-            print(f"counter: {counter} score: {score}")
-
-    # visual.makeGraph(countList, scoreList)
-
-    for trajectory in trainlining.trajectories:
-        print(trajectory.visitedStations)
-        print("\n")
+    ha.runHillclimber(railroad, trainlining, runs)
 
 if algorithm == "genetic":
     ge.genetic(trainlining, railroad)
@@ -81,5 +66,7 @@ if algorithm == "advancedhillclimber":
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
 
+if algorithm == "simulatedannealing":
+    sa.simAnnealing(railroad, trainlining)
 
-visual.makeCard(railroad, trainlining)
+# visual.makeCard(railroad, trainlining)
