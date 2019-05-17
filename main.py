@@ -47,6 +47,7 @@ if algorithm == "greedy":
 if algorithm == "hillclimber":
     trainlining.addTrajectories(railroad)
     counter = 0
+    highestScore = 0
     for i in range(10000):
         counter += 1
         ha.hillclimber(trainlining, railroad)
@@ -55,6 +56,7 @@ if algorithm == "hillclimber":
         scoreList.append(score)
         if (counter % 1000) == 0:
             print(f"counter: {counter} score: {score}")
+
     # visual.makeGraph(countList, scoreList)
 
     for trajectory in trainlining.trajectories:
@@ -69,13 +71,15 @@ if algorithm == "advancedhillclimber":
     trainlining.addTrajectories(railroad)
     counter = 0
     number = 1
-    for i in range(10000):
+    for i in range(1000):
         counter += 1
-        trainlining = ah.advancedHillclimber(trainlining, railroad, maxLength, number)
+        trainlining = ah.advancedHillclimber(trainlining, railroad, number)
         if (counter % 100) == 0:
             print(len(trainlining.trajectories))
             score = trainlining.calculateScore()
             print(f"counter: {counter} score: {score}")
+    for trajectory in trainlining.trajectories:
+        print(trajectory.visitedStations)
 
 
 visual.makeCard(railroad, trainlining)
