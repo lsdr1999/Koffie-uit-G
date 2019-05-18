@@ -1,21 +1,40 @@
 from algorithms import hillclimberAlgo as ha
+from algorithms import advancedHillclimber as ah
 from helpers import visual
 import numpy as np
 import random
 
 def simAnnealing(railroad, trainlining):
+    print("Would you like to use basic hillclimber or andvanced hillclimber?")
+    while True:
+        csvChoice = input("Type 'B' to select basic, type 'A' for Advanced: \n")
+        if csvChoice == "A" or csvChoice == "a":
+            print("You have chosen Advanced.")
+            basic = False
+            break
+        elif csvChoice == "b" or csvChoice == "B":
+            print("you have chosen Basic.")
+            basic = True
+            break
+        else:
+            print("Invalid input! Please type in 'a' or 'b'")
+
     runs = 100000
     T = 1
     highestScore = 0
     countList = []
     scoreList = []
-    scoreNames = ["newScore", "oldScore", "intermediateScore", "extraScore" ]
+    if basic:
+        scoreNames = ["newScore", "oldScore", "intermediateScore", "extraScore"]
+    else:
+        scoreNames = ["startScore", "oldScore", "intermediateScore", "newScore", "extraScore"]
+
     trainlining.addTrajectories(railroad)
     for i in range(runs):
-        info = getScores(railroad, trainlining)
+        info = getScores(railroad, trainlining, basic)
         probabilityScores = calculateSoftmax(info[0], T)
         winner = chooseTrajectoryChange(probabilityScores, scoreNames)
-        trainlining = changeTrainLining(winner, info[1])
+        trainlining = changeTrainLining(winner, info[1], basic)
         T = calculateT(T)
         score = trainlining.calculateScore()
 
@@ -33,8 +52,11 @@ def simAnnealing(railroad, trainlining):
         print(trajectory.visitedStations)
 
 
-def getScores(railroad, trainlining):
-    info = ha.hillclimber(railroad, trainlining, True)
+def getScores(railroad, trainlining, basic):
+    if basic:
+        info = ha.hillclimber(railroad, trainlining, True)
+    else:
+        info = ah.advancedHillclimber(railroad, trainlining, True)
 
     return info
 
@@ -60,24 +82,45 @@ def chooseTrajectoryChange(probabilityScores, scoreNames):
         else:
             r -= probabilityScore
 
-def changeTrainLining(winner, trajectories):
-    trainlining = trajectories[0]
-    newTrajectory = trajectories[1]
-    changeTrajectory = trajectories[2]
-    extraTrajectory = trajectories[3]
+def changeTrainLining(winner, trajectories, basic):
+    if basic:
+        trainlining = trajectories[0]
+        newTrajectory = trajectories[1]
+        changeTrajectory = trajectories[2]
+        extraTrajectory = trajectories[3]
 
 
-    if winner == "intermediateScore":
-        trainlining.trajectories.remove(newTrajectory)
+        if winner == "intermediateScore":
+            trainlining.trajectories.remove(newTrajectory)
 
-    if winner == "oldScore":
-        trainlining.trajectories.remove(newTrajectory)
-        trainlining.trajectories.append(changeTrajectory)
+        if winner == "oldScore":
+            trainlining.trajectories.remove(newTrajectory)
+            trainlining.trajectories.append(changeTrajectory)
 
-    if winner == "extraScore":
-        trainlining.trajectories.remove(newTrajectory)
-        trainlining.trajectories.append(changeTrajectory)
-        if extraTrajectory != []:
-            trainlining.trajectories.append(extraTrajectory)
+        if winner == "extraScore":
+            trainlining.trajectories.remove(newTrajectory)
+            trainlining.trajectories.append(changeTrajectory)
+            if extraTrajectory != []:
+                trainlining.trajectories.append(extraTrajectory)
+    else:
+        trainlining = trajectories[0]
+        startTrajectory = trajectories[1]
+        iTrain = trajectories[2]
+        nTrain = trajectories[3]
+        eTrain = trajectories[4]
+
+        if winner == "oldScore":
+            trainlining.trajectories.append(startTrajectory)
+
+        if winner == "intermediateScore":
+            trainlining = iTrain
+
+        if winner == "newScore":
+            trainlining = nTrain
+
+        if winner == "extraScore":
+            trainlining.trajectories.append(startTrajectory)
+            if len(trainlining.trajectories) < trainlining.maxTrajectories:
+                trainlining = eTrain
 
     return trainlining

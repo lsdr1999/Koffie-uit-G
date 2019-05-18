@@ -9,7 +9,6 @@ def runAdvancedHillclimber(railroad, trainlining):
 
     for i in range(10000):
         trainlining = advancedHillclimber(trainlining, railroad)
-        print(len(trainlining.trajectories))
         if (i - 1 % 100) == 0:
             score = trainlining.calculateScore()
             print(f"counter: {i-1} score: {score}")
@@ -17,25 +16,21 @@ def runAdvancedHillclimber(railroad, trainlining):
         print(trajectory.visitedStations)
     visual.makeCard(railroad, trainlining)
 
-def advancedHillclimber(trainlining, railroad):
+def advancedHillclimber(railroad, trainlining, sim):
     number = random.randint(1,10)
-    print(number)
     old = trainlining.calculateScore()
     startTrajectory = random.choice(trainlining.trajectories)
-    print(startTrajectory.visitedStations)
     trainlining.trajectories.remove(startTrajectory)
     start = startScore(trainlining, startTrajectory)
 
     intermediateInfo = intermediateScore(trainlining, startTrajectory, number)
     intermediate = intermediateInfo[0]
     iTraject = intermediateInfo[1]
-    print(iTraject.visitedStations)
     iTrain = intermediateInfo[2]
 
     newInfo= newScore(trainlining, iTraject, number, railroad)
     new = newInfo[0]
     nTraject = newInfo[1]
-    print(nTraject.visitedStations)
     nTrain = newInfo[2]
 
 
@@ -43,30 +38,22 @@ def advancedHillclimber(trainlining, railroad):
     extra = extraInfo[0]
     eTrain = extraInfo[1]
 
-    print(old)
-    print(start)
-    print(intermediate)
-    print(new)
-    print(extra)
-    print("\n")
+    if sim:
+        return [start, old, intermediate, new, extra], [trainlining, startTrajectory, iTrain, nTrain, eTrain]
 
     trainlining.trajectories.append(startTrajectory)
 
     if extra > old and extra > start and extra > intermediate and extra > new and len(trainlining.trajectories) < trainlining.maxTrajectories:
         trainlining = eTrain
-        print("e1")
 
     elif start >= old and start >= intermediate and start >= extra and start >= new:
         trainlining.trajectories.remove(startTrajectory)
-        print("start")
 
     elif intermediate > old and intermediate > start and intermediate > new and intermediate > extra:
         trainlining = iTrain
-        print("inter")
 
     elif new >= old and new > start and new >= intermediate and new > extra:
         trainlining = nTrain
-        print("new")
 
 
     trainlining.calculateScore()
@@ -102,7 +89,6 @@ def newScore(trainlining, iTraject, number, railroad):
         time = nextStation[1]
         critical = nextStation[2]
         id = nextStation[3]
-        print(newTrajectory.length)
         # check whether new connection does not exceed the maximal time of trajectory
         if newTrajectory.length + time < int(newTrajectory.maxLength):
             newTrajectory.visitedStations.insert(0, nextStationName)
