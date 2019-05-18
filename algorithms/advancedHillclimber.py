@@ -1,51 +1,73 @@
 import copy
 import random
 from algorithms import randomAlgo as ra
+from helpers import visual
+import random
 
-def advancedHillclimber(trainlining, railroad, number):
+def runAdvancedHillclimber(railroad, trainlining):
+    trainlining.addTrajectories(railroad)
+
+    for i in range(10000):
+        trainlining = advancedHillclimber(trainlining, railroad)
+        print(len(trainlining.trajectories))
+        if (i - 1 % 100) == 0:
+            score = trainlining.calculateScore()
+            print(f"counter: {i-1} score: {score}")
+    for trajectory in trainlining.trajectories:
+        print(trajectory.visitedStations)
+    visual.makeCard(railroad, trainlining)
+
+def advancedHillclimber(trainlining, railroad):
+    number = random.randint(1,10)
+    print(number)
     old = trainlining.calculateScore()
     startTrajectory = random.choice(trainlining.trajectories)
+    print(startTrajectory.visitedStations)
     trainlining.trajectories.remove(startTrajectory)
     start = startScore(trainlining, startTrajectory)
 
     intermediateInfo = intermediateScore(trainlining, startTrajectory, number)
     intermediate = intermediateInfo[0]
     iTraject = intermediateInfo[1]
-    iDienst = intermediateInfo[2]
+    print(iTraject.visitedStations)
+    iTrain = intermediateInfo[2]
 
-    if len(iTraject.visitedStations) != 0:
-        newInfo= newScore(trainlining, iTraject, number, railroad)
-        new = newInfo[0]
-        Trajectory = newInfo[1]
-        nDienst = newInfo[2]
+    newInfo= newScore(trainlining, iTraject, number, railroad)
+    new = newInfo[0]
+    nTraject = newInfo[1]
+    print(nTraject.visitedStations)
+    nTrain = newInfo[2]
 
-    else:
-        new = 0
 
     extraInfo = extraScore(trainlining, startTrajectory, railroad)
     extra = extraInfo[0]
-    eDienst = extraInfo[1]
+    eTrain = extraInfo[1]
 
-    # print(old)
-    # print(start)
-    # print(intermediate)
-    # print(new)
-    # print(extra)
-    # print("\n")
+    print(old)
+    print(start)
+    print(intermediate)
+    print(new)
+    print(extra)
+    print("\n")
 
-    if old >= start and old >= intermediate and old >= new and old >= extra:
-        trainlining.trajectories.append(startTrajectory)
+    trainlining.trajectories.append(startTrajectory)
+
+    if extra > old and extra > start and extra > intermediate and extra > new and len(trainlining.trajectories) < trainlining.maxTrajectories:
+        trainlining = eTrain
+        print("e1")
+
+    elif start >= old and start >= intermediate and start >= extra and start >= new:
+        trainlining.trajectories.remove(startTrajectory)
+        print("start")
 
     elif intermediate > old and intermediate > start and intermediate > new and intermediate > extra:
-        trainlining = iDienst
+        trainlining = iTrain
+        print("inter")
 
-    elif new > old and new > start and new > intermediate and new > extra:
-        trainlining = nDienst
-    elif extra > old and extra > start and extra > intermediate and extra > new:
-        trainlining = eDienst
-        if len(trainlining.trajectories) < int(trainlining.maxLength) and \
-            start > intermediate and start > new:
-            trainlining.trajectories.append(startTrajectory)
+    elif new >= old and new > start and new >= intermediate and new > extra:
+        trainlining = nTrain
+        print("new")
+
 
     trainlining.calculateScore()
     return trainlining
@@ -63,12 +85,7 @@ def intermediateScore(trainlining, startTrajectory, number):
             intermediateTrajectory.visitedStations.pop()
             intermediateTrajectory.connections.pop()
 
-    if len(intermediateTrajectory.connections) > 0:
-        intermediateTrajectory.calculateLength()
-        intermediatetrainlining.trajectories.append(intermediateTrajectory)
-    else:
-        intermediateTrajectory.visitedStations = []
-
+    intermediatetrainlining.trajectories.append(intermediateTrajectory)
     intermediateScore = intermediatetrainlining.calculateScore()
     return intermediateScore, intermediateTrajectory, intermediatetrainlining
 
@@ -78,20 +95,20 @@ def newScore(trainlining, iTraject, number, railroad):
 
     trajectoryLen = len(newTrajectory.visitedStations)
     startStation = newTrajectory.visitedStations[0]
-    for i in range(number):
-        if newTrajectory.length < int(trainlining.maxLength):
-            nextStation = random.choice(railroad.stationDict[startStation].connections)
-            nextStationName = nextStation[0]
-            time = nextStation[1]
-            critical = nextStation[2]
-            id = nextStation[3]
 
-            # check whether new connection does not exceed the maximal time of trajectory
-            if newTrajectory.length + time < int(trainlining.maxLength):
-                newTrajectory.visitedStations.insert(0, nextStationName)
-                newTrajectory.connections.insert(0, [startStation, nextStationName, time, critical, id])
-                newTrajectory.calculateLength()
-                startStation = nextStationName
+    for i in range(number):
+        nextStation = random.choice(railroad.stationDict[startStation].connections)
+        nextStationName = nextStation[0]
+        time = nextStation[1]
+        critical = nextStation[2]
+        id = nextStation[3]
+        print(newTrajectory.length)
+        # check whether new connection does not exceed the maximal time of trajectory
+        if newTrajectory.length + time < int(newTrajectory.maxLength):
+            newTrajectory.visitedStations.insert(0, nextStationName)
+            newTrajectory.connections.insert(0, [startStation, nextStationName, time, critical, id])
+            newTrajectory.calculateLength()
+            startStation = nextStationName
         else:
             break
 
@@ -101,7 +118,6 @@ def newScore(trainlining, iTraject, number, railroad):
 
 def extraScore(trainlining, startTrajectory, railroad):
     extratrainlining = copy.deepcopy(trainlining)
-    extraTrajectory = []
     extraTrajectory = ra.makeRandomRoute(railroad, trainlining)
     extratrainlining.trajectories.append(startTrajectory)
     extratrainlining.trajectories.append(extraTrajectory)

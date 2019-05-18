@@ -25,9 +25,12 @@ def simAnnealing(railroad, trainlining):
 
         if ((i - 1) % 1000) == 0:
             print(f"counter: {(i-1)} score: {score} T = {T}")
-            print(f"highest score: {highestScore}")
+            print(f"highest score: {highestScore} length {trainlining.trackLength}")
+
 
     visual.makeCard(railroad, bestTrainLining)
+    for trajectory in bestTrainLining.trajectories:
+        print(trajectory.visitedStations)
 
 
 def getScores(railroad, trainlining):

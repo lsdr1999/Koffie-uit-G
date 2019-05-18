@@ -19,7 +19,6 @@ def runHillclimber(railroad, trainlining, runs):
     visual.makeCard(railroad, trainlining)
 
 def hillclimber(railroad, trainlining, sim):
-    # Calculate the old score
     oldScore = trainlining.calculateScore()
 
     # Insert a new randomly made trajectory and calculate score

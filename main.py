@@ -32,7 +32,8 @@ trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 countList = []
 scoreList = []
 
-runs = 1000
+runs = 1
+
 
 
 if algorithm == "random":
@@ -53,18 +54,8 @@ if algorithm == "genetic":
 
 
 if algorithm == "advancedhillclimber":
-    trainlining.addTrajectories(railroad)
-    counter = 0
-    number = 1
-    for i in range(1000):
-        counter += 1
-        trainlining = ah.advancedHillclimber(trainlining, railroad, number)
-        if (counter % 100) == 0:
-            print(len(trainlining.trajectories))
-            score = trainlining.calculateScore()
-            print(f"counter: {counter} score: {score}")
-    for trajectory in trainlining.trajectories:
-        print(trajectory.visitedStations)
+    ah.runAdvancedHillclimber(railroad, trainlining)
+
 
 if algorithm == "simulatedannealing":
     sa.simAnnealing(railroad, trainlining)
