@@ -4,39 +4,32 @@ from helpers import visual
 import numpy as np
 import random
 
-def simAnnealing(railroad, trainlining):
-    print("Would you like to use basic hillclimber or andvanced hillclimber?")
-    while True:
-        csvChoice = input("Type 'B' to select basic, type 'A' for Advanced: \n")
-        if csvChoice == "A" or csvChoice == "a":
-            print("You have chosen Advanced.")
-            basic = False
-            break
-        elif csvChoice == "b" or csvChoice == "B":
-            print("you have chosen Basic.")
-            basic = True
-            break
-        else:
-            print("Invalid input! Please type in 'a' or 'b'")
+def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
+    if hill == "a":
+        basic = False
+    else:
+        basic = True
 
-    runs = 100000
     T = 1
     highestScore = 0
     countList = []
     scoreList = []
+
     if basic:
         scoreNames = ["newScore", "oldScore", "intermediateScore", "extraScore"]
     else:
         scoreNames = ["startScore", "oldScore", "intermediateScore", "newScore", "extraScore"]
 
     trainlining.addTrajectories(railroad)
-    for i in range(runs):
+    for i in range(int(runs)):
+        countList.append(i)
         info = getScores(railroad, trainlining, basic)
         probabilityScores = calculateSoftmax(info[0], T)
         winner = chooseTrajectoryChange(probabilityScores, scoreNames)
         trainlining = changeTrainLining(winner, info[1], basic)
         T = calculateT(T)
         score = trainlining.calculateScore()
+        scoreList.append(score)
 
         if score > highestScore:
             highestScore = score
@@ -46,10 +39,16 @@ def simAnnealing(railroad, trainlining):
             print(f"counter: {(i-1)} score: {score} T = {T}")
             print(f"highest score: {highestScore} length {trainlining.trackLength}")
 
-
-    visual.makeCard(railroad, bestTrainLining)
     for trajectory in bestTrainLining.trajectories:
         print(trajectory.visitedStations)
+
+    if algorithm == "all":
+        list = [countList, scoreList]
+        return list
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+    elif image == "visual":
+        visual.makeCard(railroad, trainlining)
 
 
 def getScores(railroad, trainlining, basic):
@@ -67,7 +66,7 @@ def calculateT(T):
 def calculateSoftmax(scores, T):
     newScores = []
     for score in scores:
-        score = score/(1000 * T)
+        score = score / (1000 * T)
         newScores.append(score)
 
     scores = np.array(newScores)

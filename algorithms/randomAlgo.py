@@ -4,12 +4,13 @@ from classes import railroad
 from classes import trajectory as tj
 from helpers import visual
 
-def runRandom(railroad, trainlining, runs):
+def runRandom(railroad, trainlining, algorithm, runs, image):
     highestScore = 0
     countList = []
     scoreList = []
     averageList = []
-    for i in range(runs):
+
+    for i in range(int(runs)):
         trainlining.trajectories = []
         countList.append(i)
         trainlining.addTrajectories(railroad)
@@ -25,13 +26,20 @@ def runRandom(railroad, trainlining, runs):
     sum = 0
     for score in averageList:
         sum += score
-    average = sum/runs
+    average = sum / int(runs)
     print(average)
-    visual.makeCard(railroad, bestTrainLining)
+
     for trajectory in bestTrainLining.trajectories:
         print(trajectory.visitedStations)
         print("\n")
 
+    if algorithm == "all":
+        list = [countList, scoreList]
+        return list
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+    else:
+        visual.makeCard(railroad, bestTrainLining)
 
 
 def makeRandomRoute(railroad, trainlining):

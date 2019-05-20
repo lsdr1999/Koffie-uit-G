@@ -315,12 +315,7 @@ int(maxTrajectories) > 30:
                 if hill != "a" and hill != "n":
                     print("     invalid input!\n")
                     continue
-
-                elif hill == "a":
-                    hill = advancedHillclimber
-
-                elif hill == "n":
-                    hill = hillclimber
+                break
 
         elif algorithm.lower() == "all":
             infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 10000, "graph"]

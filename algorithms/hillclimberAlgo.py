@@ -2,21 +2,26 @@ import random
 from algorithms import randomAlgo as ra
 from helpers import visual
 
-def runHillclimber(railroad, trainlining, runs):
-    highestScore = 0
+def runHillclimber(railroad, trainlining, runs, algorithm, image):
     countList = []
     scoreList = []
     sim = False
     trainlining.addTrajectories(railroad)
-    for i in range(runs):
+    for i in range(int(runs)):
         countList.append(i)
         hillclimber(railroad, trainlining, sim)
         score = trainlining.calculateScore()
-        scoreList.append(highestScore)
+        scoreList.append(score)
         if ((i - 1) % 100) == 0:
             print(f"counter: {(i-1)} score: {score}")
 
-    visual.makeCard(railroad, trainlining)
+    if algorithm == "all":
+        list = [countList, scoreList]
+    elif image == "visual":
+        visual.makeCard(railroad, trainlining)
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+    return score
 
 def hillclimber(railroad, trainlining, sim):
     oldScore = trainlining.calculateScore()

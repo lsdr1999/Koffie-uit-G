@@ -129,3 +129,8 @@ def makeGraph(countList, scoreList):
     plt.xlabel('Counter')
     plt.ylabel('Score')
     plt.show()
+
+def makeTotalGraph(list):
+    for lists in list:
+        for (countList, scoreList) in lists:
+            print(countList)

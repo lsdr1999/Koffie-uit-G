@@ -1,22 +1,21 @@
 import random
 from algorithms import randomAlgo
-
 from classes import station
 from classes import railroad
 from classes import trajectory as tj
 from classes import trainlining
 from helpers import visual
 
-def runGreedy(railroad, trainlining, runs):
+def runGreedy(railroad, trainlining, runs, algorithm, image):
     highestScore = 0
     countList = []
     scoreList = []
     averageList = []
 
-    for i in range(runs):
+    for i in range(int(runs)):
         trainlining.trajectories = []
         for trajectory in range(trainlining.maxTrajectories):
-            trajectory = greedy_traject(railroad, trainlining)
+            trajectory = greedy_trajectory(railroad, trainlining)
             trainlining.trajectories.append(trajectory)
         score = trainlining.calculateScore()
         countList.append(i)
@@ -31,11 +30,18 @@ def runGreedy(railroad, trainlining, runs):
     sum = 0
     for score in averageList:
         sum += score
-    average = sum/runs
+    average = sum / int(runs)
     print(average)
-    visual.makeCard(railroad, bestTrainLining)
 
-def greedy_traject(railroad, trainlining):
+    if algorithm == "all":
+        list = [countList, scoreList]
+        return list
+    elif image == "visual":
+        visual.makeCard(railroad, bestTrainLining)
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+
+def greedy_trajectory(railroad, trainlining):
 
     keylist = []
     for key, value in railroad.stationDict.items():

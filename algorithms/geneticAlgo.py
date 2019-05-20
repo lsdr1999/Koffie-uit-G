@@ -5,24 +5,23 @@ from classes import trainlining
 from classes import trajectory
 from algorithms import hillclimberAlgo as ha
 from algorithms import advancedHillclimber as ahc
+from helpers import visual
 
-def genetic(trainlining,railroad):
-    populationSize = 50
-    generations = 50000
-    recombinationCoefficient = 0.5
-    mutationRate = 1
+def genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image):
+    generations = int(runs) / populationSize
     population = makePopulation(trainlining, populationSize, railroad)
     highestScore = 0
     bestTrainlining = []
-    counter = 0
+    countList = []
+    scoresList = []
 
-    for i in range(generations):
-        counter += 1
+    for i in range(int(generations)):
         scores = scorePopulation(trainlining, population)
         standardizedScores = standardize(scores)
         probabilityScores = calculateProbabilities(standardizedScores, population)
         mutatedChildren = []
         mutatedChildrenScore = 0
+        countList.append(i)
         for j in range(populationSize):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
@@ -39,8 +38,8 @@ def genetic(trainlining,railroad):
 
         newPopulation = tournament(trainlining, population, mutatedChildren)
 
-        if (counter % 10) == 0:
-            print(f"counter: {counter} score: {highestScore}")
+        if (i % 10) == 0:
+            print(f"counter: {i} score: {highestScore}")
             trainlining.trajectories = bestTrainlining
             trainlining.calculateScore()
             print(len(trainlining.visitedCriticalConnections))
@@ -53,9 +52,19 @@ def genetic(trainlining,railroad):
             print(sum/len(newPopulation))
 
         population = newPopulation
+        scoresList.append(highestScore)
     trainlining.trajectories = bestTrainlining
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
+        
+    if algorithm == "all":
+        list = [countList, scoresList]
+        return list
+    elif image == "graph":
+        visual.makeGraph(countList, scoresList)
+    elif image == "visual":
+        visual.makeCard(railroad, trainlining)
+
 
 
 
