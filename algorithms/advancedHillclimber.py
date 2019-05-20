@@ -12,6 +12,7 @@ def runAdvancedHillclimber(railroad, trainlining):
         if (i - 1 % 1) == 0:
             score = trainlining.calculateScore()
             print(f"counter: {i-1} score: {score}")
+            
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
     visual.makeCard(railroad, trainlining)

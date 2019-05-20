@@ -7,7 +7,7 @@ from algorithms import hillclimberAlgo as ha
 from algorithms import advancedHillclimber as ahc
 
 def genetic(trainlining,railroad):
-    populationSize = 40
+    populationSize = 50
     generations = 50000
     recombinationCoefficient = 0.5
     mutationRate = 1
@@ -51,12 +51,6 @@ def genetic(trainlining,railroad):
                 score = trainlining.calculateScore()
                 sum += score
             print(sum/len(newPopulation))
-
-            # print(mutatedChildrenscore/ 10))
-            # sum = 0
-            # for child in mutatedChildren:
-            #     sum += int(len(child))
-            # print(sum/len(mutatedChildren))
 
         population = newPopulation
     trainlining.trajectories = bestTrainlining
@@ -178,17 +172,3 @@ def mutate(crossoverChild, railroad, trainlining, mutationRate):
     mutatedChild = trainlining.trajectories
 
     return mutatedChild
-
-def mutate2(crossoverChild,railroad, trainlining, mutationRate):
-    r = random.randint(1,3)
-    if r == 1:
-        crossoverChild.remove(random.choice(crossoverChild))
-
-    elif r == 2 and len(crossoverChild) < trainlining.maxTrajectories:
-        crossoverChild.append(ra.makeRandomRoute(railroad, trainlining))
-
-    else:
-        crossoverChild.remove(random.choice(crossoverChild))
-        crossoverChild.append(ra.makeRandomRoute(railroad, trainlining))
-
-    return crossoverChild

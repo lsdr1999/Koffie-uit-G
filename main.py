@@ -32,7 +32,7 @@ trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 countList = []
 scoreList = []
 
-runs = 1
+runs = 10000
 
 
 
