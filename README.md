@@ -1,6 +1,4 @@
-# Heuristieken: Rail NL 
-
-# Koffie uit G | Case Rail NL
+# Koffie uit G | Heuristieken: Rail NL 
 
 ## The Case
 This case is about making the line management of intercity trains and consists of two parts: one that focuses on the 22 stations in North- and South-Holland and one that focuses on all 61 stations in the Netherlands, both including a number of critical stations. Critical stations are the stations that must be ridden in a specific timetable. Now it is up to us to set out different routes that ensure that (at least) these critical stations and their connections are ridden. We will plot this for the tracks of North and South Holland and then for the entire Netherlands. A number of important conditions for North and South Holland are: a maximum of seven trajectories can be used to reach the stations, and each trajectory can take a maximum of 120 minutes. For the railways of the entire Netherlands, this may be a maximum of twenty trajectories within a span of 180 minutes per trajectory.
