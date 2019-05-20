@@ -20,7 +20,7 @@ def userInterfaceLong():
         elif csvChoice.lower() == "n":
             print("     Your trainlining will run through the Netherlands.")
             csvChoice = f"csvFiles{sep}stationsNationaal.csv"
-            csvConnections = f"csvFiles{sep}connectiesNationaal"
+            csvConnections = f"csvFiles{sep}connectiesNationaal.csv"
             break
 
         else:
