@@ -5,6 +5,7 @@ This case is about making the line management of intercity trains and consists o
 
 A target function has been established for the quality of the line management: 
 - K = p * 10000 - (T * 20 + Min / 10).
+
 Herein K is the quality of the lines, p is the fraction of the critical connections used (so between 0 and 1), T is the number of trajectories and Min is the number of minutes in all trajectories together. In order to get the highest score we are aiming for a line management which covers as many critical connections with the least amount of trains in the shortest time possible.
 
 ## Bounds and State Space
