@@ -12,7 +12,7 @@ Herein K is the quality of the lines, p is the fraction of the critical connecti
 ## Bounds and State Space
 The bounds and state space have been calculated for both cases. 
 
-For North- and South-Holland the lower bound is -224 based on:
+### For North- and South-Holland the lower bound is -224 based on:
 - p = 0, meaning no critical connections are covered
 - T = 7, the maximum amount of trains are used
 - min = 840, the maximum amount of minutes are used (7 trajectories x 120 min)
@@ -21,9 +21,11 @@ The upper bound is estimated at 9911,3 based on:
 - p = 1, meaning all critical connections are covered
 - T = 3, because three trains are needed to cover a 287 minute trajectory
 - min = 287,  based on the theory that all critical connections are connected
+
 The maximum number of possible trajectories in North- and South-Holland is equal to 48.114. Therefore the state space for the case is: 5,96898e+32. This is the maximum number of possible lines, calculated according to (48.114)^ 7. 
 
-For the entire Netherlands the lower bound is -760 based on:
+
+### For the entire Netherlands the lower bound is -760 based on:
 - p = 0, meaning no critical connections are covered
 - T = 20, the maximum amount of trains are used
 - min = 3600,  the maximum amount of minutes are used (20 trajectories x 180 min)
