@@ -8,8 +8,8 @@ def runAdvancedHillclimber(railroad, trainlining):
     trainlining.addTrajectories(railroad)
 
     for i in range(10000):
-        trainlining = advancedHillclimber(trainlining, railroad)
-        if (i - 1 % 100) == 0:
+        trainlining = advancedHillclimber(railroad, trainlining, False)
+        if (i - 1 % 1) == 0:
             score = trainlining.calculateScore()
             print(f"counter: {i-1} score: {score}")
     for trajectory in trainlining.trajectories:
