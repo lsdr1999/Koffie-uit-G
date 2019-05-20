@@ -8,7 +8,10 @@ import csv
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
 
-def makeCard(railroad, trainlining):
+def makeCard(railroad, dienstregeling):
+    """
+    """
+
     style.use('classic')
     criticalCoordinates = []
     normalCoordinates = []
@@ -19,7 +22,6 @@ def makeCard(railroad, trainlining):
         else:
             normalCoordinates.append(value[0])
             normalCoordinates.append(value[1])
-
 
     criticalX = []
     criticalY = []
@@ -68,22 +70,22 @@ def makeCard(railroad, trainlining):
     xNormal = []
     yNormal = []
 
-    for trajectory in trainlining.trajectories:
+    for trajectory in dienstregeling.trajectories:
         for connection in trajectory.connections:
             for key, value in railroad.connections.items():
                 if (connection[0] == value[0] and connection[1] == value[1]) or \
-                    (connection[1] == value[0] and connection[0] == value[1])and value[3]:
-                    for i in range(2):
-                        xCritical.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
-                        yCritical.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
-                elif (connection[0] == value[0] and connection[1] == value[1]) or \
                     (connection[1] == value[0] and connection[0] == value[1]):
                     for i in range(2):
-                        xNormal.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
-                        yNormal.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
+                        if connection[3]:
+                            xCritical.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
+                            yCritical.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
+                        else:
+                            xNormal.append(float(railroad.stationDict[connection[i]].yCoordinate.strip()))
+                            yNormal.append(float(railroad.stationDict[connection[i]].xCoordinate.strip()))
 
     plotXCritical = []
     plotYCritical = []
+
     for i in range(len(xCritical)):
         plotXCritical.append(xCritical[i])
         plotYCritical.append(yCritical[i])
@@ -110,18 +112,20 @@ def makeCard(railroad, trainlining):
             plotXNormal.clear()
             plotYNormal.clear()
 
-    plt.title('Dienstregeling')
-    plt.xlabel('x-coördinaten')
-    plt.ylabel('y-coördinaten')
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0.1), ncol=4, prop = {'size': 6.5})
+    plt.title('Trainlining')
+    plt.xlabel('xcoordinates')
+    plt.ylabel('ycoordinates')
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 0.1), ncol = 4, prop = {'size': 6.5})
     plt.show()
 
 def makeGraph(countList, scoreList):
+    """
+    """
     style.use('classic')
 
     ax1.plot(countList, scoreList)
 
-    plt.title('Prestatie random')
+    plt.title('Performance ')
     plt.xlabel('Counter')
     plt.ylabel('Score')
     plt.show()

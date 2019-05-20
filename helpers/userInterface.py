@@ -1,48 +1,57 @@
-def userInterface():
-    print("Welcome to RailNL")
-    print("_______________________________________________________________________ \n")
-    # print("Please select the maximum amount of trajectories")
-    print("Would you like your trainlining to run over Holland or the Netherlands?")
-    while True:
-        csvChoice = input("Type 'h' to select Holland, type 'n' for the Netherlands: \n")
-        if csvChoice == "h" or csvChoice == "H":
-            print("Your trainlining will run through Holland.")
-            break
-        elif csvChoice == "n" or csvChoice == "N":
-            print("Your trainlining will run through the Netherlands.")
-            break
-        else:
-            print("Invalid input! Please type in 'h' or 'n'")
+algorithmOptions = ["r", "ge", "gr", "h", "a", "s", "info"]
 
-    print("_______________________________________________________________________ \n")
+def userInterfaceLong():
+    print("     Welcome to RailNL")
+    print("     _______________________________________________________________________ \n")
+
+    # print("Please select the maximum amount of trajectories")
+    print("     Would you like your trainlining to run over Holland or the Netherlands?")
     while True:
-        maxTrajectories = input("Please choose the maximum number of trajectories.\n\
-    This number must be between 1 and 30: \n")
+        csvChoice = input("     Type 'h' to select Holland, type 'n' for the Netherlands: \n")
+        if csvChoice.lower() == "h":
+            csvChoice = "csvBestanden/stationsHolland.csv"
+            csvConnections = "csvBestanden/connectiesHolland.csv"
+            print("     Your trainlining will run through Holland.")
+            break
+        elif csvChoice.lower() == "n":
+            print("     Your trainlining will run through the Netherlands.")
+            csvChoice = "csvBestanden/stationsNationaal.csv"
+            csvConnections = "csvBestanden/connectiesNationaal"
+            break
+        else:
+            print("     Invalid input! Please type in 'h' or 'n'.")
+
+    print("     _______________________________________________________________________ \n")
+
+    while True:
+        maxTrajectories = input("     Please choose the maximum number of trajectories.\n\
+     This number must be between 1 and 30: \n")
         if maxTrajectories.isdigit() is False:
-            print("\nPlease fill in an integer")
+            print("\n     Please fill in an integer.")
         elif int(maxTrajectories) < 1 or int(maxTrajectories) > 30:
-            print("\nThe maximum of trajectories must be between 1 and 30.")
+            print("\n     The maximum of trajectories must be between 1 and 30.")
         else:
             break
-    print(f"Your raillining will have a maximum of {maxTrajectories} trajectories.")
-    print("_______________________________________________________________________ \n")
+    print(f"     Your raillining will have a maximum of {maxTrajectories} trajectories.")
+    print("     _______________________________________________________________________ \n")
+
     while True:
-        maxLength = input("Please choose the maximum length of the trajectories in minutes. \n\
-    This number must be between 30 and 250: \n")
+        maxLength = input("     Please choose the maximum length of the trajectories in minutes. \n\
+     This number must be between 30 and 250: \n")
         if maxLength.isdigit() is False:
-            print("\nPlease fill in an integer.")
+            print("\n    Please fill in an integer.")
         elif int(maxLength) < 30 or int(maxLength) > 250:
-            print("\n The maximum length of your trajectories must be between 30 and 250 minutes.")
+            print("\n    The maximum length of your trajectories must be between 30 and 250 minutes.")
         else:
             break
-    print(f"Your trajectories will have the maximum length of {maxLength} minutes.")
-    print("_______________________________________________________________________ \n")
-    algorithmOptions = ["r", "R", "ge", "GE", "gr", "GR", "h", "H", "a", "A", "s", "S", "info", "INFO"]
+    print(f"     Your trajectories will have the maximum length of {maxLength} minutes.")
+    print("     _______________________________________________________________________ \n")
+
     while True:
-        algorithm = input("Please select one of the algorithms below: \n\
-    'r' = random\n'ge' = genetic \n'gr' = greedy \nh' = hillclimber \n'a' = advanced hillclimber\n\
-    's' = simulated annealing\n\nFor more information regarding the algorithms type 'info'\n")
-        if algorithm not in algorithmOptions:
+        algorithm = input("     Please select one of the algorithms below: \n\
+     'r' = random\n     'ge' = genetic \n     'gr' = greedy \n     'h' = hillclimber \n     'a' = advanced hillclimber\n\
+     's' = simulated annealing\n\n     For more information regarding the algorithms type 'info'\n")
+        if algorithm.lower() not in algorithmOptions:
             print("Please select one of the options.\n")
             continue
         elif algorithm.lower() == "r":
@@ -58,7 +67,7 @@ def userInterface():
         elif algorithm.lower() == "s":
             algorithm = "simulatedAnnealing"
         elif algorithm.lower() == "info":
-            print("Random\n\
+            print("    Random\n\
     Generates a random raillining with the maximum number of trajectories\n\n\
     Genetic\n\
     Generates a random population of x raillinings of which the scores are calculated.\n\
@@ -97,5 +106,97 @@ def userInterface():
     ...")
             continue
 
-        print(f"You have chosen the following algorithm: {algorithm}\n")
+        print(f"     You have chosen the following algorithm: {algorithm}\n")
         break
+    print("     _______________________________________________________________________ \n")
+
+    while True:
+        runs = input("     How many iterations should your algorithm run?\n\
+     Your answer should be a positive integer.\n")
+        if runs.isdigit() is False or int(runs) == 0:
+            print("     Please insert a positive integer.\n")
+            continue
+        print(f"     Your algorithm will run {runs} times.\n")
+        break
+    print("     _______________________________________________________________________ \n")
+
+    while True:
+        image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
+     'v' = visual\n     'g' = graph\n")
+        if image.lower() != "v" and image.lower() != "g":
+            print("     Please insert a valid option.\n")
+            continue
+        elif image.lower() == "v":
+            image = "visual"
+        else:
+            image = "graph"
+        print(f"     At the end of your runs, the program will show a {image}.\n")
+        break
+    print("     Your algorithm will start now.")
+    return (csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, image)
+
+def userInterfaceShort():
+    while True:
+        csvChoice = input("     Holland ('h') or the Netherlands ('n')\n")
+        if csvChoice.lower() != "h" and csvChoice.lower() != "n":
+            print("     Invalid input!")
+            continue
+        elif csvChoice.lower() == "h":
+            csvChoice = "csvBestanden/stationsHolland.csv"
+            csvConnections = "csvBestanden/connectiesHolland.csv"
+            break
+        else:
+            csvChoice = "csvBestanden/stationsNationaal.csv"
+            csvConnections = "csvBestanden/connectiesNationaal"
+        break
+    while True:
+        maxTrajectories = input("     Maximum trajectories (1-30)\n")
+        if maxTrajectories.isdigit() is False or int(maxTrajectories) < 1 or \
+int(maxTrajectories) > 30:
+            print("     Invalid input!")
+            continue
+        break
+    while True:
+        maxLength = input("     Maximum length per trajectory (30-250 minutes)\n")
+        if maxLength.isdigit() is False or int(maxLength) < 30 or int(maxLength) \
+> 250:
+            print("     Invalid input!")
+            continue
+        break
+    while True:
+        algorithm = input("     algorithm (options: random ('r'), genetic ('ge'), greedy ('gr'), hillclimber ('h'), advanced hillclimber ('a'),\n     simulated annealing ('s'). )\n")
+        if algorithm.lower() not in algorithmOptions:
+            print("     Invalid input!")
+            continue
+        elif algorithm.lower() == 'r':
+            algorithm = "random"
+        elif algorithm.lower() == 'ge':
+            algorithm = "genetic"
+        elif algorithm.lower() == 'gr':
+            algorithm = "greedy"
+        elif algorithm.lower() == 'h':
+            algorithm = "hillclimber"
+        elif algorithm.lower() == 'a':
+            algorithm = "advancedHillclimber"
+        elif algorithm.lower() == 's':
+            algorithm = simulatedAnnealing
+        break
+    while True:
+        runs = input("      How many runs?\n")
+        if runs.isdigit() is False or int(runs) < 1:
+            print("     Invalid input!")
+            continue
+        break
+    while True:
+        image = input("     Visual ('v') or graph ('g')?\n")
+        if image.lower() != "g" and image.lower() != "v":
+            print("     Invalid input!")
+            continue
+        elif image.lower() == "g":
+            image = "graph"
+        else:
+            image = "visual"
+        break
+    print("     Your algorithm will start now. \n")
+    print("     _______________________________________________________________________ \n")
+    return(csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, image)
