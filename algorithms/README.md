@@ -13,4 +13,4 @@ The advanced hillclimber is slightly different than the hillclimber described ab
 ## Random
  
 ## Simulated Annealing 
-
+The simulated annealing algorithm builds upon the hillclimber algorithm but instead of accepting the best change, all changes are given a probability of acceptance based on a softmax of their respective scores. As the algorithm runs the probability that lower scores are accepted decreases, and the probabilities that higher scores are accepted increases.
