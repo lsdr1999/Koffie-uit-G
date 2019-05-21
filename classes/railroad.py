@@ -13,6 +13,7 @@ class Railroad(object):
         self.connections = {}
         self.totalCritical = []
 
+
     def loadStations(self, csvChoice, csvConnections):
         """
         Loads stations and connnections from csvFiles, creates station objects and adds them to the stationDict
@@ -79,6 +80,7 @@ class Railroad(object):
         # Close the file
         g.close()
 
+
     def addConnection(self, ID, station1, station2, time, critical):
         """
         Fills a connections dictionary out of the csv files with information about stations, time and 'critical'
@@ -91,6 +93,7 @@ class Railroad(object):
             critcal (bool): critical connection
         """
         self.connections[ID] = [station1, station2, time, critical]
+
 
     def addTotalCritical(self):
         """
