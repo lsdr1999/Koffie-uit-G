@@ -7,7 +7,7 @@ from algorithms import hillclimberAlgo as ha
 from algorithms import advancedHillclimber as ahc
 from helpers import visual
 
-def genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image):
+def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image):
     """
     Generates a random population of x raillinings of which the scores are
     calculated. Based on these scores, probabilities for each raillining are
@@ -21,11 +21,17 @@ def genetic(trainlining, railroad, runs, algorithm, populationSize, recombinatio
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
         runs (int): amount of iterations chosen for the algorithm to run.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         algorithm (string): chosen algorithm (can be all or hillclimber).
         populationSize (int): the total population size
         recombinationCoefficient (int): the coefficient of recombination that takes place
         mutationRate (int): the rate in which mutation takes place
         image (string): defines what image is generated after the algorithm.
+
+    Returns (only when algorithm == "all"):
+        list (list): list of the countList and scoreList
+    Returns (only when rerun == "y"):
+        scoreList(list): list of the values of the solutions
     """
     generations = int(runs) / populationSize
     population = makePopulation(trainlining, populationSize, railroad)
@@ -57,7 +63,7 @@ def genetic(trainlining, railroad, runs, algorithm, populationSize, recombinatio
 
         newPopulation = tournament(trainlining, population, mutatedChildren)
 
-        if (i % 10) == 0:
+        if (i % 10) == 0 and rerun == "n":
             print(f"counter: {i} score: {highestScore}")
             trainlining.trajectories = bestTrainlining
             trainlining.calculateScore()
@@ -73,15 +79,18 @@ def genetic(trainlining, railroad, runs, algorithm, populationSize, recombinatio
         population = newPopulation
         scoresList.append(highestScore)
     trainlining.trajectories = bestTrainlining
-    for trajectory in trainlining.trajectories:
-        print(trajectory.visitedStations)
+    if rerun == "n":
+        for trajectory in trainlining.trajectories:
+            print(trajectory.visitedStations)
+    elif rerun == "y":
+        return scoresList
 
     if algorithm == "all":
         list = [countList, scoresList]
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoresList)
-    elif image == "visual":
+    else:
         visual.makeCard(railroad, trainlining)
 
 

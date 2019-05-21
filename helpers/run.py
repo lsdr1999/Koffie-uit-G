@@ -63,13 +63,14 @@ def runAll(userChoice):
     totalCritical = railroad.addTotalCritical()
     trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 
+    scoresList = []
+
     if algorithm == "random":
         if rerun == 'y':
-            scoresList = []
             for i in range(100):
                 total = ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
-                print(i)
+                print(f"Rerun: {i}")
             results.calculateScores(scoresList)
         else:
             ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
@@ -77,35 +78,50 @@ def runAll(userChoice):
     elif algorithm == "greedy":
         if rerun == 'y':
             for i in range(100):
-                gr.runGreedy(railroad, trainlining, runs, algorithm, image)
+                total = gr.runGreedy(railroad, trainlining, runs, rerun, algorithm, image)
+                scoresList.append(total)
+                print(f"Rerun: {i}")
+            results.calculateScores(scoresList)
         else:
             gr.runGreedy(railroad, trainlining, runs, algorithm, image)
 
     elif algorithm == "hillclimber":
         if rerun == 'y':
             for i in range(100):
-                ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
+                total = ha.runHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
+                scoresList.append(total)
+                print(f"Rerun: {i}")
+            results.calculateScores(scoresList)
         else:
             ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
 
     elif algorithm == "genetic":
         if rerun == 'y':
             for i in range(100):
-                ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
+                total = ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
+                scoresList.append(total)
+                print(f"Rerun: {i}")
+            results.calculateScores(scoresList)
         else:
             ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
 
     elif algorithm == "advancedHillclimber":
         if rerun == 'y':
             for i in range(100):
-                ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
+                total = ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
+                scoresList.append(total)
+                print(f"Rerun: {i}")
+            results.calculateScores(scoresList)
         else:
             ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
 
     elif algorithm == "simulatedAnnealing":
         if rerun == 'y':
             for i in range(100):
-                sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
+                total = sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
+                scoresList.append(total)
+                print(f"Rerun: {i}")
+            results.calculateScores(scoresList)
         else:
             sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
 

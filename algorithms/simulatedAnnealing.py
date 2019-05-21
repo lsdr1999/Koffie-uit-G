@@ -4,7 +4,7 @@ from helpers import visual
 import numpy as np
 import random
 
-def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
+def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
     """
     In this algorithm all changes are given a probability of
     acceptance based on a softmax of their respective scores. As the algorithm
@@ -16,8 +16,15 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
         runs (int): amount of iterations chosen for the algorithm to run.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         algorithm (string): chosen algorithm (can be all or hillclimber).
         image (string): defines what image is generated after the algorithm.
+
+    Returns(only when algorithm == "all"):
+        list (list): list of the countList and scoreList
+    Returns (only when rerun == "y"):
+        scoreList(list): list of the values of the solutions
+
     """
     if hill == "a":
         basic = False
@@ -49,20 +56,22 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
             bestTrainLining = trainlining
         scoreList.append(highestScore)
 
-        if ((i - 1) % 1000) == 0:
+        if ((i - 1) % 1000) == 0 and rerun == "n":
             print(f"counter: {(i-1)} score: {score} T = {T}")
             print(f"highest score: {highestScore} length {trainlining.trackLength}")
             print(len(trainlining.trajectories))
-
-    for trajectory in bestTrainLining.trajectories:
-        print(trajectory.visitedStations)
+    if rerun == "n":
+        for trajectory in bestTrainLining.trajectories:
+            print(trajectory.visitedStations)
+    elif rerun == "y":
+        return scoreList
 
     if algorithm == "all":
         list = [countList, scoreList]
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
-    elif image == "visual":
+    else:
         visual.makeCard(railroad, trainlining)
 
 

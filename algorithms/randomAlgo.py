@@ -20,6 +20,8 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
 
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
+    Returns (only when rerun == "y"):
+        scoreList(list): list of the values of the solutions
     """
 
     highestScore = 0
@@ -53,12 +55,13 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
         for trajectory in bestTrainLining.trajectories:
             print(trajectory.visitedStations)
             print("\n")
+
     if algorithm == "all":
         list = [countList, scoreList]
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
-    elif image == "visual":
+    else:
         visual.makeCard(railroad, bestTrainLining)
 
 

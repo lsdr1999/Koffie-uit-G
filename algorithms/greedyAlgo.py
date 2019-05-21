@@ -6,7 +6,7 @@ from classes import trajectory as tj
 from classes import trainlining
 from helpers import visual
 
-def runGreedy(railroad, trainlining, runs, algorithm, image):
+def runGreedy(railroad, trainlining, runs, rerun, algorithm, image):
     """
     Runs the greedyTrajectory function on a randomly chosen trajectory of \
     a randomly generated trainlining. Then checks which of the versions of the\
@@ -17,11 +17,14 @@ def runGreedy(railroad, trainlining, runs, algorithm, image):
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
         runs (int): amount of iterations chosen for the algorithm to run.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         algorithm (string): chosen algorithm (can be all or hillclimber).
         image (string): defines what image is generated after the algorithm.
 
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
+    Returns (only when rerun == "y"):
+        scoreList(list): list of the values of the solutions
     """
     highestScore = 0
     countList = []
@@ -40,14 +43,17 @@ def runGreedy(railroad, trainlining, runs, algorithm, image):
         if score > highestScore:
             bestTrainLining = trainlining
             highestScore = score
-        if ((i-1) % 100) == 0:
+        if ((i-1) % 100) == 0 and rerun == "n":
             print(f"counter: {(i-1)} score: {highestScore}")
 
     sum = 0
     for score in averageList:
         sum += score
     average = sum / int(runs)
-    print(average)
+    if rerun == "n":
+        print(average)
+    elif rerun == "y":
+        return scoreList
 
     if algorithm == "all":
         list = [countList, scoreList]

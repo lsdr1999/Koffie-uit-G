@@ -15,12 +15,13 @@ def calculateScores(scoresList):
 
     average = mean(scores)
     highest = 0
-    lowest = 10000
+    lowest = average
     for score in scores:
         if score > highest:
             highest = score
         elif score < lowest:
             lowest = score
+    print("_______________________________________________________________________")
     print(f"Average: {average}\n")
     print(f"Highest: {highest}\n")
     print(f"Lowest: {lowest}")
