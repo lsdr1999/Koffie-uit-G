@@ -168,4 +168,6 @@ def makeTotalGraph(list):
 
     plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 0.2), ncol = 3, prop = {'size': 9})
     plt.title('All algorithms')
+    plt.xlabel('Counter')
+    plt.ylabel('Score')
     plt.show()
