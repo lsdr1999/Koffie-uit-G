@@ -37,10 +37,9 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
             bestTrainLining = trainlining
             highestScore = score
         scoreList.append(highestScore)
-        if ((i-1) % 100) == 0:
+        if ((i-1) % 100) == 0 and rerun == "n":
             print(f"counter: {(i-1)} score: {highestScore}")
-        # if i == (int(runs) - 1) and rerun == 'y':
-        #
+
 
     sum = 0
     for score in averageList:
@@ -48,17 +47,21 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
     average = sum / int(runs)
     print(average)
 
-    for trajectory in bestTrainLining.trajectories:
-        print(trajectory.visitedStations)
-        print("\n")
-
+    if rerun == "y":
+        return scoreList
+    elif rerun == "n":
+        for trajectory in bestTrainLining.trajectories:
+            print(trajectory.visitedStations)
+            print("\n")
     if algorithm == "all":
         list = [countList, scoreList]
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
-    else:
+    elif image == "visual":
         visual.makeCard(railroad, bestTrainLining)
+
+
 
 
 def makeRandomRoute(railroad, trainlining):
