@@ -17,6 +17,30 @@ Make sure that you have a copy of Python 3.7 or higher installed on your machine
 3. Run `pip3 install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages are installed.
 4. Run `python main.py ['short' / 'long']` to get started
 
+#### Command-line steps:
+
+The following steps are available in the User Interface:
+
+| Step | Choice|
+|--------|------------------------------|
+| 0 | `python main.py long` or `pyhon main.py short` |
+| 1 | Please choose if you like your trainlining to run over Holland or the Netherlands. Type 'h' to select Holland, type 'n' for the Netherlands |
+| 2 | Please choose the maximum number of trajectories. Type a number between 1 and 30 |
+| 3 | Please choose the maximum length of the trajectories in minutes. Type a number between 30 and 250 |
+| 4 | Please select one of the algorithms below: 
+     'r' = random
+     'ge' = genetic 
+     'gr' = greedy 
+     'h' = hillclimber 
+     'a' = advanced hillclimber
+     's' = simulated annealing
+     'all' = all algorithms |
+| 4.1 | For more information regarding the algorithms type 'info' |
+| 5 | When, for instance, selected random:  Please choose how many iterations your algorithm should run. Type a positive integer. |
+| 6 | When, for instance, selected random: Please choose if you would like to rerun this a 100 times. Type ‘y’ to select yes, type ‘n’ to select no. |
+| 7 | When selected ‘no’: Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type ‘v’ to select visual, type ‘g’ to select graph. |
+| 8 | When selected ‘graph’: A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
+
 ## File Structure
 The files are structured in four main folders:
 - Algorithms, containing all algorithms used to run the program
