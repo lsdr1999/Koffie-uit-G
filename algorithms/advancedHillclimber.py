@@ -53,7 +53,8 @@ def advancedHillclimber(railroad, trainlining, sim):
         railroad (Class): lays out the connections of the Netherlands or Holland.
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
-        sim (bool):
+        sim (bool): defines whether simulatedAnnealing is used, and thus which \
+        variables have to be returned.
 
     Returns:
         trainlining (Class): generated solution of an algorithm of a trainlining\
@@ -166,7 +167,6 @@ def newScore(trainlining, iTrajectory, number, railroad):
         newScore (float): newly calculated solution of the adjusted tarinlining.
         newTrajectory (Class): the adjusted intermediateTrajectory.
         newTrainlining (Class): adjusted trainlining with the newTrajectory.
-
     """
     newTrajectory = copy.deepcopy(iTrajectory)
     newtrainlining = copy.deepcopy(trainlining)
