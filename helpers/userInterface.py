@@ -154,7 +154,7 @@ def userInterfaceLong():
                     continue
                 break
         elif algorithm.lower() == "all":
-            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 10000, "n", "graph"]
+            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 100000, "n", "graph"]
             return infoList
 
         elif algorithm.lower() == "info":
@@ -199,7 +199,9 @@ def userInterfaceLong():
     As the algorithm runs the probability that lower scores are accepted decreases,\n\
     and the probabilities that higher scores are accepted increases.\n\
     All\n\
-    Will run all algorithms for 10000 iterations in default settings.")
+    Will run all algorithms for 100000 iterations in default settings.\n\
+    It will take approximately 20 minutes to run this function, and it will not provide\n\
+    a visual at the end. ")
             continue
 
         print(f"     You have chosen the following algorithm: {algorithm}\n")
@@ -219,7 +221,6 @@ def userInterfaceLong():
 
     while True:
         rerun = input ("    Would you like to run this a 100 times?\n 'y' = yes, 'n' = no\n")
-
         if rerun != "n" and rerun != "y":
             print("     Invalid input!")
             continue
@@ -227,6 +228,9 @@ def userInterfaceLong():
     print("     _______________________________________________________________________ \n")
 
     while True:
+        if rerun == "y":
+            image = "graph"
+            break
         image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
      'v' = visual\n     'g' = graph\n")
 
@@ -400,8 +404,11 @@ int(maxTrajectories) > 30:
             print("     Invalid input!")
             continue
         break
-    while True:
 
+    while True:
+        if rerun == "y":
+            image = "graph"
+            break
         image = input("     Visual ('v') or graph ('g')?\n")
 
         if image.lower() != "g" and image.lower() != "v":
