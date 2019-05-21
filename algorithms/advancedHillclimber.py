@@ -5,6 +5,21 @@ from helpers import visual
 import random
 
 def runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image):
+    """
+    Runs the advancedHillclimber algorithm for (runs) times. At the end it\
+    generates a visual representation of the results.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        runs (int): amount of iterations chosen for the algorithm to run.
+        algorithm (string): chosen algorithm (can be all or hillclimber).
+        image (string): defines what image is generated after the algorithm.
+
+    Returns (only when algorithm == "all"):
+        list (list): list of the countList and scoreList
+    """
     trainlining.addTrajectories(railroad)
     countList = []
     scoreList = []
@@ -28,19 +43,35 @@ def runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image):
     elif image == "visual":
         visual.makeCard(railroad, trainlining)
 
+
 def advancedHillclimber(railroad, trainlining, sim):
+    """
+    Makes several adjustments to the initial trainlining. Then compares them to\
+    one another, and keeps the best solution.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        sim (bool):
+
+    Returns:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+    """
+
     number = random.randint(1,10)
     old = trainlining.calculateScore()
     startTrajectory = random.choice(trainlining.trajectories)
     trainlining.trajectories.remove(startTrajectory)
-    start = startScore(trainlining, startTrajectory)
+    start = startScore(trainlining)
 
     intermediateInfo = intermediateScore(trainlining, startTrajectory, number)
     intermediate = intermediateInfo[0]
-    iTraject = intermediateInfo[1]
+    iTrajectory = intermediateInfo[1]
     iTrain = intermediateInfo[2]
 
-    newInfo= newScore(trainlining, iTraject, number, railroad)
+    newInfo= newScore(trainlining, iTrajectory, number, railroad)
     new = newInfo[0]
     nTraject = newInfo[1]
     nTrain = newInfo[2]
@@ -71,25 +102,73 @@ def advancedHillclimber(railroad, trainlining, sim):
     trainlining.calculateScore()
     return trainlining
 
-def startScore(trainlining, startTrajectory):
+
+def startScore(trainlining):
+    """
+    Calculates the startScore: the initial trainlining without the randomly selected\
+    trajectory(startTrajectory).
+
+    Args:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+
+    Returns:
+        startScore (float): calculated solution of the initial trainlining without\
+        the randomly selected trajectory (startTrajectory).
+    """
     startScore = trainlining.calculateScore()
     return startScore
 
 def intermediateScore(trainlining, startTrajectory, number):
+    """
+    Makes small adjustments to the startTrajectory by popping stations. Then\
+    calculates the solution of the trainlining while using that trajectory.
+
+    Args:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        startTrajectory (Class): randomly selected trajectory from the trainlining.
+        number (int): randomly selected integer between 1 and 10.
+
+    Returns:
+        intermediateScore (float): solution of the trainlining using the \
+        imtermediateTrajectory.
+        intermediateTrajectory (Class): adjusted startTrajectory
+        intermediateTrainlining (Class): adjusted trainlining
+    """
     intermediateTrajectory = copy.deepcopy(startTrajectory)
-    intermediatetrainlining = copy.deepcopy(trainlining)
+    intermediateTrainlining = copy.deepcopy(trainlining)
 
     for i in range(number):
         if len(intermediateTrajectory.connections) > 0:
             intermediateTrajectory.visitedStations.pop()
             intermediateTrajectory.connections.pop()
 
-    intermediatetrainlining.trajectories.append(intermediateTrajectory)
-    intermediateScore = intermediatetrainlining.calculateScore()
-    return intermediateScore, intermediateTrajectory, intermediatetrainlining
+    intermediateTrainlining.trajectories.append(intermediateTrajectory)
+    intermediateScore = intermediateTrainlining.calculateScore()
+    return intermediateScore, intermediateTrajectory, intermediateTrainlining
 
-def newScore(trainlining, iTraject, number, railroad):
-    newTrajectory = copy.deepcopy(iTraject)
+
+def newScore(trainlining, iTrajectory, number, railroad):
+    """
+    Adjusts the iTrajectory (intermediateTrajectory) by adding new visited stations\
+    at the start of the trajectory. Then calculates the solution of the trainlining \
+    after adding this trajectory.
+
+    Args:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        iTrajectory (Class): adjusted startTrajectory with popped stations.
+        number (int): randomly selected integer between 1 and 10.
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+
+    Returns:
+        newScore (float): newly calculated solution of the adjusted tarinlining.
+        newTrajectory (Class): the adjusted intermediateTrajectory.
+        newTrainlining (Class): adjusted trainlining with the newTrajectory.
+
+    """
+    newTrajectory = copy.deepcopy(iTrajectory)
     newtrainlining = copy.deepcopy(trainlining)
 
     trajectoryLen = len(newTrajectory.visitedStations)
@@ -114,10 +193,28 @@ def newScore(trainlining, iTraject, number, railroad):
     newScore = newtrainlining.calculateScore()
     return newScore, newTrajectory, newtrainlining
 
+
 def extraScore(trainlining, startTrajectory, railroad):
-    extratrainlining = copy.deepcopy(trainlining)
+    """
+    extraScore adds the startTrajectory to the trainlining and then newly generates\
+    a random trajectory and also adds this to the trainlining. Then it calculates\
+    the new solution.
+
+    Args:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        startTrajectory (Class): randomly selected trajectory from trainlining.
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+
+    Returns:
+        extraScore (float): newly calculated solution of the adjusted trainlining.
+        extraTrainlining (Class): adjusted trainlining with the startTrajectory\
+        and extraTrajectory.
+
+    """
+    extraTrainlining = copy.deepcopy(trainlining)
     extraTrajectory = ra.makeRandomRoute(railroad, trainlining)
-    extratrainlining.trajectories.append(startTrajectory)
-    extratrainlining.trajectories.append(extraTrajectory)
-    extraScore = extratrainlining.calculateScore()
-    return extraScore, extratrainlining
+    extraTrainlining.trajectories.append(startTrajectory)
+    extraTrainlining.trajectories.append(extraTrajectory)
+    extraScore = extraTrainlining.calculateScore()
+    return extraScore, extraTrainlining

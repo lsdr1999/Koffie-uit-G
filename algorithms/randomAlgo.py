@@ -4,7 +4,7 @@ from classes import railroad
 from classes import trajectory as tj
 from helpers import visual
 
-def runRandom(railroad, trainlining, runs, algorithm, image):
+def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
     """
     Executes the makeRandomRoute function for the amount of runs and keeps track\
     of the solutions and other values.
@@ -14,8 +14,12 @@ def runRandom(railroad, trainlining, runs, algorithm, image):
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
         runs (int): amount of iterations chosen for the algorithm to run.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         algorithm (string): chosen algorithm (can be all or hillclimber).
         image (string): defines what image is generated after the algorithm.
+
+    Returns (only when algorithm == "all"):
+        list (list): list of the countList and scoreList
     """
 
     highestScore = 0
@@ -35,6 +39,8 @@ def runRandom(railroad, trainlining, runs, algorithm, image):
         scoreList.append(highestScore)
         if ((i-1) % 100) == 0:
             print(f"counter: {(i-1)} score: {highestScore}")
+        # if i == (int(runs) - 1) and rerun == 'y':
+        #
 
     sum = 0
     for score in averageList:

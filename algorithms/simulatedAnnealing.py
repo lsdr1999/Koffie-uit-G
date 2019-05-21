@@ -29,11 +29,11 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
         trainlining = changeTrainLining(winner, info[1], basic)
         T = calculateT(T)
         score = trainlining.calculateScore()
-        scoreList.append(score)
 
         if score > highestScore:
             highestScore = score
             bestTrainLining = trainlining
+        scoreList.append(highestScore)
 
         if ((i - 1) % 1000) == 0:
             print(f"counter: {(i-1)} score: {score} T = {T}")

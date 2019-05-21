@@ -27,6 +27,7 @@ def userInterfaceLong():
                 hill (string): defines whether a hillclimber or advancedHillclimber\
                 is used.
         runs (int): defines how many iterations the algorithm runs.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         image (string): defines what image is generated after the algorithm.
 
     """
@@ -153,7 +154,7 @@ def userInterfaceLong():
                     continue
                 break
         elif algorithm.lower() == "all":
-            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 10000, "graph"]
+            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 10000, "n", "graph"]
             return infoList
 
         elif algorithm.lower() == "info":
@@ -217,6 +218,15 @@ def userInterfaceLong():
     print("     _______________________________________________________________________ \n")
 
     while True:
+        rerun = input ("    Would you like to run this a 100 times?\n 'y' = yes, 'n' = no\n")
+
+        if rerun != "n" and rerun != "y":
+            print("     Invalid input!")
+            continue
+        break
+    print("     _______________________________________________________________________ \n")
+
+    while True:
         image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
      'v' = visual\n     'g' = graph\n")
 
@@ -234,13 +244,13 @@ def userInterfaceLong():
     print("     Your algorithm will start now.")
 
     if algorithm == "genetic":
-        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, populationSize, recombinationCoefficient, mutationRate, runs, image]
+        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, populationSize, recombinationCoefficient, mutationRate, runs, rerun, image]
 
     elif algorithm == "simulatedAnnealing":
-        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, hill, runs, image]
+        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, hill, runs, rerun, image]
 
     else:
-        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, image]
+        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, rerun, image]
 
     return infoList
 
@@ -269,6 +279,7 @@ def userInterfaceShort():
                 hill (string): defines whether a hillclimber or advancedHillclimber\
                 is used.
         runs (int): defines how many iterations the algorithm runs.
+        rerun (string): defines whether the user wants to rerun the algorithm 100 times.
         image (string): defines what image is generated after the algorithm.
 
     """
@@ -371,7 +382,7 @@ int(maxTrajectories) > 30:
                 break
 
         elif algorithm.lower() == "all":
-            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 100000, "graph"]
+            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 100000, "n", "graph"]
             return infoList
         break
 
@@ -382,7 +393,13 @@ int(maxTrajectories) > 30:
             print("     Invalid input!")
             continue
         break
+    while True:
+        rerun = input ("    Would you like to run this a 100 times?\n 'y' = yes, 'n' = no\n")
 
+        if rerun != "n" and rerun != "y":
+            print("     Invalid input!")
+            continue
+        break
     while True:
 
         image = input("     Visual ('v') or graph ('g')?\n")
@@ -401,12 +418,12 @@ int(maxTrajectories) > 30:
     print("     _______________________________________________________________________ \n")
 
     if algorithm == "genetic":
-        infoList =[csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, populationSize, recombinationCoefficient, mutationRate, runs, image]
+        infoList =[csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, populationSize, recombinationCoefficient, mutationRate, runs, rerun, image]
 
     elif algorithm == "simulatedAnnealing":
-        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, hill, runs, image]
+        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, hill, runs, rerun, image]
 
     else:
-        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, image]
+        infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, rerun, image]
 
     return infoList

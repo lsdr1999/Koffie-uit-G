@@ -153,19 +153,19 @@ def makeTotalGraph(list):
     digit = 1
     for lists in list:
         if digit == 1:
-            ax1.plot(lists[0], lists[1], label = 'Random')
+            ax1.plot(lists[0], lists[1], label = 'Simulated Annealing', color = '#FFC300')
         elif digit == 2:
-            ax1.plot(lists[0], lists[1], label = 'Greedy')
+            ax1.plot(lists[0], lists[1], label = 'Random', color = '#BAD303')
         elif digit == 3:
-            ax1.plot(lists[0], lists[1], label = 'Hillcimber')
+            ax1.plot(lists[0], lists[1], label = 'Greedy', color = '#FF5733' )
         elif digit == 4:
-            ax1.plot(lists[0], lists[1], label = 'Genetic')
+            ax1.plot(lists[0], lists[1], label = 'Hillcimber', color = '#C70039')
         elif digit == 5:
-            ax1.plot(lists[0], lists[1], label = 'Advanced Hillclimber')
+            ax1.plot(lists[0], lists[1], label = 'Genetic', color = '#900C3F')
         else:
-            ax1.plot(lists[0], lists[1], label = 'Simulated Annealing')
+            ax1.plot(lists[0], lists[1], label = 'Advanced Hillclimber', color = '#20639B')
         digit += 1
 
-    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 0.2), ncol = 3, prop = {'size': 7})
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 0.2), ncol = 3, prop = {'size': 9})
     plt.title('All algorithms')
     plt.show()

@@ -7,6 +7,22 @@ from classes import trainlining
 from helpers import visual
 
 def runGreedy(railroad, trainlining, runs, algorithm, image):
+    """
+    Runs the greedyTrajectory function on a randomly chosen trajectory of \
+    a randomly generated trainlining. Then checks which of the versions of the\
+    trainlining is best, and continues with the winning solution.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        runs (int): amount of iterations chosen for the algorithm to run.
+        algorithm (string): chosen algorithm (can be all or hillclimber).
+        image (string): defines what image is generated after the algorithm.
+
+    Returns (only when algorithm == "all"):
+        list (list): list of the countList and scoreList
+    """
     highestScore = 0
     countList = []
     scoreList = []
@@ -15,7 +31,7 @@ def runGreedy(railroad, trainlining, runs, algorithm, image):
     for i in range(int(runs)):
         trainlining.trajectories = []
         for trajectory in range(trainlining.maxTrajectories):
-            trajectory = greedy_trajectory(railroad, trainlining)
+            trajectory = greedyTrajectory(railroad, trainlining)
             trainlining.trajectories.append(trajectory)
         score = trainlining.calculateScore()
         countList.append(i)
@@ -41,7 +57,7 @@ def runGreedy(railroad, trainlining, runs, algorithm, image):
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
 
-def greedy_trajectory(railroad, trainlining):
+def greedyTrajectory(railroad, trainlining):
 
     keylist = []
     for key, value in railroad.stationDict.items():
