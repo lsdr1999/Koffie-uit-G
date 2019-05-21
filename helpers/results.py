@@ -1,3 +1,4 @@
+from __future__ import division
 from statistics import mean
 
 def calculateScores(scoresList):
@@ -14,14 +15,10 @@ def calculateScores(scoresList):
             scores.append(value)
 
     average = mean(scores)
-    highest = 0
-    lowest = average
-    for score in scores:
-        if score > highest:
-            highest = score
-        elif score < lowest:
-            lowest = score
+    highest = max(scores)
+    lowest = min(scores)
+
     print("_______________________________________________________________________")
     print(f"Average: {average}\n")
     print(f"Highest: {highest}\n")
-    print(f"Lowest: {lowest}")
+    print(f"Lowest: {lowest}\n")

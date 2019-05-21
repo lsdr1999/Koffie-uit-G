@@ -47,7 +47,8 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
     for score in averageList:
         sum += score
     average = sum / int(runs)
-    print(average)
+    if rerun == "n":
+        print(average)
 
     if rerun == "y":
         return scoreList

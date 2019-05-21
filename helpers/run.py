@@ -10,7 +10,6 @@ from helpers import results
 from helpers import userInterface as UI
 from helpers import visual
 
-
 def runAll(userChoice):
     """
     Receives whether the user wants to use the long or short UI. Then runs the UI, \
@@ -70,7 +69,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
-                print(f"Rerun: {i}")
+                print(f"Rerun: {i + 1}")
             results.calculateScores(scoresList)
         else:
             ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
@@ -80,7 +79,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = gr.runGreedy(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
-                print(f"Rerun: {i}")
+                print(f"Rerun: {i + 1}")
             results.calculateScores(scoresList)
         else:
             gr.runGreedy(railroad, trainlining, runs, algorithm, image)
@@ -90,7 +89,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = ha.runHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
-                print(f"Rerun: {i}")
+                print(f"Rerun: {i + 1}")
             results.calculateScores(scoresList)
         else:
             ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
@@ -100,7 +99,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
                 scoresList.append(total[0])
-                print(f"Rerun: {i} score {total[1]}")
+                print(f"Rerun: {i + 1} score {total[1]}")
             results.calculateScores(scoresList)
         else:
             ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
@@ -110,7 +109,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
-                print(f"Rerun: {i}")
+                print(f"Rerun: {i + 1}")
             results.calculateScores(scoresList)
         else:
             ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
@@ -120,7 +119,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
                 scoresList.append(total[0])
-                print(f"Rerun: {i} score {total[1]}")
+                print(f"Rerun: {i + 1} score {total[1]}")
             results.calculateScores(scoresList)
         else:
             sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
