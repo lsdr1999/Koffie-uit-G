@@ -7,12 +7,19 @@ import csv
 
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
+style.use('classic')
 
-def makeCard(railroad, dienstregeling):
+def makeCard(railroad, trainlining):
     """
+    Makes a visual representation of the trainlining based on the coordinates in\
+    railroad.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
     """
 
-    style.use('classic')
     criticalCoordinates = []
     normalCoordinates = []
     for key, value in railroad.connections.items():
@@ -70,7 +77,7 @@ def makeCard(railroad, dienstregeling):
     xNormal = []
     yNormal = []
 
-    for trajectory in dienstregeling.trajectories:
+    for trajectory in trainlining.trajectories:
         for connection in trajectory.connections:
             for key, value in railroad.connections.items():
                 if (connection[0] == value[0] and connection[1] == value[1]) or \
@@ -120,12 +127,45 @@ def makeCard(railroad, dienstregeling):
 
 def makeGraph(countList, scoreList):
     """
-    """
-    style.use('classic')
+    Constructs a graph using the counter (how many runs) and the score (quality\
+    of the solution) as x and y coordinate.
 
+    Args:
+        countList (list): list from 0 to x (runs).
+        scoreList (list): list of the values of the solutions of the trainlining.
+    """
     ax1.plot(countList, scoreList)
 
     plt.title('Performance ')
     plt.xlabel('Counter')
     plt.ylabel('Score')
+    plt.show()
+
+def makeTotalGraph(list):
+    """
+    Constructs a graph using a list of all of the algorithms.
+
+    Args:
+        List of the following variables per algorithm:
+            countList (list): list from 0 to x (runs).
+            scoreList (list): list of the values of the solutions of the trainlining.
+    """
+    digit = 1
+    for lists in list:
+        if digit == 1:
+            ax1.plot(lists[0], lists[1], label = 'Random')
+        elif digit == 2:
+            ax1.plot(lists[0], lists[1], label = 'Greedy')
+        elif digit == 3:
+            ax1.plot(lists[0], lists[1], label = 'Hillcimber')
+        elif digit == 4:
+            ax1.plot(lists[0], lists[1], label = 'Genetic')
+        elif digit == 5:
+            ax1.plot(lists[0], lists[1], label = 'Advanced Hillclimber')
+        else:
+            ax1.plot(lists[0], lists[1], label = 'Simulated Annealing')
+        digit += 1
+
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 0.2), ncol = 3, prop = {'size': 7})
+    plt.title('All algorithms')
     plt.show()

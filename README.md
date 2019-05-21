@@ -1,12 +1,11 @@
-# Heuristieken: Rail NL 
-
-# Koffie uit G | Case Rail NL
+# Koffie uit G | Heuristieken: Rail NL 
 
 ## The Case
 This case is about making the line management of intercity trains and consists of two parts: one that focuses on the 22 stations in North- and South-Holland and one that focuses on all 61 stations in the Netherlands, both including a number of critical stations. Critical stations are the stations that must be ridden in a specific timetable. Now it is up to us to set out different routes that ensure that (at least) these critical stations and their connections are ridden. We will plot this for the tracks of North and South Holland and then for the entire Netherlands. A number of important conditions for North and South Holland are: a maximum of seven trajectories can be used to reach the stations, and each trajectory can take a maximum of 120 minutes. For the railways of the entire Netherlands, this may be a maximum of twenty trajectories within a span of 180 minutes per trajectory.
 
 A target function has been established for the quality of the line management: 
 - K = p * 10000 - (T * 20 + Min / 10).
+
 Herein K is the quality of the lines, p is the fraction of the critical connections used (so between 0 and 1), T is the number of trajectories and Min is the number of minutes in all trajectories together. In order to get the highest score we are aiming for a line management which covers as many critical connections with the least amount of trains in the shortest time possible.
 
 ## Bounds and State Space
@@ -30,10 +29,10 @@ For the entire Netherlands the lower bound is -760 based on:
 - T = 20, the maximum amount of trains are used
 - min = 3600,  the maximum amount of minutes are used (20 trajectories x 180 min)
 
-The upper bound is estimated at 9785 based on:
+The upper bound is estimated at 9704 based on:
 - p = 1, meaning all critical connections are covered
-- T = 6, because six trains are needed to cover a 950 minute trajectory
-- min = 950,  based on the theory that all critical connections are connected
+- T = 8, because eigth trains are needed to cover a 1360 minute trajectory
+- min = 1360, based on the theory that all critical connections are connected
 
 The maximum number of possible trajectories in the entire Netherlands is equal to 12 * 10^9. Therefore the state space for the case is: 3.83376e+201. This is the maximum number of possible lines, calculated according to (12 * 10^9)^ 20. 
 

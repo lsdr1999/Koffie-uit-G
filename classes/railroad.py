@@ -8,14 +8,29 @@ class Railroad(object):
     """
 
     def __init__(self):
+        """ Initializes a railroad object """
         self.stationDict = {}
         self.connections = {}
         self.totalCritical = []
-        self.criticalConnectionList = []
 
+<<<<<<< HEAD
     def loadStations(self):
         # Open the Stations file and create empty station dictionaryd
         with open("csvFiles/stationsHolland.csv") as f:
+=======
+
+    def loadStations(self, csvChoice, csvConnections):
+        """
+        Loads stations and connnections from csvFiles, creates station objects and adds them to the stationDict
+
+        Args:
+            csvChoice (string): Chosen csv file with stations, South- and North-Holland or the entire Netherlands
+            csvConnections (string): Chosen csv file with connections, South- and North-Holland or the entire Netherlands
+        """
+
+        # Open the Stations file and create empty station dictionary
+        with open(csvChoice) as f:
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
             # Iterate over the lines
             for line in f:
 
@@ -40,8 +55,13 @@ class Railroad(object):
         # Close the file
         f.close()
 
+<<<<<<< HEAD
         # Open the the connections files
         with open("csvFiles/connectiesHolland.csv") as g:
+=======
+        # Open the connections files
+        with open(csvConnections) as g:
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
             IDCounter = 0
             # Iterate over the lines
             for line in g:
@@ -73,10 +93,28 @@ class Railroad(object):
         # Close the file
         g.close()
 
+
     def addConnection(self, ID, station1, station2, time, critical):
+        """
+        Fills a connections dictionary out of the csv files with information about stations, time and 'critical'
+
+        Args:
+            ID (int): id of connection
+            station1 (string): the first/start station
+            station2 (string): the second/go to station
+            time (int): the time between two stations
+            critcal (bool): critical connection
+        """
         self.connections[ID] = [station1, station2, time, critical]
 
+
     def addTotalCritical(self):
+        """
+        Adds critical stations out of connections dict to totalCritical list
+
+        Returns:
+            The length of totalCritical
+        """
         for key,value in self.connections.items():
             if value[3]:
                 self.totalCritical.append([value[0], value[1]])

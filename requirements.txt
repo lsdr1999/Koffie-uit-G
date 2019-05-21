@@ -1,1 +1,8 @@
 matplotlib
+numpy
+copy
+random
+math
+csv
+sys
+os

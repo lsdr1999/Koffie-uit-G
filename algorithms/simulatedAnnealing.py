@@ -4,39 +4,50 @@ from helpers import visual
 import numpy as np
 import random
 
-def simAnnealing(railroad, trainlining):
-    print("Would you like to use basic hillclimber or andvanced hillclimber?")
-    while True:
-        csvChoice = input("Type 'B' to select basic, type 'A' for Advanced: \n")
-        if csvChoice == "A" or csvChoice == "a":
-            print("You have chosen Advanced.")
-            basic = False
-            break
-        elif csvChoice == "b" or csvChoice == "B":
-            print("you have chosen Basic.")
-            basic = True
-            break
-        else:
-            print("Invalid input! Please type in 'a' or 'b'")
+def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
+    """
+    In this algorithm all changes are given a probability of
+    acceptance based on a softmax of their respective scores. As the algorithm
+    runs the probability that lower scores are accepted decreases, and the
+    probabilities that higher scores are accepted increases.
 
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        runs (int): amount of iterations chosen for the algorithm to run.
+        algorithm (string): chosen algorithm (can be all or hillclimber).
+        image (string): defines what image is generated after the algorithm.
+    """
+    if hill == "a":
+        basic = False
+    else:
+        basic = True
+
+<<<<<<< HEAD
     runs = 1000000
+=======
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
     T = 1
     highestScore = 0
     countList = []
     scoreList = []
+
     if basic:
         scoreNames = ["newScore", "oldScore", "intermediateScore", "extraScore"]
     else:
         scoreNames = ["startScore", "oldScore", "intermediateScore", "newScore", "extraScore"]
 
     trainlining.addTrajectories(railroad)
-    for i in range(runs):
+    for i in range(int(runs)):
+        countList.append(i)
         info = getScores(railroad, trainlining, basic)
         probabilityScores = calculateSoftmax(info[0], T)
         winner = chooseTrajectoryChange(probabilityScores, scoreNames)
         trainlining = changeTrainLining(winner, info[1], basic)
         T = calculateT(T)
         score = trainlining.calculateScore()
+        scoreList.append(score)
 
         if score > highestScore:
             highestScore = score
@@ -47,13 +58,31 @@ def simAnnealing(railroad, trainlining):
             print(f"highest score: {highestScore} length {trainlining.trackLength}")
             print(len(trainlining.trajectories))
 
-
-    visual.makeCard(railroad, bestTrainLining)
     for trajectory in bestTrainLining.trajectories:
         print(trajectory.visitedStations)
 
+    if algorithm == "all":
+        list = [countList, scoreList]
+        return list
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+    elif image == "visual":
+        visual.makeCard(railroad, trainlining)
+
 
 def getScores(railroad, trainlining, basic):
+    """
+    Gets score information from the hillclimber algorithm
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        basic (string): choice for basic or advanced Hillclimber
+
+    Returns:
+        info (list): which includes information on the railroad and trainlining
+    """
     if basic:
         info = ha.hillclimber(railroad, trainlining, True)
     else:
@@ -61,20 +90,55 @@ def getScores(railroad, trainlining, basic):
 
     return info
 
+
 def calculateT(T):
+<<<<<<< HEAD
     T = T * 0.99999
+=======
+    """
+    Calculates the temperature
+
+    Args:
+        T (float): the temperature which is needed for the coolingscheme
+    Returns:
+        T (float): the temperature which is needed for the coolingscheme
+    """
+    T = T * 0.9999
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
     return T
 
+
 def calculateSoftmax(scores, T):
+    """
+    Calculates the softmax
+
+    Args:
+        scores (float): the solutions from the hillclimber
+        T (float): the temperature
+
+    Returns:
+        The new solution
+    """
     newScores = []
     for score in scores:
-        score = score/(1000 * T)
+        score = score / (1000 * T)
         newScores.append(score)
 
     scores = np.array(newScores)
     return np.exp(scores - (max(scores)-(max(scores) * T)))/ np.sum(np.exp(scores-(max(scores)- (max(scores) * T))))
 
+
 def chooseTrajectoryChange(probabilityScores, scoreNames):
+    """
+    Chooses the trajectory change
+
+    Args:
+        probabilityScores (int): the probability solutions
+        scoreNames (string): the names of the solutions
+
+    Returns:
+        scoreName (string): name of the chosen solution
+    """
     mergedList = list(zip(probabilityScores, scoreNames))
     r = random.random()
     for probabilityScore, scoreName in mergedList:
@@ -83,7 +147,19 @@ def chooseTrajectoryChange(probabilityScores, scoreNames):
         else:
             r -= probabilityScore
 
+
 def changeTrainLining(winner, trajectories, basic):
+    """
+    Changes the trainlining to the winner and returns it
+
+    Args:
+        winner (string): the 'best' trainling
+        trajectories (list): list of all trajectories
+        basic (string): choice for basic or advanced Hillclimber
+
+    Returns:
+        The new trainlining
+    """
     if basic:
         trainlining = trajectories[0]
         newTrajectory = trajectories[1]

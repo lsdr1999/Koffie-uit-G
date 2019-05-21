@@ -4,18 +4,29 @@ from algorithms import randomAlgo as ra
 from helpers import visual
 import random
 
-def runAdvancedHillclimber(railroad, trainlining):
+def runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image):
     trainlining.addTrajectories(railroad)
+    countList = []
+    scoreList = []
 
-    for i in range(10000):
+    for i in range(int(runs)):
         trainlining = advancedHillclimber(railroad, trainlining, False)
-        if (i - 1 % 1) == 0:
-            score = trainlining.calculateScore()
-            print(f"counter: {i-1} score: {score}")
-            
+        score = trainlining.calculateScore()
+        if (i % 10) == 0:
+            print(f"counter: {i} score: {score}")
+        countList.append(i)
+        scoreList.append(score)
+
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)
-    visual.makeCard(railroad, trainlining)
+
+    if algorithm == "all":
+        list = [countList, scoreList]
+        return list
+    elif image == "graph":
+        visual.makeGraph(countList, scoreList)
+    elif image == "visual":
+        visual.makeCard(railroad, trainlining)
 
 def advancedHillclimber(railroad, trainlining, sim):
     number = random.randint(1,10)
