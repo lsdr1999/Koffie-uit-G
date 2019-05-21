@@ -8,13 +8,21 @@ class Railroad(object):
     """
 
     def __init__(self):
+        """ Initializes a railroad object """
         self.stationDict = {}
         self.connections = {}
         self.totalCritical = []
-        self.criticalConnectionList = []
 
     def loadStations(self, csvChoice, csvConnections):
-        # Open the Stations file and create empty station dictionaryd
+        """
+        Loads stations and connnections from csvFiles, creates station objects and adds them to the stationDict
+
+        Args:
+            csvChoice (string): Chosen csv file with stations, South- and North-Holland or the entire Netherlands
+            csvConnections (string): Chosen csv file with connections, South- and North-Holland or the entire Netherlands
+        """
+
+        # Open the Stations file and create empty station dictionary
         with open(csvChoice) as f:
             # Iterate over the lines
             for line in f:
@@ -38,7 +46,7 @@ class Railroad(object):
         # Close the file
         f.close()
 
-        # Open the the connections files
+        # Open the connections files
         with open(csvConnections) as g:
             IDCounter = 0
             # Iterate over the lines
@@ -72,9 +80,25 @@ class Railroad(object):
         g.close()
 
     def addConnection(self, ID, station1, station2, time, critical):
+        """
+        Fills a connections dictionary out of the csv files with information about stations, time and 'critical'
+
+        Args:
+            ID (int): id of connection
+            station1 (string): the first/start station
+            station2 (string): the second/go to station
+            time (int): the time between two stations
+            critcal (bool): critical connection
+        """
         self.connections[ID] = [station1, station2, time, critical]
 
     def addTotalCritical(self):
+        """
+        Adds critical stations out of connections dict to totalCritical list
+
+        Returns:
+            The length of totalCritical
+        """
         for key,value in self.connections.items():
             if value[3]:
                 self.totalCritical.append([value[0], value[1]])
