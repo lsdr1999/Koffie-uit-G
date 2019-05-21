@@ -12,7 +12,12 @@ from helpers import visual
 
 def runAll(userChoice):
     """
+    Receives whether the user wants to use the long or short UI. Then runs the UI, \
+    generates the information for the algorithms and runs the specified algorithm.
+
+    Args: userChoice (string)
     """
+    
     if userChoice == "long":
         info = UI.userInterfaceLong()
     elif userChoice == "short":
@@ -54,7 +59,7 @@ def runAll(userChoice):
     trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
 
     if algorithm == "random":
-        ra.runRandom(railroad, trainlining, algorithm, runs, image)
+        ra.runRandom(railroad, trainlining, runs, algorithm, image)
 
     elif algorithm == "greedy":
         gr.runGreedy(railroad, trainlining, runs, algorithm, image)
@@ -72,12 +77,12 @@ def runAll(userChoice):
         sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
 
     elif algorithm == "all":
-        list1 = ra.runRandom(railroad, trainlining, runs, image)
-        list2 = gr.runGreedy(railroad, trainlining, runs, image)
-        list3 = ha.runHillclimber(railroad, trainlining, runs, image)
-        list4 = ge.genetic(trainlining, railroad, runs, populationSize, recombinationCoefficient, mutationRate, image)
-        list5 = ah.runAdvancedHillclimber(railroad, trainlining, runs, hill, image)
-        list6 = sa.simAnnealing(railroad, trainlining, runs, hill, image)
+        list1 = ra.runRandom(railroad, trainlining, runs, algorithm, image)
+        list2 = gr.runGreedy(railroad, trainlining, runs, algorithm, image)
+        list3 = ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
+        list4 = ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
+        list5 = ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
+        list6 = sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
 
         list = [list1, list2, list3, list4, list5, list6]
         visual.makeTotalGraph(list)

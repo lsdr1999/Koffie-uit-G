@@ -3,6 +3,33 @@ from os import sep
 algorithmOptions = ["r", "ge", "gr", "h", "a", "s", "info", "all"]
 
 def userInterfaceLong():
+    """
+    Receives input from user regarding the variables required for the algorithms\
+    to be executed. Additionaly, this version contains more information about the\
+    algorithms for the user to understand them.
+
+    Returns a list of the following variables:
+        csvChoice (string): defines whether the railroad is constructed through\
+        Holland or the Netherlands.
+        csvConnections (string): defines whether the connections of the stations\
+        are through Holland or the Netherlands.
+        maxTrajectories (int): defines the maximum number of trajectories in\
+        the trainlining.
+        maxLength (int): the maximum length per trajectory in minutes.
+        algorithm (string): defines which algorithm is to be used.
+            if genetic:
+                populationSize (int): defines how many parents and children\
+                are generated.
+                recombinationCoefficient (float):  defines the distribution \
+                of the trajectories of the parents used to generate the children.
+                mutationRate (float): defines the severity of a mutation.
+            if simulatedAnnealing:
+                hill (string): defines whether a hillclimber or advancedHillclimber\
+                is used.
+        runs (int): defines how many iterations the algorithm runs.
+        image (string): defines what image is generated after the algorithm.
+
+    """
     print("     Welcome to RailNL")
     print("     _______________________________________________________________________ \n")
 
@@ -219,6 +246,32 @@ def userInterfaceLong():
 
 
 def userInterfaceShort():
+        """
+        Receives input from user regarding the variables required for the algorithms\
+        to be executed.
+
+        Returns a list of the following variables:
+            csvChoice (string): defines whether the railroad is constructed through\
+            Holland or the Netherlands.
+            csvConnections (string): defines whether the connections of the stations\
+            are through Holland or the Netherlands.
+            maxTrajectories (int): defines the maximum number of trajectories in\
+            the trainlining.
+            maxLength (int): the maximum length per trajectory in minutes.
+            algorithm (string): defines which algorithm is to be used.
+                if genetic:
+                    populationSize (int): defines how many parents and children\
+                    are generated.
+                    recombinationCoefficient (float):  defines the distribution \
+                    of the trajectories of the parents used to generate the children.
+                    mutationRate (float): defines the severity of a mutation.
+                if simulatedAnnealing:
+                    hill (string): defines whether a hillclimber or advancedHillclimber\
+                    is used.
+            runs (int): defines how many iterations the algorithm runs.
+            image (string): defines what image is generated after the algorithm.
+
+        """
     while True:
         csvChoice = input("     Holland ('h') or the Netherlands ('n')\n")
 
@@ -318,7 +371,7 @@ int(maxTrajectories) > 30:
                 break
 
         elif algorithm.lower() == "all":
-            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 10000, "graph"]
+            infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, 40, 0.5, 1, "hillclimber", 100000, "graph"]
             return infoList
         break
 
