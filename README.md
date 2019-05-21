@@ -21,7 +21,7 @@ Make sure that you have a copy of Python 3.7 or higher installed on your machine
 
 The following steps are available in the User Interface:
 
-| Step | Choice|
+| Step | Command | Choice|
 |--------|---------|---------------------|
 | 0 |  |`python main.py long` or `pyhon main.py short`. |
 | 1 |  |Please choose if you like your trainlining to run over Holland or the Netherlands. Type `h` to select Holland, type `n` for the Netherlands. |
