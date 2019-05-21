@@ -25,14 +25,16 @@ The following steps are available in the User Interface:
 |--------|------------------------------|
 | 0 | `python main.py long` or `pyhon main.py short`. |
 | 1 | Please choose if you like your trainlining to run over Holland or the Netherlands. Type `h` to select Holland, type `n` for the Netherlands. |
-| 2 | Please choose the maximum number of trajectories. Type a number between `1 and 30`. |
-| 3 | Please choose the maximum length of the trajectories in minutes. Type a number between `30 and 250`. |
-| 4 | Please select one of the algorithms: `r` = random, `ge` = genetic, `gr` = greedy, `h` = hillclimber, `a` = advanced hillclimber, `s` = simulated annealing, `all` = all algorithms. 
-| 4.1 | For more information regarding the algorithms type `info`. |
-| 5 | When, for instance, selected random:  Please choose how many iterations your algorithm should run. Type a positive integer. |
-| 6 | When, for instance, selected random: Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
-| 7 | When selected `n`: Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
-| 8 | When selected `g`: A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
+| 2 | Please choose the maximum number of trajectories. Type a number between *1 and 30*. |
+| 3 | Please choose the maximum length of the trajectories in minutes. Type a number between *30 and 250*. |
+| 4.1 | Please select one of the algorithms: `r` = random, `ge` = genetic, `gr` = greedy, `h` = hillclimber, `a` = advanced hillclimber, `s` = simulated annealing, `all` = all algorithms. 
+| 4.2 | For more information regarding the algorithms type `info`. |
+| 5 | When, *for instance*, selected `r` (random): Please choose how many iterations your algorithm should run. Type a *positive integer*. |
+| 6 | When, *for instance*, selected `r` (random): Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
+| 7.1 | When selected `y`: Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end.
+| 7.2 | When selected `n`: Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
+| 8.1 | When selected `v`: A visualization of the trainlining will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
+| 8.2 | When selected `g`: A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
 
 ## File Structure
 The files are structured in four main folders:
