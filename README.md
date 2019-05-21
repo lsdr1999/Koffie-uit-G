@@ -29,18 +29,18 @@ The following steps are available in the User Interface:
 | 3 |  |Please choose the maximum length of the trajectories in minutes. Type a number between *30 and 250*. For `h` we advise `120`, for `n` we advise `180`.|
 | 4.1 |  |Please select one of the algorithms: `r` = random, `ge` = genetic, `gr` = greedy, `h` = hillclimber, `a` = advanced hillclimber, `s` = simulated annealing, `all` = all algorithms. |
 | 4.2 |  |For more information regarding the algorithms type `info`. |
-| 5 | When selected `r`, `gr`, `h` or `a` | You will be redirected to step 6. |
-|  | When selected `ge` | Please insert the populationSize (between 10 and 100) or choose `d` for default settings. |
-|  |  | Please insert the recombinationCoefficient (between 0 and 1) or choose `d` for default settings. | 
-|  |  | Please insert the mutationRate (between 0 and 1) or choose `d` for default settings. |
-|  | When selected `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. |
-|  | When selected `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will not provide a visual at the end. |
+| 5 | `r`, `gr`, `h` or `a` | You will be redirected to step 6. |
+|   |  `ge` | Please insert the populationSize (between 10 and 100) or choose `d` for default settings. |
+|   |  | Please insert the recombinationCoefficient (between 0 and 1) or choose `d` for default settings. | 
+|   |  | Please insert the mutationRate (between 0 and 1) or choose `d` for default settings. |
+|   | `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. |
+|   | `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will not provide a visual at the end. |
 | 6 |  | Please choose how many iterations your algorithm should run. Type a *positive integer*. |
 | 7 |  | Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
-| 8 | When selected `y` | Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end. |
-|  | When selected `n` | Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
-| 9 | When selected `v` | A visualization of the trainlining will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
-|  | When selected `g` | A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
+| 8 | `y` | Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end. |
+|   | `n` | Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
+| 9 | `v` | A visualization of the trainlining will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
+|   | `g` | A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
 
 ## File Structure
 The files are structured in four main folders:
