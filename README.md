@@ -27,14 +27,15 @@ The following steps are available in the User Interface:
 | 1 | Please choose if you like your trainlining to run over Holland or the Netherlands. Type 'h' to select Holland, type 'n' for the Netherlands |
 | 2 | Please choose the maximum number of trajectories. Type a number between 1 and 30 |
 | 3 | Please choose the maximum length of the trajectories in minutes. Type a number between 30 and 250 |
-| 4 | Please select one of the algorithms below: 
+| 4 | Please select one of the algorithms below: |
      'r' = random
      'ge' = genetic 
      'gr' = greedy 
      'h' = hillclimber 
      'a' = advanced hillclimber
      's' = simulated annealing
-     'all' = all algorithms |
+     'all' = all algorithms 
+     
 | 4.1 | For more information regarding the algorithms type 'info' |
 | 5 | When, for instance, selected random:  Please choose how many iterations your algorithm should run. Type a positive integer. |
 | 6 | When, for instance, selected random: Please choose if you would like to rerun this a 100 times. Type ‘y’ to select yes, type ‘n’ to select no. |
