@@ -19,7 +19,7 @@ def simAnnealing(railroad, trainlining):
         else:
             print("Invalid input! Please type in 'a' or 'b'")
 
-    runs = 100000
+    runs = 1000000
     T = 1
     highestScore = 0
     countList = []
@@ -45,6 +45,7 @@ def simAnnealing(railroad, trainlining):
         if ((i - 1) % 1000) == 0:
             print(f"counter: {(i-1)} score: {score} T = {T}")
             print(f"highest score: {highestScore} length {trainlining.trackLength}")
+            print(len(trainlining.trajectories))
 
 
     visual.makeCard(railroad, bestTrainLining)
@@ -61,7 +62,7 @@ def getScores(railroad, trainlining, basic):
     return info
 
 def calculateT(T):
-    T = T * 0.9999
+    T = T * 0.99999
     return T
 
 def calculateSoftmax(scores, T):

@@ -18,6 +18,8 @@ def runHillclimber(railroad, trainlining, runs):
 
     visual.makeCard(railroad, trainlining)
 
+    return score
+
 def hillclimber(railroad, trainlining, sim):
     oldScore = trainlining.calculateScore()
 

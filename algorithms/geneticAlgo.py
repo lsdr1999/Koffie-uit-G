@@ -8,7 +8,7 @@ from algorithms import advancedHillclimber as ahc
 
 def genetic(trainlining,railroad):
     populationSize = 50
-    generations = 50000
+    generations = 100000
     recombinationCoefficient = 0.5
     mutationRate = 1
     population = makePopulation(trainlining, populationSize, railroad)
@@ -53,6 +53,7 @@ def genetic(trainlining,railroad):
             print(sum/len(newPopulation))
 
         population = newPopulation
+
     trainlining.trajectories = bestTrainlining
     for trajectory in trainlining.trajectories:
         print(trajectory.visitedStations)

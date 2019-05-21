@@ -15,7 +15,7 @@ class Railroad(object):
 
     def loadStations(self):
         # Open the Stations file and create empty station dictionaryd
-        with open("csvBestanden/stationsNationaal.csv") as f:
+        with open("csvFiles/stationsHolland.csv") as f:
             # Iterate over the lines
             for line in f:
 
@@ -29,6 +29,8 @@ class Railroad(object):
                 if len(stationData) > 3:
                     if stationData[3] == "Kritiek\n":
                         critical = True
+                    else:
+                        critical = False
                 else:
                     critical = False
                 # Initialize a station object and save it in a dictionary with
@@ -39,7 +41,7 @@ class Railroad(object):
         f.close()
 
         # Open the the connections files
-        with open("csvBestanden/connectiesNationaal.csv") as g:
+        with open("csvFiles/connectiesHolland.csv") as g:
             IDCounter = 0
             # Iterate over the lines
             for line in g:

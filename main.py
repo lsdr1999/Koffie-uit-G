@@ -42,10 +42,6 @@ if algorithm == "random":
 if algorithm == "greedy":
     gr.runGreedy(railroad, trainlining, runs)
 
-    for trajectory in trainlining.trajectories:
-        print(trajectory.visitedStations)
-        print("\n")
-
 if algorithm == "hillclimber":
     ha.runHillclimber(railroad, trainlining, runs)
 
