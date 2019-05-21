@@ -15,7 +15,8 @@ Make sure that you have a copy of Python 3.7 or higher installed on your machine
 1. Clone or download our GitHub repository 
 2. In a terminal window, navigate to the directory you saved this repository on.
 3. Run `pip3 install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages are installed.
-4. Run `python main.py ['short' / 'long']` to get started
+4. Run`python main.py long` or `pyhon main.py short` to get started.
+5. Follow the steps shown in the table below. 
 
 #### Command-line steps:
 
@@ -23,12 +24,12 @@ The following steps are available in the User Interface:
 
 | Step | Command | Choice|
 |--------|---------|---------------------|
-| 0 |  |`python main.py long` or `pyhon main.py short`. |
-| 1 |  |Please choose if you like your trainlining to run over Holland or the Netherlands. Type `h` to select Holland, type `n` for the Netherlands. |
-| 2 |  |Please choose the maximum number of trajectories. Type a number between *1 and 30*. For `h` we advise `7`, for `n` we advise `20`.|
-| 3 |  |Please choose the maximum length of the trajectories in minutes. Type a number between *30 and 250*. For `h` we advise `120`, for `n` we advise `180`.|
-| 4.1 |  |Please select one of the algorithms: `r` = random, `ge` = genetic, `gr` = greedy, `h` = hillclimber, `a` = advanced hillclimber, `s` = simulated annealing, `all` = all algorithms. |
-| 4.2 |  |For more information regarding the algorithms type `info`. |
+| 0 |  | Run`python main.py long` or `pyhon main.py short` to get started. `Long` will give a full experience, while `short` will give a minimalistic experience (this is for people who are familiar with the project). |
+| 1 |  | Please choose if you like your trainlining to run over Holland or the Netherlands. Type `h` to select Holland, type `n` for the Netherlands. |
+| 2 |  | Please choose the maximum number of trajectories. Type a number between *1 and 30*. For `h` we advise `7`, for `n` we advise `20`.|
+| 3 |  | Please choose the maximum length of the trajectories in minutes. Type a number between *30 and 250*. For `h` we advise `120`, for `n` we advise `180`.|
+| 4.1 |  | Please select one of the algorithms: `r` = random, `ge` = genetic, `gr` = greedy, `h` = hillclimber, `a` = advanced hillclimber, `s` = simulated annealing, `all` = all algorithms. |
+| 4.2 |  | For more information regarding the algorithms type `info`. |
 | 5 | `r` | You will be redirected to step 6. |
 |   |  `ge` | Please insert the populationSize (between 10 and 100) or choose `d` for default settings. |
 |   |  | Please insert the recombinationCoefficient (between 0 and 1) or choose `d` for default settings. | 
