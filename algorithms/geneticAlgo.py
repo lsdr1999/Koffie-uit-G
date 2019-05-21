@@ -33,8 +33,8 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
     Returns (only when rerun == "y"):
         scoreList(list): list of the values of the solutions
     """
-    generations = int(runs) / populationSize
-    population = makePopulation(trainlining, populationSize, railroad)
+    generations = int(runs) / int(populationSize)
+    population = makePopulation(trainlining, int(populationSize), railroad)
     highestScore = 0
     bestTrainlining = []
     countList = []
@@ -47,7 +47,7 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
         mutatedChildren = []
         mutatedChildrenScore = 0
         countList.append(i)
-        for j in range(populationSize):
+        for j in range(int(populationSize)):
             number = 2
             parents = chooseParents(population, probabilityScores, number)
             crossoverChild = crossover(parents, recombinationCoefficient)
@@ -83,7 +83,7 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
         for trajectory in trainlining.trajectories:
             print(trajectory.visitedStations)
     elif rerun == "y":
-        return scoresList
+        return [scoresList, highestScore]
 
     if algorithm == "all":
         list = [countList, scoresList]
@@ -100,7 +100,7 @@ def makePopulation(trainlining, populationSize, railroad):
 
     Args:
         railroad (Class): lays out the connections of the Netherlands or Holland.
-        populationSize (int): the total population size
+        int(populationSize (int): the total population size
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
 
@@ -108,7 +108,7 @@ def makePopulation(trainlining, populationSize, railroad):
         a populationList which consists of the total population
     """
     populationList = []
-    for i in range(populationSize):
+    for i in range(int(populationSize)):
         individual = []
         for i in range(trainlining.maxTrajectories):
             trajectory = ra.makeRandomRoute(railroad, trainlining)

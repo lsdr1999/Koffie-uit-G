@@ -99,8 +99,8 @@ def runAll(userChoice):
         if rerun == 'y':
             for i in range(100):
                 total = ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
-                scoresList.append(total)
-                print(f"Rerun: {i}")
+                scoresList.append(total[0])
+                print(f"Rerun: {i} score {total[1]}")
             results.calculateScores(scoresList)
         else:
             ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
@@ -119,8 +119,8 @@ def runAll(userChoice):
         if rerun == 'y':
             for i in range(100):
                 total = sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
-                scoresList.append(total)
-                print(f"Rerun: {i}")
+                scoresList.append(total[0])
+                print(f"Rerun: {i} score {total[1]}")
             results.calculateScores(scoresList)
         else:
             sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)

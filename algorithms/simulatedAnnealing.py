@@ -48,7 +48,7 @@ def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
         probabilityScores = calculateSoftmax(info[0], T)
         winner = chooseTrajectoryChange(probabilityScores, scoreNames)
         trainlining = changeTrainLining(winner, info[1], basic)
-        T = calculateT(T)
+        T = calculateT(T, runs)
         score = trainlining.calculateScore()
 
         if score > highestScore:
@@ -64,7 +64,7 @@ def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
         for trajectory in bestTrainLining.trajectories:
             print(trajectory.visitedStations)
     elif rerun == "y":
-        return scoreList
+        return [scoreList, highestScore]
 
     if algorithm == "all":
         list = [countList, scoreList]
@@ -96,17 +96,19 @@ def getScores(railroad, trainlining, basic):
     return info
 
 
-def calculateT(T):
+def calculateT(T, runs):
 
     """
     Calculates the temperature
 
     Args:
         T (float): the temperature which is needed for the coolingscheme
+        Runs (int): the amount of iterations
     Returns:
         T (float): the temperature which is needed for the coolingscheme
     """
-    T = T * 0.9999
+    logarithmicMultiplier = 1-(10/ int(runs))
+    T = T * logarithmicMultiplier
 
     return T
 
