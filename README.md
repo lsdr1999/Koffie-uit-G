@@ -47,10 +47,10 @@ For the entire Netherlands the lower bound is -760 based on:
 - T = 20, the maximum amount of trains are used
 - min = 3600,  the maximum amount of minutes are used (20 trajectories x 180 min)
 
-The upper bound is estimated at 9734 based on:
+The upper bound is estimated at 9738,9 based on:
 - p = 1, meaning all critical connections are covered
-- T = 7, because seven trains is the minimum we found through the algorithms
-- min = 1260, based on 7 times a full trajectory (180 minutes)
+- T = 8, because eight trains is the minimum we found through the algorithms
+- min = 1011, based on the theory that all critical connections are connected
 
 The maximum number of possible trajectories in the entire Netherlands is equal to 12 * 10^9. Therefore the state space for the case is: 3.83376e+201. This is the maximum number of possible lines, calculated according to (12 * 10^9)^ 20. 
 
