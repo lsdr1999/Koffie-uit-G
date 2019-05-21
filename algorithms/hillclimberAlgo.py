@@ -44,11 +44,22 @@ def runHillclimber(railroad, trainlining, runs, algorithm, image):
         visual.makeGraph(countList, scoreList)
     return score
 
-    return score
-
 def hillclimber(railroad, trainlining, sim):
     """
+    Makes adjusments to the given trainlining by adding an extra trajectory, \
+    changing a trajectory and adding a new trajectory. This function checks which\
+    solution is best and returns it.
 
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        sim (bool): defines whether simulatedAnnealing is used, and thus which \
+        variables have to be returned.
+
+    Returns:
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
     """
     oldScore = trainlining.calculateScore()
 
