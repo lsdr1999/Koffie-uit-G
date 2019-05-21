@@ -32,11 +32,11 @@ The following steps are available in the User Interface:
 | 5 | `r` | You will be redirected to step 6. |
 |   |  `ge` | Please insert the populationSize (between 10 and 100) or choose `d` for default settings. |
 |   |  | Please insert the recombinationCoefficient (between 0 and 1) or choose `d` for default settings. | 
-|   |  | Please insert the mutationRate (between 0 and 1) or choose `d` for default settings. |
+|   |  | Please insert the mutationRate (between 0 and 1) or choose `d` for default settings. You will be redirected to step 6. |
 |   | `gr`| You will be redirected to step 6. |
 |   | `h` | You will be redirected to step 6. |
 |   | `a` | You will be redirected to step 6. |
-|   | `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. |
+|   | `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. You will be redirected to step 6. |
 |   | `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will not provide a visual at the end. |
 | 6 |  | Please choose how many iterations your algorithm should run. Type a *positive integer*. |
 | 7 |  | Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
