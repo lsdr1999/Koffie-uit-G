@@ -1,8 +1,2 @@
-matplotlib
-numpy
-copy
-random
-math
-csv
-sys
-os
+matplotlib=3.0.3
+numpy=1.16.3
