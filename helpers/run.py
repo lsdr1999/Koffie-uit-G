@@ -69,6 +69,7 @@ def runAll(userChoice):
             for i in range(100):
                 total = ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
+                print(i)
             results.calculateScores(scoresList)
         else:
             ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
