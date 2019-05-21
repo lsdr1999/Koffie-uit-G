@@ -23,6 +23,7 @@ The files are structured in four main folders:
 - Classes, containing the data structure used to run the program
 - csvFiles, containing all the csv files used to run the program
 - Helpers,  containing all code used to visualize the program
+
 The program will be running via the main.py file
 
 ## Bounds and State Space
