@@ -13,11 +13,6 @@ class Railroad(object):
         self.connections = {}
         self.totalCritical = []
 
-<<<<<<< HEAD
-    def loadStations(self):
-        # Open the Stations file and create empty station dictionaryd
-        with open("csvFiles/stationsHolland.csv") as f:
-=======
 
     def loadStations(self, csvChoice, csvConnections):
         """
@@ -30,7 +25,6 @@ class Railroad(object):
 
         # Open the Stations file and create empty station dictionary
         with open(csvChoice) as f:
->>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
             # Iterate over the lines
             for line in f:
 
@@ -55,13 +49,8 @@ class Railroad(object):
         # Close the file
         f.close()
 
-<<<<<<< HEAD
-        # Open the the connections files
-        with open("csvFiles/connectiesHolland.csv") as g:
-=======
         # Open the connections files
         with open(csvConnections) as g:
->>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
             IDCounter = 0
             # Iterate over the lines
             for line in g:
