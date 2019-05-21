@@ -15,7 +15,7 @@ Make sure that you have a copy of Python 3.7 or higher installed on your machine
 1. Clone or download our GitHub repository 
 2. In a terminal window, navigate to the directory you saved this repository on.
 3. Run `pip3 install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages are installed.
-4. Run `python main.py` to get started
+4. Run `python main.py ['short' / 'long']` to get started
 
 ## File Structure
 The files are structured in four main folders:
