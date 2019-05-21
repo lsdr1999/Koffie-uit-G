@@ -8,7 +8,7 @@ A target function has been established for the quality of the line management:
 
 Herein K is the quality of the lines, p is the fraction of the critical connections used (so between 0 and 1), T is the number of trajectories and Min is the number of minutes in all trajectories together. In order to get the highest score we are aiming for a line management which covers as many critical connections with the least amount of trains in the shortest time possible. 
 
-For more information, in Dutch: [check this link](http://heuristieken.nl/wiki/index.php?title=RailNL)
+For more information about the case (in Dutch), see [Heuristieken wiki](http://heuristieken.nl/wiki/index.php?title=RailNL)
 
 ## Getting Started
 Make sure that you have a copy of Python 3.7 or higher installed on your machine. You’ll also need to install `pip`. If you downloaded Python from [Python’s website](https://www.python.org/downloads/), you likely already have `pip` installed (you can check by running `pip` in a terminal window). If you don’t have it installed, be sure to install it before moving on!
