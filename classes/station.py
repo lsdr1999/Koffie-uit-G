@@ -21,6 +21,7 @@ class Station(object):
         self.connections = []
         self.critical = critical
 
+
     def addConnection(self, name, time, critical, id):
         """
         Adds all possible connections between stations to a list

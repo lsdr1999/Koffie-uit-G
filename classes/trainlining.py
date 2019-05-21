@@ -1,13 +1,13 @@
 from classes import railroad
 from classes import trajectory
 from algorithms import randomAlgo as ra
-# from algorithms import hillclimberAlgo
 
 class Trainlining():
     """
     Class that creates the trajectories, calculates the length of
     trajectories and calculates the score (the quality of the trainlining)
     """
+
     def __init__(self, maxTrajectories, maxLength, totalCritical):
         """
         Initializes a trainlining object
@@ -24,6 +24,7 @@ class Trainlining():
         self.visitedCriticalConnections = set()
         self.trackLength = 0
 
+
     def calculateScore(self):
         """
         Calculates the quality of the trainling via the score formula
@@ -38,6 +39,7 @@ class Trainlining():
         score = p * 10000 - (len(self.trajectories) * 20 + self.trackLength / 10)
         return score
 
+
     def calculateP(self):
         """
         Calculates 'p', a fraction which is used in the calculateScore function
@@ -48,6 +50,7 @@ class Trainlining():
         p = float(len(self.visitedCriticalConnections)) / float(self.totalCritical)
         return p
 
+
     def setTrackLength(self):
         """
         Sets the total length of the trainling, out of a combination of all trajectory lengths
@@ -56,6 +59,7 @@ class Trainlining():
         for trajectory in self.trajectories:
             trajectory.calculateLength()
             self.trackLength += trajectory.length
+
 
     def setVisitedCriticalConnections(self):
         """
@@ -66,12 +70,13 @@ class Trainlining():
             trajectory.calculateVisitedCritical()
             self.visitedCriticalConnections.update(trajectory.visitedCritical)
 
+
     def addTrajectories(self, railroad):
         """
         Adds a trajectory to the trajectories list until maxTrajectories is reached
 
         Args:
-            Railroad (class): lays out the connections of the Netherlands or North- and South-Holland
+            Railroad (Class): lays out the connections of the Netherlands or North- and South-Holland
         """
         for trajectory in range(self.maxTrajectories):
             trajectory = ra.makeRandomRoute(railroad, self)

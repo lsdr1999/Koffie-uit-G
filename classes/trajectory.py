@@ -6,6 +6,7 @@ class Trajectory(object):
     It adds visited Stations and connections and calculates both the total visitedCritical
     as the total Length of the trajectory.
     """
+
     def __init__(self, maxLength):
         """
         Initializes a trajectory object
@@ -19,6 +20,7 @@ class Trajectory(object):
         self.visitedStations = []
         self.connections = []
 
+
     def addVisitedStations(self, nextStation):
         """
         Adds visited stations to a list
@@ -27,6 +29,7 @@ class Trajectory(object):
             nextStation (string): the go to station from the start/last station
         """
         self.visitedStations.append(nextStation)
+
 
     def addConnection(self, startStation, nextStation, time, critical, id):
         """
@@ -41,6 +44,7 @@ class Trajectory(object):
         """
         self.connections.append([startStation, nextStation, time, critical, id])
 
+
     def calculateVisitedCritical(self):
         """
         Adds all visited critical connections to a set
@@ -50,6 +54,7 @@ class Trajectory(object):
             if connection[3]:
                 id = connection[4]
                 self.visitedCritical.add(id)
+
 
     def calculateLength(self):
         """

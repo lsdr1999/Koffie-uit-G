@@ -5,11 +5,29 @@ import numpy as np
 import random
 
 def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
+    """
+    In this algorithm all changes are given a probability of
+    acceptance based on a softmax of their respective scores. As the algorithm
+    runs the probability that lower scores are accepted decreases, and the
+    probabilities that higher scores are accepted increases.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        runs (int): amount of iterations chosen for the algorithm to run.
+        algorithm (string): chosen algorithm (can be all or hillclimber).
+        image (string): defines what image is generated after the algorithm.
+    """
     if hill == "a":
         basic = False
     else:
         basic = True
 
+<<<<<<< HEAD
+    runs = 1000000
+=======
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
     T = 1
     highestScore = 0
     countList = []
@@ -38,6 +56,7 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
         if ((i - 1) % 1000) == 0:
             print(f"counter: {(i-1)} score: {score} T = {T}")
             print(f"highest score: {highestScore} length {trainlining.trackLength}")
+            print(len(trainlining.trajectories))
 
     for trajectory in bestTrainLining.trajectories:
         print(trajectory.visitedStations)
@@ -52,6 +71,18 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
 
 
 def getScores(railroad, trainlining, basic):
+    """
+    Gets score information from the hillclimber algorithm
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+        basic (string): choice for basic or advanced Hillclimber
+
+    Returns:
+        info (list): which includes information on the railroad and trainlining
+    """
     if basic:
         info = ha.hillclimber(railroad, trainlining, True)
     else:
@@ -59,11 +90,35 @@ def getScores(railroad, trainlining, basic):
 
     return info
 
+
 def calculateT(T):
+<<<<<<< HEAD
+    T = T * 0.99999
+=======
+    """
+    Calculates the temperature
+
+    Args:
+        T (float): the temperature which is needed for the coolingscheme
+    Returns:
+        T (float): the temperature which is needed for the coolingscheme
+    """
     T = T * 0.9999
+>>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
     return T
 
+
 def calculateSoftmax(scores, T):
+    """
+    Calculates the softmax
+
+    Args:
+        scores (float): the solutions from the hillclimber
+        T (float): the temperature
+
+    Returns:
+        The new solution
+    """
     newScores = []
     for score in scores:
         score = score / (1000 * T)
@@ -72,7 +127,18 @@ def calculateSoftmax(scores, T):
     scores = np.array(newScores)
     return np.exp(scores - (max(scores)-(max(scores) * T)))/ np.sum(np.exp(scores-(max(scores)- (max(scores) * T))))
 
+
 def chooseTrajectoryChange(probabilityScores, scoreNames):
+    """
+    Chooses the trajectory change
+
+    Args:
+        probabilityScores (int): the probability solutions
+        scoreNames (string): the names of the solutions
+
+    Returns:
+        scoreName (string): name of the chosen solution
+    """
     mergedList = list(zip(probabilityScores, scoreNames))
     r = random.random()
     for probabilityScore, scoreName in mergedList:
@@ -81,7 +147,19 @@ def chooseTrajectoryChange(probabilityScores, scoreNames):
         else:
             r -= probabilityScore
 
+
 def changeTrainLining(winner, trajectories, basic):
+    """
+    Changes the trainlining to the winner and returns it
+
+    Args:
+        winner (string): the 'best' trainling
+        trajectories (list): list of all trajectories
+        basic (string): choice for basic or advanced Hillclimber
+
+    Returns:
+        The new trainlining
+    """
     if basic:
         trainlining = trajectories[0]
         newTrajectory = trajectories[1]

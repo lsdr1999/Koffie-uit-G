@@ -44,6 +44,8 @@ def runHillclimber(railroad, trainlining, runs, algorithm, image):
         visual.makeGraph(countList, scoreList)
     return score
 
+    return score
+
 def hillclimber(railroad, trainlining, sim):
     """
 
