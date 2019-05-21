@@ -197,11 +197,11 @@ def userInterfaceLong():
     The Simulated annealing algorithm builds upon the hillclimber algorithm but instead of accepting the best change,\n\
     all changes are given a probability of acceptance based on a softmax of their respective scores.  \n\
     As the algorithm runs the probability that lower scores are accepted decreases,\n\
-    and the probabilities that higher scores are accepted increases.\n\
+    and the probabilities that higher scores are accepted increases.\n\n\
     All\n\
     Will run all algorithms for 100000 iterations in default settings.\n\
     It will take approximately 20 minutes to run this function, and it will not provide\n\
-    a visual at the end. ")
+    a visual at the end. \n\n\")
             continue
 
         print(f"     You have chosen the following algorithm: {algorithm}\n")
@@ -220,7 +220,9 @@ def userInterfaceLong():
     print("     _______________________________________________________________________ \n")
 
     while True:
-        rerun = input ("    Would you like to run this a 100 times?\n 'y' = yes, 'n' = no\n")
+        rerun = input ("    Would you like to rerun this a 100 times?\n\
+    This will give a lowest, highest, and average value at the end\n\
+    'y' = yes, 'n' = no\n")
         if rerun != "n" and rerun != "y":
             print("     Invalid input!")
             continue
@@ -398,7 +400,7 @@ int(maxTrajectories) > 30:
             continue
         break
     while True:
-        rerun = input ("    Would you like to run this a 100 times?\n 'y' = yes, 'n' = no\n")
+        rerun = input ("    Would you like to rerun this a 100 times?\n 'y' = yes, 'n' = no\n")
 
         if rerun != "n" and rerun != "y":
             print("     Invalid input!")
