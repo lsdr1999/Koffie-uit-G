@@ -201,7 +201,7 @@ def userInterfaceLong():
     All\n\
     Will run all algorithms for 100000 iterations in default settings.\n\
     It will take approximately 20 minutes to run this function, and it will not provide\n\
-    a visual at the end. \n\n\")
+    a visual at the end. \n\n")
             continue
 
         print(f"     You have chosen the following algorithm: {algorithm}\n")
