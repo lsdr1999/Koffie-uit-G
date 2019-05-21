@@ -35,8 +35,8 @@ The following steps are available in the User Interface:
 |  |  | Please insert the mutationRate (between 0 and 1) or choose `d` for default settings. |
 |  | When selected `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. |
 |  | When selected `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will not provide a visual at the end. |
-| 6 | Please choose how many iterations your algorithm should run. Type a *positive integer*. |
-| 7 | Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
+| 6 |  | Please choose how many iterations your algorithm should run. Type a *positive integer*. |
+| 7 |  | Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
 | 8 | When selected `y` | Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end. |
 |  | When selected `n` | Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
 | 9 | When selected `v` | A visualization of the trainlining will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
