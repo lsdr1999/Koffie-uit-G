@@ -24,10 +24,6 @@ def simAnnealing(railroad, trainlining, runs, algorithm, hill, image):
     else:
         basic = True
 
-<<<<<<< HEAD
-    runs = 1000000
-=======
->>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
     T = 1
     highestScore = 0
     countList = []
@@ -92,9 +88,7 @@ def getScores(railroad, trainlining, basic):
 
 
 def calculateT(T):
-<<<<<<< HEAD
-    T = T * 0.99999
-=======
+
     """
     Calculates the temperature
 
@@ -104,7 +98,7 @@ def calculateT(T):
         T (float): the temperature which is needed for the coolingscheme
     """
     T = T * 0.9999
->>>>>>> 781142ae1605fa17e5f49aa5c1ae8776c165d787
+
     return T
 
 
