@@ -58,7 +58,19 @@ def runGreedy(railroad, trainlining, runs, algorithm, image):
         visual.makeGraph(countList, scoreList)
 
 def greedyTrajectory(railroad, trainlining):
+    """
+    Creates a trajectory based on several constraints (i.e. shortest time, already\
+    visited, if it's critical or not) and then checks whether the solution increases.\
+    Keeps the best solution.
 
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+    Returns:
+        trajectory (Class): generated trajectory by the algorithm, filled with the\
+        stations that it has visited.
+    """
     keylist = []
     for key, value in railroad.stationDict.items():
         keylist.append(key)
