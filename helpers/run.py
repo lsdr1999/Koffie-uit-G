@@ -10,7 +10,6 @@ from helpers import results
 from helpers import userInterface as UI
 from helpers import visual
 
-
 def runAll(userChoice):
     """
     Receives whether the user wants to use the long or short UI. Then runs the UI, \
