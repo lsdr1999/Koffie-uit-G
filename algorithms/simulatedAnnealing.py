@@ -23,7 +23,7 @@ def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
     Returns(only when algorithm == "all"):
         list (list): list of the countList and scoreList
     Returns (only when rerun == "y"):
-        scoreList(list): list of the values of the solutions
+        highestScore (float): final solution of the algorithm.
 
     """
     if hill == "a":
@@ -64,7 +64,7 @@ def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
         for trajectory in bestTrainLining.trajectories:
             print(trajectory.visitedStations)
     elif rerun == "y":
-        return [scoreList, highestScore]
+        return highestScore
 
     if algorithm == "all":
         list = [countList, scoreList]

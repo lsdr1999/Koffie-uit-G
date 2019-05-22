@@ -21,7 +21,7 @@ def runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
     Returns (only when rerun == "y"):
-        scoreList(list): list of the values of the solutions
+        score (float): final solution of the algorithm
 
     """
     trainlining.addTrajectories(railroad)
@@ -40,7 +40,7 @@ def runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
         for trajectory in trainlining.trajectories:
             print(trajectory.visitedStations)
     elif rerun == "y":
-        return scoreList
+        return score
     elif algorithm == "all":
         list = [countList, scoreList]
         return list

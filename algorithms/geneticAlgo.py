@@ -31,7 +31,7 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
     Returns (only when rerun == "y"):
-        scoreList(list): list of the values of the solutions
+        highestScore (float): final solution of the algorithm.
     """
     generations = int(runs) / int(populationSize)
     population = makePopulation(trainlining, int(populationSize), railroad)
@@ -83,7 +83,7 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
         for trajectory in trainlining.trajectories:
             print(trajectory.visitedStations)
     elif rerun == "y":
-        return [scoresList, highestScore]
+        return highestScore
 
     if algorithm == "all":
         list = [countList, scoresList]

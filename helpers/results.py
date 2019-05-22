@@ -9,14 +9,10 @@ def calculateScores(scoresList):
     Args:
         scoresList (list): list of lists containing the solutions of the algorithm.
     """
-    scores = []
-    for list in scoresList:
-        for value in list:
-            scores.append(value)
 
-    average = mean(scores)
-    highest = max(scores)
-    lowest = min(scores)
+    average = mean(scoresList)
+    highest = max(scoresList)
+    lowest = min(scoresList)
 
     print("_______________________________________________________________________")
     print(f"Average: {average}\n")

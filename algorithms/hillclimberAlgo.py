@@ -23,7 +23,7 @@ def runHillclimber(railroad, trainlining, runs, rerun, algorithm, image):
         Returns (only when algorithm == "all"):
             list (list): list of the countList and scoreList
         Returns (only when rerun == "y"):
-            scoreList(list): list of the values of the solutions
+            score (float): final solution of the algorithm.
     """
 
     countList = []
@@ -39,7 +39,7 @@ def runHillclimber(railroad, trainlining, runs, rerun, algorithm, image):
             print(f"counter: {(i-1)} score: {score}")
 
     if rerun == "y" and algorithm == "hillclimber":
-        return scoreList
+        return score
 
     if algorithm == "all":
         list = [countList, scoreList]

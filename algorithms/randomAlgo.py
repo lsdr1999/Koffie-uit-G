@@ -21,7 +21,7 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
     Returns (only when rerun == "y"):
-        scoreList(list): list of the values of the solutions
+        highestScore (float): final solution of algorithm
     """
 
     highestScore = 0
@@ -51,7 +51,7 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
         print(average)
 
     if rerun == "y":
-        return scoreList
+        return highestScore
     elif rerun == "n":
         for trajectory in bestTrainLining.trajectories:
             print(trajectory.visitedStations)

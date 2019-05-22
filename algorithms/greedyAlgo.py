@@ -24,7 +24,7 @@ def runGreedy(railroad, trainlining, runs, rerun, algorithm, image):
     Returns (only when algorithm == "all"):
         list (list): list of the countList and scoreList
     Returns (only when rerun == "y"):
-        scoreList(list): list of the values of the solutions
+        highestScore (float): final solution
     """
     highestScore = 0
     countList = []
@@ -53,7 +53,7 @@ def runGreedy(railroad, trainlining, runs, rerun, algorithm, image):
     if rerun == "n":
         print(average)
     elif rerun == "y":
-        return scoreList
+        return highestScore
 
     if algorithm == "all":
         list = [countList, scoreList]

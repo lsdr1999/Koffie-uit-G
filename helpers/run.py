@@ -80,6 +80,7 @@ def runAll(userChoice):
                 total = gr.runGreedy(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
                 print(f"Rerun: {i + 1}")
+                trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
             results.calculateScores(scoresList)
         else:
             gr.runGreedy(railroad, trainlining, runs, algorithm, image)
@@ -98,8 +99,8 @@ def runAll(userChoice):
         if rerun == 'y':
             for i in range(100):
                 total = ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
-                scoresList.append(total[0])
-                print(f"Rerun: {i + 1} score {total[1]}")
+                scoresList.append(total)
+                print(f"Rerun: {i + 1} ")
             results.calculateScores(scoresList)
         else:
             ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
@@ -110,6 +111,7 @@ def runAll(userChoice):
                 total = ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
                 print(f"Rerun: {i + 1}")
+                print(total)
             results.calculateScores(scoresList)
         else:
             ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
@@ -118,8 +120,8 @@ def runAll(userChoice):
         if rerun == 'y':
             for i in range(100):
                 total = sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
-                scoresList.append(total[0])
-                print(f"Rerun: {i + 1} score {total[1]}")
+                scoresList.append(total)
+                print(f"Rerun: {i + 1} score {total}")
             results.calculateScores(scoresList)
         else:
             sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
