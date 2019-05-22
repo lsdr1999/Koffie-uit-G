@@ -83,7 +83,7 @@ def runAll(userChoice):
                 trainlining = tl.Trainlining(maxTrajectories, maxLength, totalCritical)
             results.calculateScores(scoresList)
         else:
-            gr.runGreedy(railroad, trainlining, runs, algorithm, image)
+            gr.runGreedy(railroad, trainlining, runs, rerun, algorithm, image)
 
     elif algorithm == "hillclimber":
         if rerun == 'y':
@@ -93,7 +93,7 @@ def runAll(userChoice):
                 print(f"Rerun: {i + 1}")
             results.calculateScores(scoresList)
         else:
-            ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
+            ha.runHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
 
     elif algorithm == "genetic":
         if rerun == 'y':
@@ -103,7 +103,7 @@ def runAll(userChoice):
                 print(f"Rerun: {i + 1} ")
             results.calculateScores(scoresList)
         else:
-            ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
+            ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
 
     elif algorithm == "advancedHillclimber":
         if rerun == 'y':
@@ -114,7 +114,7 @@ def runAll(userChoice):
                 print(total)
             results.calculateScores(scoresList)
         else:
-            ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
+            ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
 
     elif algorithm == "simulatedAnnealing":
         if rerun == 'y':
@@ -124,15 +124,15 @@ def runAll(userChoice):
                 print(f"Rerun: {i + 1} score {total}")
             results.calculateScores(scoresList)
         else:
-            sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
+            sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
 
     elif algorithm == "all":
         list1 = ra.runRandom(railroad, trainlining, runs, rerun, algorithm, image)
-        list2 = gr.runGreedy(railroad, trainlining, runs, algorithm, image)
-        list3 = ha.runHillclimber(railroad, trainlining, runs, algorithm, image)
-        list4 = ge.genetic(trainlining, railroad, runs, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
-        list5 = ah.runAdvancedHillclimber(railroad, trainlining, runs, algorithm, image)
-        list6 = sa.simAnnealing(railroad, trainlining, runs, algorithm, hill, image)
+        list2 = gr.runGreedy(railroad, trainlining, runs, rerun, algorithm, image)
+        list3 = ha.runHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
+        list4 = ge.genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recombinationCoefficient, mutationRate, image)
+        list5 = ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
+        list6 = sa.simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image)
 
         list = [list6, list1, list2, list3, list4, list5]
         visual.makeTotalGraph(list)
