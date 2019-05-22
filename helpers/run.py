@@ -111,7 +111,6 @@ def runAll(userChoice):
                 total = ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
                 scoresList.append(total)
                 print(f"Rerun: {i + 1}")
-                print(total)
             results.calculateScores(scoresList)
         else:
             ah.runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
