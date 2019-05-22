@@ -41,7 +41,7 @@ def runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
             print(trajectory.visitedStations)
     elif rerun == "y":
         return score
-    elif algorithm == "all":
+    if algorithm == "all":
         list = [countList, scoreList]
         return list
     elif image == "graph":
