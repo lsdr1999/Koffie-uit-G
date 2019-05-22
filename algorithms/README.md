@@ -23,6 +23,7 @@ The hillclimber first selects a randomly generated raillining. First, the initia
 The advanced hillclimber is slightly different than the hillclimber described above. This version compares more altered versions of a raillining, but still chooses the best option. The advanced version also takes smaller steps in order to generate better scores. To elaborate: it first calculates the old score of the raillining, then it removes a randomly chosen trajectory and calculates the score. Then the algorithm pops (i.e. removes the last variable in a list) a selected number of stations and calculates the score afterwards. Additionally, it adds the same number of stations before the startstation of the trajectory and calculates the score. At last it also adds an extra trajectory to the raillining and again calculates the score. Finally, these scores are compared and the best raillining is chosen. This algorithm also runs for a chosen amount of iterations. 
 
 ## Random (randomAlgo.py)
- 
+Generates a random trainlining with the maximum number of trajectories.
+
 ## Simulated Annealing (simulatedAnnealing.py)
 The simulated annealing algorithm builds upon the hillclimber algorithm but instead of accepting the best change, all changes are given a probability of acceptance based on a softmax of their respective scores. As the algorithm runs the probability that lower scores are accepted decreases, and the probabilities that higher scores are accepted increases.
