@@ -46,6 +46,8 @@ def runAdvancedHillclimber(railroad, trainlining, runs, rerun, algorithm, image)
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
+    elif image == "old":
+        visual.oldVisual(railroad, trainlining)
     else:
         visual.makeCard(railroad, trainlining)
 

@@ -46,6 +46,9 @@ def runGreedy(railroad, trainlining, runs, rerun, algorithm, image):
         if ((i-1) % 100) == 0 and rerun == "n":
             print(f"counter: {(i-1)} score: {highestScore}")
 
+    if rerun == "n":
+        for trajectory in bestTrainLining.trajectories:
+            print(trajectory.visitedStations)
     sum = 0
     for score in averageList:
         sum += score
@@ -62,6 +65,8 @@ def runGreedy(railroad, trainlining, runs, rerun, algorithm, image):
         visual.makeCard(railroad, bestTrainLining)
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
+    elif image == "old":
+        visual.oldVisual(railroad, bestTrainLining)
 
 def greedyTrajectory(railroad, trainlining):
     """

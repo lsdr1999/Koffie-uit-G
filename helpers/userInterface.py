@@ -273,19 +273,21 @@ def userInterfaceLong():
             image = "graph"
             break
         image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
-     'v' = visual\n     'g' = graph\n")
+        You can choose for a visual with the trajectories ('o'), or an overview of the current state of the connections.\n\
+     'v' = visual\n     'g' = graph\n     'o' = old visual")
 
         if image == "q":
             print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
             quit()
 
-        if image.lower() != "v" and image.lower() != "g":
+        if image.lower() != "v" and image.lower() != "g" and image.lower() != 'o':
             print("     Please insert a valid option.\n")
             continue
 
         elif image.lower() == "v":
             image = "visual"
-
+        elif image.lower() == "o":
+            image = "old"
         else:
             image = "graph"
         print(f"     At the end of your runs, the program will show a {image}.\n")
@@ -490,16 +492,18 @@ int(maxTrajectories) > 30:
         if rerun == "y":
             image = "graph"
             break
-        image = input("     Visual ('v') or graph ('g')?\n")
+        image = input("     Visual ('v'), old visual ('o') or graph ('g')?\n")
 
         if image == "q":
             print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
             quit()
-        elif image.lower() != "g" and image.lower() != "v":
+        elif image.lower() != "g" and image.lower() != "v" and image.lower() != "o":
             print("     Invalid input!")
             continue
         elif image.lower() == "g":
             image = "graph"
+        elif image.lower() == "o":
+            image = "old"
         else:
             image = "visual"
         break

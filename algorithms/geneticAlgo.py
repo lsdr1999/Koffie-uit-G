@@ -90,6 +90,8 @@ def genetic(trainlining, railroad, runs, rerun, algorithm, populationSize, recom
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoresList)
+    elif image == "old":
+        visual.oldVisual(railroad, trainlining)
     else:
         visual.makeCard(railroad, trainlining)
 

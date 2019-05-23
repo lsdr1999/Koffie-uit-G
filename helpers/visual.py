@@ -171,3 +171,40 @@ def makeTotalGraph(list):
     plt.xlabel('Counter')
     plt.ylabel('Score')
     plt.show()
+
+def oldVisual(railroad, trainlining):
+    style.use('classic')
+    ax1.clear()
+
+    xcor = []
+    ycor = []
+
+    # get the x and y coordinates from the card
+    for key, value in railroad.stationDict.items():
+        ycor.append(float(value.xCoordinate.strip()))
+        xcor.append(float(value.yCoordinate.strip()))
+    # make a scatterplot
+    ax1.scatter(xcor,ycor, color='k')
+
+    # make a dictionary of all of the trajectories and its coordinate lists
+    coordDict = {}
+    counter = 1
+    for trajectory in trainlining.trajectories:
+        x = []
+        y = []
+        for city in trajectory.visitedStations:
+            for key, value in railroad.stationDict.items():
+                if city == key:
+                    x.append(float(value.yCoordinate.strip()))
+                    y.append(float(value.xCoordinate.strip()))
+        coordDict[str(counter)] = x, y
+        counter += 1
+
+    # plot each trajectory
+    for key in coordDict:
+        ax1.plot(coordDict[key][0], coordDict[key][1])
+
+    plt.title('Dienstregeling')
+    plt.xlabel('x-coördinaten')
+    plt.ylabel('y-coördinaten')
+    plt.show()

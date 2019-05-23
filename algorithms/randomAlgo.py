@@ -62,6 +62,8 @@ def runRandom(railroad, trainlining, runs, rerun, algorithm, image):
         return list
     elif image == "graph":
         visual.makeGraph(countList, scoreList)
+    elif image == "old":
+        visual.oldVisual(railroad, bestTrainLining)
     else:
         visual.makeCard(railroad, bestTrainLining)
 
