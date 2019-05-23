@@ -25,6 +25,7 @@ The following steps are available in the User Interface:
 | Step | Command | Choice|
 |--------|---------|---------------------|
 | 0 |  | Run`python main.py long` or `pyhon main.py short` to get started. `Long` will give a full experience, while `short` will give a minimalistic experience (this is for people who are familiar with the project). |
+|   | `q` | Exits the program at any given point. |
 | 1 |  | Please choose if you like your trainlining to run over Holland or the Netherlands. Type `h` to select Holland, type `n` for the Netherlands. |
 | 2 |  | Please choose the maximum number of trajectories. Type a number between *1 and 30*. For `h` we advise `7`, for `n` we advise `20`.|
 | 3 |  | Please choose the maximum length of the trajectories in minutes. Type a number between *30 and 250*. For `h` we advise `120`, for `n` we advise `180`.|
@@ -38,13 +39,14 @@ The following steps are available in the User Interface:
 |   | `h` | You will be redirected to step 6. |
 |   | `a` | You will be redirected to step 6. |
 |   | `s` | Please insert the hillclimber you want to use. For Advanced select `a`, for Normal select `n`. You will be redirected to step 6. |
-|   | `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will not provide a visual at the end. |
+|   | `all` |  Will run all algorithms for 100000 iterations in default settings. It will take approximately 20 minutes to run this function, and it will provide a graph at the end. |
 | 6 |  | Please choose how many iterations your algorithm should run. Type a *positive integer*. |
 | 7 |  | Please choose if you would like to rerun this a 100 times. Type `y` to select yes, type `n` to select no. |
-| 8 | `y` | Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end. |
+| 8 | `y` | Your algorithm will start, it reruns 100 times and give a lowest, highest, and average value at the end. This option does not provide a visual at the end and takes longer than average to run. |
 |   | `n` | Please choose if you would like to see a visual of your trainlining or a graph of its performance. Type `v` to select visual, type `g` to select graph. |
-| 9 | `v` | A visualization of the trainlining will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
+| 9 | `v` | A visualization of the trainlining with an overview of the current state of the connections will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen.
 |   | `g` | A performance graph will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
+|   | `o` | A visualization of the trainlining with the trajectories will show. In the terminal the score and all trajectories will be printed. To close this run, close the figure pop-up screen. |
 
 ## File Structure
 The files are structured in four main folders:
@@ -86,4 +88,7 @@ The maximum number of possible trajectories in the entire Netherlands is equal t
 Based on these calculations it was decided that brute force would be unrealistic, as this would take way too much time. Instead we decided to implement a random algorithm, a greedy algorithm, two types of hillclimbers, a genetic algorithm and a simulated annealing algorithm.
 
 ## Authors
-Lars de Roos, Maarten Wijstma en Nienke Luijcks
+Lars de Roos, Maarten Wijstma and Nienke Luijcks.
+
+## Acknowledgements
+First of all we would like to thank Bram van den Heuvel for all the guidance and advice we've received during the development of this project. Credit is also due to Quinten van der Post who gave us advice on our presentation and at times gave interesting insight into the workings of certain algorithms. Lastly we would like to thank everyone involved in the organisation of the course Heuristieken 2019, as we had a lot of fun working on this project.
