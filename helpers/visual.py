@@ -5,9 +5,6 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import csv
 
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
-style.use('classic')
 
 def makeCard(railroad, trainlining):
     """
@@ -19,6 +16,9 @@ def makeCard(railroad, trainlining):
         trainlining (Class): generated solution of an algorithm of a trainlining\
         through Holland or the Netherlands.
     """
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1,1,1)
+    style.use('classic')
 
     criticalCoordinates = []
     normalCoordinates = []
@@ -134,6 +134,10 @@ def makeGraph(countList, scoreList):
         countList (list): list from 0 to x (runs).
         scoreList (list): list of the values of the solutions of the trainlining.
     """
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1,1,1)
+    style.use('classic')
+
     ax1.plot(countList, scoreList)
 
     plt.title('Performance ')
@@ -173,17 +177,27 @@ def makeTotalGraph(list):
     plt.show()
 
 def oldVisual(railroad, trainlining):
+    """
+    Creates a visual that shows the different trajectories in a trainlining.
+
+    Args:
+        railroad (Class): lays out the connections of the Netherlands or Holland.
+        trainlining (Class): generated solution of an algorithm of a trainlining\
+        through Holland or the Netherlands.
+    """
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1,1,1)
     style.use('classic')
+
     ax1.clear()
 
     xcor = []
     ycor = []
 
-    # get the x and y coordinates from the card
+    # get the x and y coordinates from the card and make a scatterplot
     for key, value in railroad.stationDict.items():
         ycor.append(float(value.xCoordinate.strip()))
         xcor.append(float(value.yCoordinate.strip()))
-    # make a scatterplot
     ax1.scatter(xcor,ycor, color='k')
 
     # make a dictionary of all of the trajectories and its coordinate lists

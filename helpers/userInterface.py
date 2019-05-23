@@ -273,8 +273,9 @@ def userInterfaceLong():
             image = "graph"
             break
         image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
-        You can choose for a visual with the trajectories ('o'), or an overview of the current state of the connections.\n\
-     'v' = visual\n     'g' = graph\n     'o' = old visual")
+        You can choose for a visual with the trajectories ('o'), or an overview of the \n\
+        current state of the connections ('v').\n\
+     'v' = visual\n     'g' = graph\n     'o' = old visual\n")
 
         if image == "q":
             print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
