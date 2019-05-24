@@ -14,7 +14,7 @@ For more information about the case (in Dutch), see [Heuristieken wiki](http://h
 Make sure that you have a copy of Python 3.7 or higher installed on your machine. You’ll also need to install `pip`. If you downloaded Python from [Python’s website](https://www.python.org/downloads/), you likely already have `pip` installed (you can check by running `pip` in a terminal window). If you don’t have it installed, be sure to install it before moving on!
 1. Clone or download our GitHub repository 
 2. In a terminal window, navigate to the directory you saved this repository on.
-3. Run `pip3 install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages are installed.
+3. Run `python -m pip install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages are installed.
 4. Run`python main.py long` or `pyhon main.py short` to get started.
 5. Follow the steps shown in the table below. 
 
