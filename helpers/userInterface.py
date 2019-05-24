@@ -36,16 +36,14 @@ def userInterfaceLong():
     print("     _______________________________________________________________________ \n")
 
     print("     If you'd like to quit during this UI, please type 'q' and press enter.\n\
-        When the algorithm starts, you can only quit by pressing [ctrl][c] or [command][c].\n")
+     When the algorithm starts, you can only quit by pressing [ctrl][c] or [command][c].\n")
 
     print("     Would you like your trainlining to run over Holland or the Netherlands?")
 
     while True:
         csvChoice = input("     Type 'h' to select Holland, type 'n' for the Netherlands: \n")
-        if csvChoice.lower() == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif csvChoice.lower() == "h":
+        checkQuit(csvChoice)
+        if csvChoice.lower() == "h":
             csvChoice = f"csvFiles{sep}stationsHolland.csv"
             csvConnections = f"csvFiles{sep}connectiesHolland.csv"
             print("     Your trainlining will run through Holland.")
@@ -65,10 +63,8 @@ def userInterfaceLong():
     while True:
         maxTrajectories = input("     Please choose the maximum number of trajectories.\n\
      This number must be between 1 and 30: \n")
-        if maxTrajectories == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif maxTrajectories.isdigit() is False:
+        checkQuit(maxTrajectories)
+        if maxTrajectories.isdigit() is False:
             print("\n     Please fill in an integer.")
 
         elif int(maxTrajectories) < 1 or int(maxTrajectories) > 30:
@@ -82,14 +78,12 @@ def userInterfaceLong():
     while True:
         maxLength = input("     Please choose the maximum length of the trajectories in minutes. \n\
      This number must be between 30 and 250: \n")
-        if maxLength == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif maxLength.isdigit() is False:
+        checkQuit(maxLength)
+        if maxLength.isdigit() is False:
             print("\n    Please fill in an integer.")
 
         elif int(maxLength) < 30 or int(maxLength) > 250:
-            print("\n    The maximum length of your trajectories must be between 30 and 250 minutes.")
+            print("\n     The maximum length of your trajectories must be between 30 and 250 minutes.")
 
         else:
             break
@@ -100,10 +94,8 @@ def userInterfaceLong():
         algorithm = input("     Please select one of the algorithms below: \n\
      'r' = random\n     'ge' = genetic \n     'gr' = greedy \n     'h' = hillclimber \n     'a' = advanced hillclimber\n\
      's' = simulated annealing\n     'all' = all algorithms\n\n     For more information regarding the algorithms type 'info'\n")
-        if algorithm == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif algorithm.lower() not in algorithmOptions:
+        checkQuit(algorithm)
+        if algorithm.lower() not in algorithmOptions:
             print("Please select one of the options.\n")
             continue
 
@@ -114,10 +106,8 @@ def userInterfaceLong():
             algorithm = "genetic"
             while True:
                 populationSize = input("     Please insert the populationSize (between 10 and 100) or choose 'd' for default settings.\n")
-                if populationSize == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif populationSize == "d":
+                checkQuit(populationSize)
+                if populationSize == "d":
                     populationSize = 40
                 elif populationSize.isdigit() is False:
                     print("     Invalid input!\n")
@@ -130,10 +120,8 @@ def userInterfaceLong():
             while True:
                 recombinationCoefficient = input("      Please insert the recombinationCoefficient (between 0 and 1) or choose 'd' for default. \n\
     This number defines the distribution of the trajectories of the parents used to generate the children. \n")
-                if recombinationCoefficient == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif recombinationCoefficient == "d":
+                checkQuit(recombinationCoefficient)
+                if recombinationCoefficient == "d":
                     recombinationCoefficient = 0.5
                 elif recombinationCoefficient.isdigit() is False:
                     print("     Invalid input!\n")
@@ -146,10 +134,8 @@ def userInterfaceLong():
             while True:
                 mutationRate = input("      Please insert the mutationRate (between 0 and 1) or choose 'd' for default.\n")
 
-                if mutationRate == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif mutationRate == "d":
+                checkQuit(mutationRate)
+                if mutationRate == "d":
                     mutationRate = 1
                 elif mutationRate.isdigit() is False:
                     print("     Invalid input!\n")
@@ -173,10 +159,8 @@ def userInterfaceLong():
 
             while True:
                 hill = input("      Please insert the hillclimber you want to use (Advanced: 'a' or normal 'n')\n")
-                if hill == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif hill != "a" and hill != "n":
+                checkQuit(hill)
+                if hill != "a" and hill != "n":
                     print("     invalid input!\n")
                     continue
                 break
@@ -237,10 +221,8 @@ def userInterfaceLong():
     while True:
         runs = input("     How many iterations should your algorithm run?\n\
      Your answer should be a positive integer between 100 and 1000000.\n")
-        if runs == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif runs.isdigit() is False:
+        checkQuit(runs)
+        if runs.isdigit() is False:
             print("     Please insert a positive integer.\n")
             continue
         elif int(runs) < 100 or int(runs) > 1000000:
@@ -255,10 +237,8 @@ def userInterfaceLong():
     This will give a lowest, highest, and average value at the end.\n\
     This option does not provide a visual at the end and takes longer than average to run.\n\
     'y' = yes, 'n' = no\n")
-        if rerun == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif rerun == "n":
+        checkQuit(rerun)
+        if rerun == "n":
             print("     Your algorithm will not rerun.")
         elif rerun == "y":
             print("     Your algorithm will rerun 100 times.")
@@ -273,13 +253,11 @@ def userInterfaceLong():
             image = "graph"
             break
         image = input("     Would you like to see a visual of your trainlining or a graph of its performance?\n\
-        You can choose for a visual with the trajectories ('o'), or an overview of the \n\
-        current state of the connections ('v').\n\
+     You can choose for a visual with the trajectories ('o'), or an overview of the \n\
+     current state of the connections ('v').\n\
      'v' = visual\n     'g' = graph\n     'o' = old visual\n")
 
-        if image == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
+        checkQuit(image)
 
         if image.lower() != "v" and image.lower() != "g" and image.lower() != 'o':
             print("     Please insert a valid option.\n")
@@ -336,14 +314,12 @@ def userInterfaceShort():
 
     """
     print("     Welcome to RailNL. To quit press 'q' as an answer to any question.\n\
-      During the algorithm you can quit by pressing [ctrl][c] or [command][c]\n")
+     During the algorithm you can quit by pressing [ctrl][c] or [command][c]\n")
     while True:
         csvChoice = input("     Holland ('h') or the Netherlands ('n')\n")
-        if csvChoice == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
+        checkQuit(csvChoice)
 
-        elif csvChoice.lower() != "h" and csvChoice.lower() != "n":
+        if csvChoice.lower() != "h" and csvChoice.lower() != "n":
             print("     Invalid input!")
             continue
 
@@ -358,31 +334,25 @@ def userInterfaceShort():
         break
     while True:
         maxTrajectories = input("     Maximum trajectories (1-30)\n")
-        if maxTrajectories == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
+        checkQuit(maxTrajectories)
 
-        elif maxTrajectories.isdigit() is False or int(maxTrajectories) < 1 or \
+        if maxTrajectories.isdigit() is False or int(maxTrajectories) < 1 or \
 int(maxTrajectories) > 30:
             print("     Invalid input!")
             continue
         break
     while True:
         maxLength = input("     Maximum length per trajectory (30-250 minutes)\n")
-        if maxLength == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif maxLength.isdigit() is False or int(maxLength) < 30 or int(maxLength) \
+        checkQuit(maxLength)
+        if maxLength.isdigit() is False or int(maxLength) < 30 or int(maxLength) \
 > 250:
             print("     Invalid input!")
             continue
         break
     while True:
         algorithm = input("     algorithm (options: random ('r'), genetic ('ge'), greedy ('gr'), hillclimber ('h'), advanced hillclimber ('a'),\n     simulated annealing ('s'), all('all'). )\n")
-        if algorithm == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif algorithm.lower() not in algorithmOptions:
+        checkQuit(algorithm)
+        if algorithm.lower() == "info" or algorithm.lower() not in algorithmOptions:
             print("     Invalid input!")
             continue
 
@@ -393,10 +363,8 @@ int(maxTrajectories) > 30:
             algorithm = "genetic"
             while True:
                 populationSize = input("     Please insert the populationSize (between 10 and 100) or choose 'd' for default\n")
-                if populationSize == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif populationSize == "d":
+                checkQuit(populationSize)
+                if populationSize == "d":
                     populationSize = 40
                 elif populationSize.isdigit() is False:
                     print("     Invalid input!\n")
@@ -410,10 +378,8 @@ int(maxTrajectories) > 30:
             while True:
                 recombinationCoefficient = input("      Please insert the recombinationCoefficient (between 0 and 1) or choose 'd' for default.\n")
 
-                if recombinationCoefficient == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif recombinationCoefficient == "d":
+                checkQuit(recombinationCoefficient)
+                if recombinationCoefficient == "d":
                     recombinationCoefficient = 0.5
                 elif recombinationCoefficient.isdigit() is False:
                     print("     Invalid input!\n")
@@ -425,10 +391,8 @@ int(maxTrajectories) > 30:
 
             while True:
                 mutationRate = input("      Please insert the mutationRate (between 0 and 1) or choose 'd' for default.\n")
-                if mutationRate == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif mutationRate == "d":
+                checkQuit(mutationRate)
+                if mutationRate == "d":
                     mutationRate = 1
                 elif mutationRate.isdigit() is False:
                     print("     Invalid input!\n")
@@ -452,10 +416,8 @@ int(maxTrajectories) > 30:
 
             while True:
                 hill = input("      Hillclimber (Advanced: 'a' or normal 'n')\n")
-                if hill == "q":
-                    print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-                    quit()
-                elif hill != "a" and hill != "n":
+                checkQuit(hill)
+                if hill != "a" and hill != "n":
                     print("     invalid input!\n")
                     continue
                 break
@@ -467,23 +429,19 @@ int(maxTrajectories) > 30:
 
     while True:
         runs = input("      How many runs (100-1000000)?\n")
-        if runs == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif runs.isdigit() is False:
-            print("     Invalid input!")
+        checkQuit(runs)
+        if runs.isdigit() is False:
+            print("      Invalid input!")
             continue
         elif int(runs) < 100 or int(runs) > 1000000:
-            print("     Invalid input!\n")
+            print("      Invalid input!\n")
             continue
         break
 
     while True:
         rerun = input ("    Would you like to rerun this a 100 times?\n 'y' = yes, 'n' = no\n")
-        if rerun == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif rerun != "n" and rerun != "y":
+        checkQuit(rerun)
+        if rerun != "n" and rerun != "y":
             print("     Invalid input!")
             continue
         break
@@ -495,10 +453,8 @@ int(maxTrajectories) > 30:
             break
         image = input("     Visual ('v'), old visual ('o') or graph ('g')?\n")
 
-        if image == "q":
-            print("     Thank you for choosing RAIL NL. We wish you a nice day. \n     Good bye.")
-            quit()
-        elif image.lower() != "g" and image.lower() != "v" and image.lower() != "o":
+        checkQuit(image)
+        if image.lower() != "g" and image.lower() != "v" and image.lower() != "o":
             print("     Invalid input!")
             continue
         elif image.lower() == "g":
@@ -521,3 +477,9 @@ int(maxTrajectories) > 30:
         infoList = [csvChoice, csvConnections, maxTrajectories, maxLength, algorithm, runs, rerun, image]
 
     return infoList
+
+def checkQuit(variable):
+    if variable == "q":
+        print("     Thank you for choosing RAIL NL. We hoped you enjoyed this journey, \n\
+     and we wish you a nice day. Good bye.")
+        quit()
