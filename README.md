@@ -91,4 +91,4 @@ Based on these calculations, it was decided that brute force would be unrealisti
 Lars de Roos, Maarten Wijstma and Nienke Luijcks.
 
 ## Acknowledgements
-First of all we would like to thank Bram van den Heuvel for all the guidance and advice we've received during the development of this project. Credit is also due to Quinten van der Post who gave us advice on our presentation, and, at times, gave interesting insight into the workings of certain algorithms. Lastly we would like to thank everyone involved in the organisation of the course Heuristieken 2019, as we had a lot of fun working on this project.
+First of all we would like to thank Bram van den Heuvel for all the guidance and advice we've received during the development of this project. Credit is also due to Quinten van der Post who gave us advice on our presentation, and at times gave interesting insight into the workings of certain algorithms. Lastly we would like to thank everyone involved in the organisation of the course Heuristieken 2019, as we had a lot of fun working on this project.
