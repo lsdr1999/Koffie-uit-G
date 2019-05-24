@@ -79,7 +79,8 @@ def simAnnealing(railroad, trainlining, runs, rerun, algorithm, hill, image):
 
 def getScores(railroad, trainlining, basic):
     """
-    Gets score information from the hillclimber algorithm
+    Runs an instance of hillclimber but instead of choosing the best option the
+    scores of the changes and the changed trajectories are returned
 
     Args:
         railroad (Class): lays out the connections of the Netherlands or Holland.
@@ -88,7 +89,7 @@ def getScores(railroad, trainlining, basic):
         basic (string): choice for basic or advanced Hillclimber
 
     Returns:
-        info (list): which includes information on the railroad and trainlining
+        info (list): which includes the scores and changes to the trainlinings
     """
     if basic:
         info = ha.hillclimber(railroad, trainlining, True)
@@ -109,8 +110,8 @@ def calculateT(T, runs):
     Returns:
         T (float): the temperature which is needed for the coolingscheme
     """
-    logarithmicMultiplier = 1-(10/ int(runs))
-    T = T * logarithmicMultiplier
+    Multiplier = 1-(10/ int(runs))
+    T = T * Multiplier
 
     return T
 
@@ -120,11 +121,11 @@ def calculateSoftmax(scores, T):
     Calculates the softmax
 
     Args:
-        scores (float): the solutions from the hillclimber
+        scores (float): the scores from the hillclimber
         T (float): the temperature
 
     Returns:
-        The new solution
+        the chance that each respective hillcimber-change has of being chosen
     """
     newScores = []
     for score in scores:
@@ -140,7 +141,8 @@ def chooseTrajectoryChange(probabilityScores, scoreNames):
     Chooses the trajectory change
 
     Args:
-        probabilityScores (int): the probability solutions
+        probabilityScores (int): the probabilities that hillcimber-change
+                                has of being chosen
         scoreNames (string): the names of the solutions
 
     Returns:
@@ -208,3 +210,4 @@ def changeTrainLining(winner, trajectories, basic):
                 trainlining = eTrain
 
     return trainlining
+
